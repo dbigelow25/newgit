@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:pe="http://primefaces.org/ui/extensions"
+>
+
+	<!-- 
+	
+	This view is designed to manage USA Hockey memberships.   A single account can manage several memberships (in the family).
+	The only way to create a membership is to first start with a USA hockey number for the given master season.
+	You then import the membernumber, and we attempt to marry it with an existing member record
+	
+	 -->  
+
+<f:view contentType="text/html">
+    
+ <h:head>
+	 <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+     </f:facet>
+ 	<f:metadata>
+		<f:event type="preRenderView" listener="#{profileBean.verifyUserLogin()}" />
+	</f:metadata>
+</h:head>	    
+
+<h:body>  
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+<ui:define name="content">
+
+<div id="page-div">
+<h:form id="form">
+
+<div style="height:55px;">
+<p:messages id="growl" showDetail="true" autoUpdate="true"  global="true"/>
+</div>
+        
+<p:wizard id = "wizard" widgetVar="myWizard"  style="width:1000px;" flowListener="#{memberBean.onFlowProcess}" showNavBar="false">  
+<p:tab id="usahockey" title="Step 1: USA Hockey >>">  	 
+	<p/>
+	<div class="NewsTitle" style="margin-top:10px;margin-bottom:10px;">Please Enter The  USA Hockey Confirmation Number:
+	</div>
+	<p/>
+	<p:fieldset style="font-size:12pt;" toggleable="false" toggleSpeed="500"> 
+	Please enter your USA Hockey Confirmation Number below for the upcoming season.<br/>
+	Please allow up to 5 minutes between USA Hockey Membership creation and this screen.  USA Hockey's process is immediate, but it takes a couple
+	of minutes for their site to make your number available to our system. <p/>
+	Thank you.
+	</p:fieldset>
+	<p:spacer height="20px" width="20px" />
+    <h:panelGrid id="getusahockey" columns="3" cellpadding="10">  
+		<p:outputLabel for="usah-reg" style="display: block;width:150px;!important;font-size:14px;" value="USA Hockey Number:"></p:outputLabel>
+		<p:inputText id="usah-reg" binding="#{memberBean.mcomponent}" style="font-size:14px;" value="#{memberBean.regnumber}" required="true" requiredMessage="Usa Hockey Number cannot be blank." >
+			<f:validateLength minimum="14" maximum="14" />
+ 			<f:validator validatorId="validateUSAHRegistration" />  
+		</p:inputText>
+		<p:message id="m_usah-reg" style="font-size:12px;" for="usah-reg"/>
+	</h:panelGrid>	
+	<p:fieldset style="font-size:14px;" toggleable="false" toggleSpeed="500"> 
+		<p:commandButton  id="btnUSAfetch"  value="Next" icon="ui-icon-arrow-1-e" iconPos="left" type="button" onclick="myWizard.next();" />
+	</p:fieldset>	
+
+</p:tab>
+
+<p:tab id="review" title="Step 2: Review >>">  	
+	<p/>
+	<div class="NewsTitle">Review the Below Information for Accuracy:</div>
+	<p/>
+	<p:fieldset style="font-size:14px;" toggleable="false" toggleSpeed="500"> 
+	Here is your chance to make sure this was the intended person you wanted to pull from USA Hockey.  If it is, proceed to the next step.
+	If this is not the person you wanted to pull, please go back and enter a Different USA Hockey Number.
+	</p:fieldset>
+	<p:spacer height="20px" width="20px" />
+	<p:fieldset toggleable="false" toggleSpeed="500">  
+	<table>
+		<tr>
+		<td>
+		<h:panelGrid columns="2" cellpadding="3">  
+           	<h:outputText style="font-size:14px;display:block;width:175px;!important" value="First Name:" />
+           	<h:outputText style="font-size:14px;" value="#{memberBean.getUsar().getFirstName()}" />
+           	<h:outputText style="font-size:14px;" value="Last Name:" />
+           	<h:outputText style="font-size:14px;" value="#{memberBean.getUsar().getLastName()}" />
+           	<h:outputText style="font-size:14px;" value="Middle Init:" />
+           	<h:outputText style="font-size:14px;" value="#{memberBean.getUsar().getMiddleInit()}" />
+		</h:panelGrid>  
+          	<p:separator id="separator23"/>
+		<h:panelGrid columns="2" cellpadding="3"> 
+			<h:outputText style="font-size:14px;display:block;width:175px;!important" value="Address:" />
+           	<h:outputText style="font-size:14px;" value="#{memberBean.getUsar().getAddress()}" />
+			<h:outputText style="font-size:14px;" value="City:" />
+           	<h:outputText style="font-size:14px;" value="#{memberBean.getUsar().getCity()}" />
+			<h:outputText style="font-size:14px;" value="State, Country:" />
+            <h:outputText style="font-size:14px;" value="#{memberBean.getUsar().getState()}, #{memberBean.getUsar().getCountry()}" />
+           	<h:outputText style="font-size:14px;" value="Zipcode:" />
+           	<h:outputText style="font-size:14px;" value="#{memberBean.getUsar().getZipcode()} #{memberBean.getUsar().getForZip()}" />
+           </h:panelGrid>  
+           </td>
+           <td>
+		<h:panelGrid columns="2" cellpadding="3">  
+           	<h:outputText style="display:block;width:175px;font-size:14px;!important" value="DOB:" />
+           	<h:outputText style="font-size:14px;" value="#{memberBean.getUsar().getDOB()}" />
+           	<h:outputText style="font-size:14px;" value="Citizenship:" />
+           	<h:outputText style="font-size:14px;" value="#{memberBean.getUsar().getCitizen()}" />
+           	<h:outputText style="font-size:14px;" value="Gender:" />
+           	<h:outputText style="font-size:14px;" value="#{memberBean.getUsar().getGender()}" />
+		</h:panelGrid>  
+          	<p:separator id="separator2"/>
+		<h:panelGrid columns="2" cellpadding="3">  
+			<h:outputText style="display:block;width:175px;font-size:14px;!important" value="Parent/Guardian:" />
+           	<h:outputText style="font-size:14px;" value="#{memberBean.getUsar().getPGSFName()} #{memberBean.getUsar().getPGSMName()} #{memberBean.getUsar().getPGSLName()}" />
+           	<h:outputText style="font-size:14px;" value="Home Phone:" />
+           	<h:outputText style="font-size:14px;" value="#{memberBean.getUsar().getHPhone()}" />
+			<h:outputText style="font-size:14px;" value="Work Phone:" />
+           	<h:outputText style="font-size:14px;" value="#{memberBean.getUsar().getBPhone()}" />
+           	<h:outputText style="font-size:14px;" value="e-mail:" />
+           	<h:outputText style="font-size:14px;" value="#{memberBean.getUsar().getEmail()}" />
+           </h:panelGrid>  
+           </td>
+           </tr>
+ 	</table>	
+ 	</p:fieldset>
+ 	<p:spacer height="20px" width="20px" />
+	<p:fieldset toggleable="false" toggleSpeed="500">  
+ 	<p:commandButton update="form:growl" value="Back" icon="ui-icon-arrow-1-w" iconPos="right" type="button" onclick="myWizard.back();" />
+	<p:spacer height="20px" width="20px" />
+	<p:commandButton update="form:growl" value="Next" icon="ui-icon-arrow-1-e" iconPos="left" type="button" onclick="myWizard.next();" />
+	</p:fieldset>
+ 	
+</p:tab>
+    
+<p:tab id="choose" title="Step 3: Select >>">  
+	<p/>
+ 	<div class="NewsTitle">Select the Best Candidate from the list for #{memberBean.getUsar().getFirstName()} #{memberBean.getUsar().getLastName()}</div>
+ 	<p/>
+	<p:fieldset style="font-size:14px;" toggleable="false" toggleSpeed="500"> 
+    Below is a generated list of all our current members that best match this USA Hockey Registration (ranked). <br/>
+    If more than one person was located, please choose the one you think is the correct match. <br/>
+    If there was nothing found that was matching in our system, you have the ability to create a new member by selecting New Member Choice and moving to the final screen.
+	</p:fieldset>      
+	<p:spacer height="20px" width="20px" />
+	<p:dataTable id="listofpeopleout" var="person" value="#{memberBean.getPersons()}" selection="#{memberBean.selectedPerson}" dynamic="false"> 
+	    
+	    <p:column selectionMode="single" style="width:2%" />  
+	 	<p:column headerText="Name" style="font-size:12px;text-align: left">  
+			<h:outputText style="font-size:11px;text-align:left;" value="#{person.getsFirstName()} #{person.getsLastName()}"/>
+		</p:column>
+ 		<p:column headerText="Birth Day" style="font-size:12px;text-align: left">  
+			<h:outputText style="font-size:12px;text-align:left;" value="#{person.getDob()}"/>
+		</p:column>
+		<p:column headerText="Family Information" style="font-size:12px;text-align: left">  
+			<h:outputText style="font-size:12px;text-align:left;" value="#{person.getXFamilyName()} (#{person.getXRelType()})"/>
+		</p:column>
+		<p:column headerText="Notes" style="font-size:12px;text-align: left">  
+			<h:outputText style="font-size:12px;text-align:left;" value="#{person.getXNotes()}" escape = "false"/>
+		</p:column>
+		
+  	</p:dataTable>
+   	<p:spacer height="20px" width="20px" />
+	<p:fieldset toggleable="false" toggleSpeed="500">  
+ 	<p:commandButton update="form:growl" value="Back" icon="ui-icon-arrow-1-w" iconPos="right" type="button" onclick="myWizard.back();" />
+	<p:spacer height="20px" width="20px" />
+	<p:commandButton update="form:growl" value="Next" icon="ui-icon-arrow-1-e" iconPos="left" type="button" onclick="myWizard.next();" />
+	</p:fieldset> 
+        
+</p:tab>
+<p:tab id="concussion" title="Step 4: Concussion >>">
+	<p/>
+	
+		<div class="NewsTitle">Review and acknowledge the CAHA/SCAHA Concussion Policy.</div>
+	<p:fieldset style="font-size:10pt;" toggleable="false" toggleSpeed="500">
+		<ul>
+			<li>I understand that the California Amateur Hockey Association has adopted concussion-related education and awareness into their Guidebook and Rules of Play.</li>
+			<li>I understand the following guidelines exist and will respect them if they must be instituted with the above named player:</li>
+			<ul>
+				<li>An athlete who is suspected of sustaining a concussion or head injury in an athletic activity shall be immediately removed from the activity for the remainder of the day. Removal from play can be at the request of a coach, official, team manager, parent/guardian, or the player</li>
+				<li>Athlete shall not be permitted to return to the activity until he/she is evaluated by a licensed health care provider, who is trained in the management of concussions, acting within the scope of his/her practice.</li>
+				<li>The athlete shall not be permitted to return to the activity until he or she receives written clearance to return to the activity from that licensed health care provider.</li>
+			</ul>
+			<li>Should it be determined that the above named player needs to be removed from play, I/we understand that the protocol outlined herein shall be followed for the safety of the player. Further, I/we understand that the above named player will receive concussion education during the course of the season</li>
+			<li>I understand that if a suspected concussion has occurred and protocol has been enacted for the above named player, there is no review period or negotiation as to the course of action and return to play outside of the recommendations of the licensed healthcare provider that I/we have selected to treat the above named player.</li>
+			<li>I understand that if/we suspect the above named player has experienced a concussion or exhibits behavior that suggests concussion-like symptoms, I/we have the authority to remove the player from play and begin the concussion protocol with a licensed healthcare provider of my/your selection.</li>
+		</ul>
+	</p:fieldset>
+	<p:fieldset style="font-size:10pt;" toggleable="false" toggleSpeed="500">
+		 <h:selectBooleanCheckbox id="confirmconcussion" value="#{memberBean.concussion}" >
+		 	<f:ajax execute="confirmconcussion" render="nextstep" event="change" />
+		 </h:selectBooleanCheckbox>
+		 <b><h:outputText value="I have read and acknowledge CAHA/SCAHA's concussion policy." /></b>
+	</p:fieldset>
+	<p/>
+	<p:spacer height="20px" width="20px" />
+	  
+ 		
+	<p:fieldset toggleable="false" toggleSpeed="500">  
+ 	<p:commandButton update="form:growl" value="Back" icon="ui-icon-arrow-1-w" iconPos="right" type="button" onclick="myWizard.back();" />
+	<p:spacer height="20px" width="20px" />
+	<p:commandButton id="nextstep" value="Next" icon="ui-icon-arrow-1-e" update="form:growl" ajax="false" iconPos="left" type="button" onclick="myWizard.next();" disabled="#{!memberBean.concussion}"/>
+	</p:fieldset>
+	 
+</p:tab>
+<p:tab id="finish" title="Step 5: Confirm">
+	<p/>
+	<div class="NewsTitle">Choose the Options That Best Describe #{memberBean.getUsar().getFirstName()} #{memberBean.getUsar().getLastName()}</div>
+	<p/>
+	<p:fieldset style="font-size:10pt;" toggleable="false" toggleSpeed="500"> 
+    Notes about #{memberBean.getUsar().getFirstName()}:<ul>
+	<h:outputText style="font-size:12px;text-align:left;" value="#{memberBean.selectedPerson.getXNotes()}" escape = "false"/>
+    </ul>
+    General Comments:<ul>
+    <li>If an EXISTING Member in your account - last year's information will be pre-checked.  You should not have to change much.</li> 
+    <li>If an EXISTING Member NOT in your account.  You can Register them none the less.   In this case, the option exists to capture the person and place them under your account. (See check-box below)</li>
+    <li>If a NEW member to SCAHA - please select the options that best match the player.</li>
+    </ul>
+	Once, you are set with all the information, simply click the <b>Create Membership button</b>.  You will receive a confirmation e-mail that contains all the 
+	information you need to participate in SCAHA this season - icluding the Personal Identifcation Number for  #{memberBean.getUsar().getFirstName()}.
+	</p:fieldset>     
+	<p/>
+	<p:fieldset id="fs23" toggleable="false" toggleSpeed="500">  	      
+       <p:panelGrid columns="2" cellpadding="3"> 
+       
+	       <p:outputLabel   style="font-size:12px;" for = "member" value="Type (choose all that apply)" /> 
+ 	   			<p:selectManyCheckbox  id="member" value="#{memberBean.membertype}" style="width: 500px;font-size:12px;" required="true" requiredMessage="need to select a member type." >    
+          			<f:selectItem itemLabel="Player-Skater" itemValue="Player-Skater" />  
+          			<f:selectItem itemLabel="Player-Goalie" itemValue="Player-Goalie" />  
+          			<f:selectItem itemLabel="Coach" itemValue="Coach"/>  
+         			<f:selectItem itemLabel="Manager" itemValue="Manager"/>
+  				</p:selectManyCheckbox>  
+
+ 	      <p:outputLabel  style="font-size:12px;" for ="relationship" value="Relationship (select one)" /> 
+    		<h:panelGroup>
+				<p:panel id="p1" visible="#{memberBean.selectedPerson.isInFamily()}" >
+	   			<p:selectOneMenu id="relationship" value="#{memberBean.relationship}" style="width:150px;font-size:12px;"  required="true" requiredMessage="need to select a relationship type." >         
+            		<f:selectItem itemLabel="Child" itemValue="Child" />
+            		<f:selectItem itemLabel="Spouse" itemValue="Spouse"/>
+            		<f:selectItem itemLabel="Parent" itemValue="Parent"/>
+            		<f:selectItem itemLabel="Relative" itemValue="Relative"/>
+            		<f:selectItem itemLabel="Other" itemValue="Other"/>
+	   				<f:selectItem itemLabel="Self" itemValue="Self" />
+        		</p:selectOneMenu >  
+	     		</p:panel>
+				<p:panel id="p2" visible="#{not memberBean.selectedPerson.isInFamily()}"  rendered = "#{not memberBean.selectedPerson.isInFamily()}">
+  					<h:outputText style="font-size:12px;text-align:left;" value="This person is currently in #{memberBean.selectedPerson.getXFamilyName()} as #{memberBean.selectedPerson.getXRelType()} "/>
+  					<p:spacer height="22px" width="10px"/>
+				</p:panel>
+			</h:panelGroup> 
+		</p:panelGrid>
+
+		<p:fieldset rendered = "#{not memberBean.selectedPerson.isInFamily()}">
+		  <h:selectBooleanCheckbox id="myCheckbox" onclick="hideOrShow(this.checked)" value="#{memberBean.stealme}"/>
+		  <h:outputText value="The person is NOT currently under your account. By Checking this box we will move them into your account when we create the Membership." />
+	 	</p:fieldset>
+
+	</p:fieldset>
+ 	<p:spacer height="20px" width="20px" />
+	<p:fieldset toggleable="false" toggleSpeed="500">  
+ 	<p:commandButton value="Back" icon="ui-icon-arrow-1-w" iconPos="right" type="button" onclick="myWizard.back();">
+ 	<p:resetInput target="form:growl" /> 
+ 	</p:commandButton>
+	<p:spacer height="20px" width="20px" />
+	<p:commandButton value="Create Membership" ajax= "false" update="growl" action="#{memberBean.createMember()}" />  
+	</p:fieldset> 
+</p:tab>
+</p:wizard>
+<script type="text/javascript">
+    function hideOrShow(show) {
+        // Get the panel using its ID
+        var obj = document.getElementById("form:p1");
+        var obj2 = document.getElementById("form:p2");
+        if (show) {
+            obj.style.display = "block";
+            obj2.style.display = "none";
+        } else {
+            obj.style.display = "none";
+            obj2.style.display = "block";
+        }
+    }
+</script>
+
+ </h:form>		
+ </div>
+
+</ui:define>
+</ui:composition>
+</h:body>
+</f:view>
+</html>

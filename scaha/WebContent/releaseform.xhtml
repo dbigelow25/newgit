@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+		<div id="page-div">
+		<h:form>
+		<ui:fragment id="edit-release">
+			<p:fieldset id="fs1" toggleable="false" toggleSpeed="500">
+				<p:panel id ="panel" header="Release Form for 2014 Season">
+					<table cellpadding="5" cellspacing="0" width="90%">
+						<tr>
+							<td width="40%"><b>Name(Last,First):</b></td>
+							<td align="left" colspan="5"><h:outputText value="#{releaseBean.lastname}" />,<p:spacer width="1"/><h:outputText value="#{releaseBean.firstname}" /></td>
+						</tr>
+						<tr>
+							<td width="40%"><b>Date of Birth:</b></td>
+							<td><h:outputText value="#{releaseBean.dob}" /></td>
+						</tr>
+						<tr>
+							<td width="40%"><b>USA Confirmation #:</b></td>
+							<td><h:outputText value="#{releaseBean.usanumber}" /></td>
+						</tr>
+						<tr>
+							<td width="40%"><b>Parent Name:</b></td>
+							<td><h:outputText value="#{releaseBean.parentname}" /></td>
+						</tr>
+						<tr>
+							<td width="40%"><b>Parent Email:</b></td>
+							<td><h:outputText value="#{releaseBean.parentemail}" /></td>
+						</tr>
+						<tr>
+							<td><b>Reason:</b></td>
+							<td colspan="5">
+								<p:selectOneMenu value="#{releaseBean.selectedreason}">
+							    	<f:selectItem itemLabel="Select One" itemValue="0"/>
+							    	<f:selectItems value="#{releaseBean.getListofReasons()}" var="reason" itemLabel="#{reason.getReasonname()}" itemValue="#{reason.getReasonid()}"/>
+							    </p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="6">Note:  If selecting "End of Season Free and Clear", submit without filling out the rest of the form.</td>
+						</tr>
+						<tr>
+							<td><b>Outstanding Suspension:</b></td>
+							<td>
+								<p:selectOneMenu value="#{releaseBean.selectedsuspension}">
+							    	<f:selectItem itemLabel="No" itemValue="0"/>
+							    	<f:selectItem itemLabel="Yes" itemValue="1"/>
+							    </p:selectOneMenu>
+							</td>
+						</tr>
+						<tr >
+							<td><b><h:outputText value="Financial Free and Clear:" rendered="#{releaseBean.displaypermanent}"/></b></td>
+							<td>
+								<p:selectOneMenu value="#{releaseBean.selectedfinancial}" rendered="#{releaseBean.displaypermanent}">
+							    	<f:selectItem itemLabel="No" itemValue="0"/>
+							    	<f:selectItem itemLabel="Yes" itemValue="1"/>
+							    </p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td><b><h:outputText value="Release Dates-Beginning:" rendered="#{releaseBean.displaytemporary}"/></b></td>
+							<td>
+								<p:inputText id="beginningdate" style="width:80px;" value="#{releaseBean.beginningdate}" rendered="#{releaseBean.displaytemporary}"/>
+							</td>
+							<td><b><h:outputText value="Ending:" rendered="#{releaseBean.displaytemporary}"/></b></td>
+							<td>
+								<p:inputText id="endingdate" style="width:80px;" value="#{releaseBean.endingdate}" rendered="#{releaseBean.displaytemporary}"/>
+							</td>
+						</tr>
+						<tr>
+							<td width="40%"><b>Releasing Club/Division:</b></td>
+							<td><h:outputText value="#{releaseBean.releasingclubdivision}" /></td>
+						</tr>
+						<tr>
+							<td width="40%"><b>Accepting Club:</b></td>
+							<td>
+								<p:selectOneMenu value="#{releaseBean.selectedacceptingclub}">
+							    	<f:selectItem itemLabel="Select One" itemValue="0"/>
+							    	<f:selectItems value="#{releaseBean.getListofClubs()}" var="club" itemLabel="#{club.getClubname()}" itemValue="#{club.getClubid()}"/>
+							    </p:selectOneMenu>
+							</td>
+							<td ><b>Division:</b></td>
+							<td>
+								<p:selectOneMenu value="#{releaseBean.selectedacceptingdivision}">
+							    	<f:selectItem itemLabel="Select One" itemValue="0"/>
+							    	<f:selectItems value="#{releaseBean.getListofDivisions()}" var="division" itemLabel="#{division.getDivisionname()}" itemValue="#{division.getIddivision()}"/>
+							    </p:selectOneMenu>
+							</td>
+							<td ><b>Skill Level:</b></td>
+							<td>
+								<p:selectOneMenu value="#{releaseBean.selectedacceptingskilllevel}">
+							    	<f:selectItem itemLabel="Select One" itemValue="0"/>
+							    	<f:selectItems value="#{releaseBean.getListofSkillLevel()}" var="skilllevel" itemLabel="#{skilllevel.getSkilllevelname()}" itemValue="#{skilllevel.getIdskilllevel()}"/>
+							    </p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td width="40%" valign="top"><b>Restrictions/Comments:</b></td>
+							<td colspan="5"><p:inputTextarea value="#{releaseBean.comments}" rows="3" cols="50"/></td>
+						</tr>
+					</table>	
+				</p:panel>
+			</p:fieldset>
+			<p:spacer width="10" height="10" />
+			<p:fieldset id="fs6" toggleable="false" toggleSpeed="500">		
+			<div align="center"><p:commandButton id="completeRelease" value="Send Release" actionListener="#{releaseBean.sendRelease()}" ajax="false"/></div>
+		</p:fieldset>
+		</ui:fragment>
+		</h:form>
+		<p:spacer width="10" height="10" />
+		<p:fieldset id="fs7" toggleable="false" toggleSpeed="500">
+			<h:form>
+				<div align="center"><p:commandButton value="Close" id="close" ajax="false" action="Welcome.xhtml"/></div>
+			</h:form>
+		</p:fieldset>
+				
+		</div>
+	</ui:define>
+</ui:composition>

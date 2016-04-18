@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<h:form>
+		<h:panelGrid id="header" columns="2" cellpadding="5">
+			<a href="/scaha/Welcome.xhtml"> <img
+				src="/scaha/images/pages/scaha_logo.png" width="150px"
+				style="float: left; left: 10px; top: 10px;" />
+			</a>
+			<h:panelGroup>
+				<div
+					style="font-family: 'Trebuchet MS', Verdana; color: #555555; text-align: right; width: 850px; font-weight: normal; font-size: 8pt;">
+					<img border="0" src="/scaha/images/pages/scaha_banner_logo.png" /><br />
+					Current Season:
+					#{scahaBean.getScahaSeasonList().getCurrentSeason().getDescription()}
+				</div>
+			</h:panelGroup>
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

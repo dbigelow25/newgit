@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:metadata>
+<f:event type="preRenderView" listener="#{profileBean.verifyUserLogin()}" />
+</f:metadata>
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+	
+	<p:notificationBar position="top" effect="slide" widgetVar="bar" styleClass="top">  
+    	<h:outputText value="SCAHA" style="color:#FFCC00;font-size:36px;" />  
+	</p:notificationBar>  
+  	<h:form id="mess">
+    
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />    
+	
+		</h:form>
+	<h:form>
+			<p:panel id ="panel" header="View Loi's:">
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:column><b>Select Team:</b></h:column>
+					<h:column>
+						<p:selectOneMenu value="#{registrarloiBean.selectedteam}" >
+					    	<f:selectItem itemLabel="Select All" itemValue="0"/>
+					    	<f:selectItems value="#{registrarloiBean.getListofTeams()}" var="team" itemLabel="#{team.getTeamname()}" itemValue="#{team.getIdteam()}"/>
+					    </p:selectOneMenu>
+					</h:column>
+					<h:column>
+						<p:commandButton id="updatedisplay" value="Load Loi's" actionListener="#{registrarloiBean.playersDisplay()}" ajax="true" update="listofplayers,hiddenlistofplayers"/>
+					</h:column>
+					<h:column>
+						To clear the column sort (once selected) you will need to reload the page by selecting "Review LOI's from the My Actions Menu."
+					</h:column>
+				</h:panelGrid>
+				<br></br>
+				<p:panel header="Export LOI Options">
+			        <h:commandLink>
+			            <p:graphicImage value="/images/excel.png" />
+			            <p:dataExporter type="xls" target="hiddenlistofplayers" fileName="loilist" />
+			        </h:commandLink>
+			 
+			        <h:commandLink>
+			            <p:graphicImage value="/images/pdf.png" />
+			            <p:dataExporter type="pdf" target="hiddenlistofplayers" fileName="loilist"/>
+			        </h:commandLink>
+			         
+			    </p:panel>
+	    
+				<p:dataTable id="listofplayers" var="player" rowKey="#{player.IDplayer}" value="#{registrarloiBean.getPlayerdatamodel()}" selection="#{registrarloiBean.selectedplayer}" paginator="true" rows="10" autoupdate="false">
+                	<!--  <p:column headerText="Player ID">  
+			            <h:outputText value="#{player.getIdplayer()}" />  
+			        </p:column>-->  
+			        <p:column filterBy="firstname" filterMatchMode="contains" filterStyle="width:50px">  
+			            <f:facet name="header">
+		            		<h:outputText value="First Name" />
+				        </f:facet>
+			            <h:outputText value="#{player.getFirstname()}" />  
+			        </p:column>  
+			        <p:column filterBy="lastname" filterMatchMode="contains" filterStyle="width:50px">  
+			            <f:facet name="header">
+		            		<h:outputText value="Last Name" />
+				        </f:facet>
+			            <h:outputText value="#{player.getLastname()}" />  
+			        </p:column>  
+			        <p:column filterBy="currentteam" filterMatchMode="contains" filterStyle="width:50px" sortBy="currentteam">  
+			            <f:facet name="header">
+		            		<h:outputText value="#{registrarloiBean.getCurrentyear()} Team" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getCurrentteam()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="#{registrarloiBean.getPrioryear()} Team" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getPreviousteam()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="DOB" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getDob()}" />  
+			        </p:column>
+			        <p:column sortBy="playerup">
+			        	<f:facet name="header">
+		            		<h:outputText value="Player Up" />
+				        </f:facet>
+			              
+			            <h:outputText value="#{player.getPlayerup()}" />  
+			        </p:column>
+			        <p:column sortBy="loidate">  
+			            <f:facet name="header">
+		            		<h:outputText value="LOI Date" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getLoidate()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="USA Mem #" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getUsamembership()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="Citizenship" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.citizenshiplabel}" rendered="#{player.ctverified}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="Bith Cert." />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.birthcertificate}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="Notes" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.notes}" />  
+			        </p:column>
+			        <p:column headerText="Option" >  
+			             <p:splitButton id="wwtransfer" icon="ui-icon-folder-open"  >
+					        <p:menuitem value="View LOI" action="#{registrarloiBean.viewLoi(player)}" />
+					    </p:splitButton>
+					</p:column>
+			    </p:dataTable>
+			</p:panel>
+			
+			<p:dataTable rendered="false" id="hiddenlistofplayers" var="player" rowKey="#{player.IDplayer}" value="#{registrarloiBean.getPlayerdatamodel()}" selection="#{registrarloiBean.selectedplayer}" paginator="true" rows="10" autoupdate="false">
+                	<!--  <p:column headerText="Player ID">  
+			            <h:outputText value="#{player.getIdplayer()}" />  
+			        </p:column>-->  
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="First Name" />
+				        </f:facet>
+			            <h:outputText value="#{player.getFirstname()}" />  
+			        </p:column>  
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="Last Name" />
+				        </f:facet>
+			            <h:outputText value="#{player.getLastname()}" />  
+			        </p:column>  
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="#{registrarloiBean.getCurrentyear()} Team" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getCurrentteam()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="#{registrarloiBean.getPrioryear()} Team" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getPreviousteam()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="DOB" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getDob()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="Address" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getAddress()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="City" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getCity()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="State" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getState()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="Zip" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getZip()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="Parent Name" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getParentname()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="Email1" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getEmail1()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="Email2" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getEmail2()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="Phone" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getPhone()}" />  
+			        </p:column>
+			        <p:column >
+			        	<f:facet name="header">
+		            		<h:outputText value="Player Up" />
+				        </f:facet>
+			              
+			            <h:outputText value="#{player.getPlayerup()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="LOI Date" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getLoidate()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="USA Mem #" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.getUsamembership()}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="Citizenship" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.citizenshiplabel}" rendered="#{player.ctverified}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="Bith Cert." />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.birthcertificate}" />  
+			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="Notes" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{player.notes}" />  
+			        </p:column>
+			        
+			    </p:dataTable>
+			<p:separator id="customSeparator" style="width:800px;height:2px" />
+			
+	</h:form>
+	<h:form>
+			<div align="center"><p:commandButton id="closeaddteams" value="Close" ajax="false" actionListener="#{registrarloiBean.closePage()}"/></div>
+	</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:metadata>
+	<f:event type="preRenderView" listener="#{profileBean.verifyHasRoles('S-REG')}" />
+</f:metadata>
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+<ui:define name="content">
+<div id="page-div">	  
+		<h:form>		
+			<p:panel id ="panel" header="Search for Player to Add to the Delinquency List:">
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:inputText id="searchforplayer" style="width:150px;" value="#{draftplayersBean.searchcriteria}" required="false" requiredMessage="Enter a minimum of 5 characters to execute search."/>
+					<p:commandButton id="executesearch" value="Search" actionListener="#{draftplayersBean.delinquentplayerSearch()}" ajax="true" update="playersearchresult"/>
+					<p:tooltip for="searchforplayer" value="Enter at least 5 characters to generate a list of matching players" showEffect="fade" hideEffect="fade" />  
+					<p:message id="m_searchforplayer" for="searchforplayer" />
+					
+					
+				</h:panelGrid>
+				<br></br>	
+				<p:dataTable id="playersearchresult" var="result" value="#{draftplayersBean.listofplayers}" selection="#{draftplayersBean.selectedplayer}"  paginator="true" rows="12" >
+                		<f:facet name="header">  
+			            Select a Player from the List  
+			        </f:facet> 
+			         <p:column selectionMode="single" style="width:2%" />
+			        <p:column headerText="Player Name">  
+			            <h:outputText value="#{result.getPlayername()}" />  
+			        </p:column>  
+			        <p:column headerText="Date of Birth">  
+			            <h:outputText value="#{result.getDob()}" />  
+			        </p:column>
+			        <p:column headerText="Address">  
+			            <h:outputText value="#{result.getAddress()}" />  
+			        </p:column>
+			          
+			    </p:dataTable>
+				<h:panelGrid columns="1" cellpadding="5">
+				    <p:commandButton id="generateLoi" update="delinquentmessage" value="Add to Delinquency List" actionListener="#{draftplayersBean.addtoDelinquency()}" ajax="true"/>
+					<p:messages id="delinquentmessage" showDetail="true" autoUpdate="true" closable="false" /> 
+				</h:panelGrid>
+				
+			
+				 
+			<p:separator id="customSeparator" style="width:800px;height:2px" />    
+			
+			
+		</p:panel>
+	</h:form>
+	<h:form>
+		<p:commandButton value="Close" id="close" ajax="false" actionListener="#{draftplayersBean.searchClose()}"/>
+	</h:form>
+</div>	
+</ui:define>
+</ui:composition>
+</html>

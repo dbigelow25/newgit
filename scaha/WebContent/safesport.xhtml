@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+		<h:form id="form">
+		<p:panel header="Safe Sport Page" footer="brought to you by iScaha">
+		
+		<!-- 			<p class="normal">Hello Safesport Coordinators!
+		<br /><br />Many of you may have received the document attached from USA Hockey yesterday.  it is helpful information for those of you who have not yet completed the Safesport training online.  Please remember that the role of Safesport Coordinator for your club includes the following requirements:
+		</p>
+		<ul>
+		    <li>CAHA screening: On the screening tab on the left side of the CAHA website main page.</li>
+		    <li>USA Hockey registration: Register as a volunteer or manager on the USAH website (off-ice participant).</li>
+		    <li>Safesport online training through USAH website:
+		        <a href="downloads/usa safesport registration letter.pdf" target="_blank">Safesport Registration Instructions</a></li>
+		    <li>Send a copy of the confirmation email certificate you receive from the Safesport online training to both myself (scahajaime@yahoo.com) and Nancy Hodge (dux8fan@aol.com).</li>
+		</ul> 
+		<br /><p>Please note that updates to the final manual for the upcoming season have not yet been released by USA Hockey. USAH and CAHA representatives in early August and I will then forward you the final documents as well as a list of the changes.  I will also schedule monthly Safesport check-ins and workshops, and webinars, to keep everyone informed once we have the final information.
+		 <br /><br />
+		Thank you all for your volunteer service, see you soon!<br />
+		Jaime Campbell<br />
+		SCAHA Director of Safesport</p> -->
+			<div class="NewsText"><h:outputText value="#{safesportBean.getBody()}" escape="false" /></div>
+		</p:panel>
+		<p:panel header="Edit The Safesport Content" widgetVar="panelwv#" rendered="#{profileBean.hasRoleList('S-SAFE')}" toggleable="true">	
+   			
+   			<p:editor  id="editor" widgetVar="edit" value="#{safesportBean.body}" rendered="true"/>
+			<p:separator />
+  			<p:commandButton value="Update Safesport" id="update" ajax="false" action="#{safesportBean.updateSafesport()}" update="@form"/>
+			
+		  
+		</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

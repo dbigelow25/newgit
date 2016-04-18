@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+		<div id="page-div">
+		<h:form>
+		<ui:fragment id="edit-release">
+				<p:panel id ="panel" header="#{viewreleaseBean.type} Release for 2014 Season">
+					<table cellpadding="5" cellspacing="0" width="90%">
+						<tr>
+							<td width="30%"><b>Name(Last,First):</b></td>
+							<td align="left" colspan="5"><h:outputText value="#{viewreleaseBean.lastname}" />,<p:spacer width="1"/><h:outputText value="#{viewreleaseBean.firstname}" /></td>
+						</tr>
+						<tr>
+							<td width="30%"><b>Date of Birth:</b></td>
+							<td><h:outputText value="#{viewreleaseBean.dob}" /></td>
+						</tr>
+						<tr>
+							<td width="30%"><b>USA Confirmation #:</b></td>
+							<td><h:outputText value="#{viewreleaseBean.usanumber}" /></td>
+						</tr>
+						<tr>
+							<td width="30%"><b>Parent Name:</b></td>
+							<td><h:outputText value="#{viewreleaseBean.parentname}" /></td>
+						</tr>
+						<tr>
+							<td width="30%"><b>Parent Email:</b></td>
+							<td><h:outputText value="#{viewreleaseBean.parentemail}" /></td>
+						</tr>
+						<tr>
+							<td><b>Reason:</b></td>
+							<td colspan="5">
+								<h:outputText value="#{viewreleaseBean.reason}" />
+							</td>
+						</tr>
+						<tr>
+							<td><b>Outstanding Suspension:</b></td>
+							<td>
+								<h:outputText value="#{viewreleaseBean.suspension}" />
+							</td>
+						</tr>
+						<tr >
+							<td><b><h:outputText value="Financial Free and Clear:" rendered="#{viewreleaseBean.displaypermanent}"/></b></td>
+							<td>
+								<h:outputText value="#{viewreleaseBean.financial}" rendered="#{viewreleaseBean.displaypermanent}"/>
+							</td>
+						</tr>
+						<tr>
+							<td><b><h:outputText value="Release Dates-Beginning:" rendered="#{viewreleaseBean.displaytemporary}"/></b></td>
+							<td>
+								<h:outputText value="#{viewreleaseBean.beginningdate}" />
+							</td>
+							<td><b><h:outputText value="Ending:" rendered="#{viewreleaseBean.displaytemporary}"/></b></td>
+							<td>
+								<h:outputText value="#{viewreleaseBean.endingdate}" />
+							</td>
+						</tr>
+						<tr>
+							<td width="30%"><b>Releasing Club/Division:</b></td>
+							<td colspan="5"><h:outputText value="#{viewreleaseBean.releasingclubdivision}" /></td>
+						</tr>
+						<tr>
+							<td width="30%"><b>Accepting Club:</b></td>
+							<td>
+								<h:outputText value="#{viewreleaseBean.acceptingclub}" />
+							</td>
+							<td ><b>Division:</b></td>
+							<td>
+								<h:outputText value="#{viewreleaseBean.division}" />
+							</td>
+							<td ><b>Skill Level:</b></td>
+							<td>
+								<h:outputText value="#{viewreleaseBean.skilllevel}" />
+							</td>
+						</tr>
+						<tr>
+							<td width="30%"><b>Restrictions/Comments:</b></td>
+							<td colspan="5"><h:outputText value="#{viewreleaseBean.comments}" /></td>
+						</tr>
+					</table>
+						
+				</p:panel>
+				<p:spacer width="10" height="10" />
+				<p:panel id ="msp" header="Member Services Status" rendered="#{viewreleaseBean.displaypermanent}">
+					<table cellpadding="5" cellspacing="0" width="90%">
+						<tr>
+							<td width="30%"><b><h:outputText value="Approval:" rendered="#{viewreleaseBean.displaypermanent}"/></b></td>
+							<td align="left" colspan="5">
+								<p:selectOneMenu value="#{viewreleaseBean.selectedstatus}" rendered="#{viewreleaseBean.displaypermanent}">
+							    	<f:selectItem itemLabel="Select One" itemValue="0"/>
+							    	<f:selectItems value="#{viewreleaseBean.getListofStatus()}" var="status" itemLabel="#{status.getStatusname()}" itemValue="#{status.getStatusid()}"/>
+							    </p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td width="30%"><b><h:outputText value="Notes/Comments:" rendered="#{viewreleaseBean.displaypermanent}"/></b></td>
+							<td colspan="5"><p:inputTextarea value="#{viewreleaseBean.note}" rows="3" cols="50" rendered="#{viewreleaseBean.displaypermanent}"/></td>
+						</tr>
+					</table>
+				</p:panel>
+				<p:spacer width="10" height="10" />
+			<p:fieldset id="fs9" toggleable="false" toggleSpeed="500" rendered="#{viewreleaseBean.displaypermanent}">		
+				<div align="center"><p:commandButton id="completeRelease" value="Update and Email" actionListener="#{viewreleaseBean.sendRelease()}" ajax="false"/></div>
+			</p:fieldset>
+		</ui:fragment>
+		</h:form>
+		<p:spacer width="10" height="10" />
+		<p:fieldset id="fs7" toggleable="false" toggleSpeed="500">
+			<h:form>
+				<div align="center"><p:commandButton value="Close" id="close" ajax="false" action="confirmrelease.xhtml"/></div>
+			</h:form>
+		</p:fieldset>
+				
+		</div>
+	</ui:define>
+</ui:composition>

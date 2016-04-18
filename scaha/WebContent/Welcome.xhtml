@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+>
+<ui:define name="content">
+<h:body>
+<div id="page-div">	
+
+
+
+	 <p:panel header="Latest SCAHA News" > 
+	  	<f:facet name="footer">
+	        Copyright 2014.  Website maintained by <a href="mailto:lahockeyfan2@yahoo.com;dbigelow@the-rinks.com?subject=SCAHA Website">Rob Foster/Dave Bigelow</a>
+	        
+	    </f:facet>
+	  
+	
+  	  <ui:repeat id="newslist" value="#{newsBean.getNewsItemList()}" var="newsitem">
+		<div class="NewsTitle">#{newsitem.title} 
+   		   <p:commandButton rendered="#{profileBean.isSuperUser()}" id="editButton" icon="ui-icon-search"  ajax="true" update="form:editor" onclick="panelwv#{newsitem.getIDStr()}.show();"/>
+   		        
+   		   </div>
+   		<div class="NewsDate">#{newsitem.subject} / Written By: #{newsitem.author} / Published On : #{newsitem.updated}</div>  
+   		<div class="NewsText"><h:outputText value="#{newsitem.body}" escape="false" /></div>
+		<p:panel header="Edit The Selected News Item.." widgetVar="panelwv#{newsitem.getIDStr()}" visible="false" rendered="#{profileBean.isSuperUser()}" closable="true" toggleable="true">	
+   			<h:form id="form">
+   			<p:commandButton rendered="#{profileBean.isSuperUser()}" id="removeButton" icon="ui-icon-trash"  ajax="false" action="#{newsBean.hideNewsItem(newsitem)}"/>
+   			<h:panelGrid columns="3" cellpadding="3" id="edit-pers-grid">  
+				<p:outputLabel for="title" value="Title:"></p:outputLabel>
+				<p:inputText id="title" style="width:300px;" value="#{newsitem.title}" required="true" />
+				<p:message id="m_title" closable="true" for="title"/>
+				<p:outputLabel for="subject" value="Subject:"></p:outputLabel>
+				<p:inputText id="subject" style="width:300px;" value="#{newsitem.subject}" required="true"/>
+				<p:message id="m_subject" closable="true" for="subject"/>
+			</h:panelGrid>
+			<p:separator />
+   			<p:editor  id="editor" widgetVar="edit#{newsitem.getIDStr()}" value="#{newsitem.body}" rendered="true"/>
+			<p:separator />
+  			<p:commandButton value="Update News Item" id="update" ajax="false" action="#{newsBean.updateNewsItem(newsitem)}" oncomplete="panelwv#{newsitem.getIDStr()}.hide();"/>
+			<p:spacer height="10" width="10" />
+			<p:commandButton  value="Cancel" id="cancel" ajax="false" oncomplete="panelwv#{newsitem.getIDStr()}.hide();" />
+		  </h:form>
+		</p:panel>
+		<p class="NewsGap" />    	
+	</ui:repeat>
+	<!-- adding a create new news story button only available for super users -->
+	    <p:panel header="Enter News Item.." rendered="#{profileBean.isSuperUser()}">	
+   			<h:form id="form">
+   			<h:panelGrid columns="3" cellpadding="3" id="edit-news-grid">  
+				<p:outputLabel for="title" value="Title:"></p:outputLabel>
+				<p:inputText id="title" style="width:300px;" value="#{newsBean.title}" required="true" />
+				<p:message id="m_title" closable="true" for="title"/>
+				<p:outputLabel for="subject" value="Subject:"></p:outputLabel>
+				<p:inputText id="subject" style="width:300px;" value="#{newsBean.newssubject}" required="true"/>
+				<p:message id="m_subject" closable="true" for="subject"/>
+			</h:panelGrid>
+			<p:separator />
+   			<p:editor  id="neweditor" widgetVar="newnewsbody" value="#{newsBean.newsbody}" rendered="true"/>
+			<p:separator />
+  			<p:commandButton value="Add News Item" id="add" ajax="false" action="#{newsBean.addNewsItem()}" rendered="#{profileBean.isSuperUser()}" oncomplete="newnews.hide();" update="newslist"/>
+			<p:spacer height="10" width="10" />
+		  </h:form>
+		</p:panel>
+	</p:panel>
+</div>
+</h:body>
+</ui:define>
+</ui:composition>

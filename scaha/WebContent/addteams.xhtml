@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:metadata>
+	<f:event type="preRenderView" listener="#{profileBean.verifyHasRoles('C-REG')}" />
+</f:metadata>
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:define name="content">
+<div id="page-div">
+<p:growl id="messages" showDetail="true"/>
+<p:panel id ="panel" header="Add a Team to your Club:">
+	<h:form id="form">
+	<p:messages id="messages" showDetail="true"/>
+	<h:panelGrid columns="2" cellpadding="5">
+		<h:column><b>Division:</b></h:column>
+		<h:column>
+			<p:selectOneMenu style="font-size:10pt;width:175px;" value="#{teamBean.selecteddivision}" required="true" requiredMessage="Division team will play in required.">
+				<f:selectItem itemLabel="Select One" itemValue=""/>
+				<f:selectItems value="#{teamBean.getDivisions()}" var="division" itemLabel="#{division.getDivisionname()}" itemValue="#{division.getIddivision()}"/>
+			</p:selectOneMenu>
+		</h:column>
+		<h:column><b>Skill Level:</b></h:column>
+		<h:column>
+			<p:selectOneMenu  style="font-size:10pt;width:175px;"  value="#{teamBean.selectedskilllevel}" required="true" requiredMessage="Skill level team will play is required.">
+		    	<f:selectItem itemLabel="Select One" itemValue=""/>
+		    	<f:selectItems value="#{teamBean.getSkilllevels()}" var="skilllevel" itemLabel="#{skilllevel.getSkilllevelname()}" itemValue="#{skilllevel.getIdskilllevel()}"/>
+		    </p:selectOneMenu>
+		</h:column>
+		<h:column><b>Team Name:</b></h:column>
+		<h:column>
+			<p:inputText id="teamname" style="width:155px;" value="#{teamBean.teamname}" required="true" requiredMessage="Team name required."/>
+			<p:spacer width = "10px" />(Ex.  "Jr Ducks (1)", "Red Wings", "Lady Ducks"....)
+		</h:column>
+		<h:column>
+			<p:commandButton id="saveteam" value="Create Team" actionListener="#{teamBean.saveTeam()}" update=":form1:teamlist,:form1:messages1"/>
+		</h:column>
+	</h:panelGrid>
+	</h:form>
+	</p:panel>
+	<h:form id="form1">
+	<div style="height:50px;diplay:block;">
+	<p:messages id="messages1" showDetail="true"/>
+	</div>
+	 <p:contextMenu for="teamlist">  
+<!--    <p:menuitem value="View" update="display" icon="ui-icon-search" oncomplete="PF('carDialog').show()"/>   -->
+        <p:menuitem value="Delete" update=":form1:messages1,teamlist" icon="ui-icon-close" actionListener="#{teamBean.deleteTeam}"/>  
+    </p:contextMenu>  
+	<p:dataTable 
+		id="teamlist" 
+		var="t" 
+		value="#{teamBean.getMyTeamList()}" 
+		editable="true" 
+		selection="#{teamBean.selectedteam}" 
+		selectionMode="single" 
+		paginator="true" 
+		rows="10"
+		>
+   		<f:facet name="header">  
+	        <h:outputText value="#{teamBean.getTeamstabletitle()}" />
+	    </f:facet> 
+	   	<p:ajax event="rowEdit" listener="#{teamBean.onEdit}"  update=":form1:messages1,:form1:teamlist" /> 
+	   	<p:ajax event="rowEditCancel" listener="#{teamBean.onCancel}" update=":form1:messages1" /> 
+	   	 <p:column headerText="Edit" style="width:8%">
+            <p:spacer width="10px" />
+            <p:rowEditor /> 
+         </p:column> 
+		<p:column headerText="Team Name" style="font-size:10pt;width:42%"> 
+            <p:cellEditor> 
+				<f:facet name="output"> 
+				    <h:outputText style="font-size:10pt;width:100%;display:block;" value="#{t.teamname}" /> 
+				</f:facet> 
+				<f:facet name="input"> 
+				    <p:inputText style="font-size:10pt;width:100%;" value="#{t.teamname}" /> 
+				</f:facet> 
+            </p:cellEditor>
+        </p:column>
+		<p:column headerText="Division" style="font-size:10pt;width:25%">  
+			 <p:cellEditor> 
+				<f:facet name="output"> 
+					<h:outputText style="font-size:10pt;width:100%;display:block;" value="#{t.getTeamdivision().divisionname}" />  
+				</f:facet> 
+				<f:facet name="input"> 
+					<p:selectOneMenu  value="#{t.sdivision}"  style="font-size:10pt;width:100%">
+						<f:selectItems style="font-size:10pt;width:100%;display:block;" value="#{teamBean.sdivisions}" var="division" itemLabel="#{division}" itemValue="#{division}"/>
+					</p:selectOneMenu>
+		    	</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column headerText="Skill Level" style="font-size:10pt;width:25%">  
+			 <p:cellEditor> 
+				<f:facet name="output"> 
+					<h:outputText style="font-size:10pt;width:100%;display:block;" value="#{t.getTeamskilllevel().skilllevelname}" />  
+				</f:facet> 
+				<f:facet name="input"> 
+					 <p:selectOneMenu  value="#{t.sskilllevel}"  style="font-size:10pt;width:100%">
+			    		<f:selectItems style="font-size:10pt;width:100%;display:block;" value="#{teamBean.sskilllevels}" var="skilllevel" itemLabel="#{skilllevel}" itemValue="#{skilllevel}"/>
+		    		</p:selectOneMenu>
+		    	</f:facet>
+			</p:cellEditor>
+		</p:column>
+	</p:dataTable>
+	</h:form>
+<p:separator id="customSeparator" style="width:800px;height:2px" />    
+<h:form id="close">
+	<div align="center"><p:commandButton id="closeaddteams" value="Close" ajax="false" actionListener="#{teamBean.closePage()}"/></div>
+</h:form>
+</div>
+</ui:define>
+</ui:composition>
+</html>

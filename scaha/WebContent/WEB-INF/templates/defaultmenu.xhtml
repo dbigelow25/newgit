@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html">
+	<h:form>
+		<div
+			style="text-align: right; width: 100%; font-weight: normal; font-size: 9pt; font-family: Verdana;">
+			<p:toolbar >
+				<p:toolbarGroup align="left">
+					<p:button id="gohome" style="width:30px;" icon="ui-icon-home"
+						href="/" />
+					<p:separator />
+					<p:menuButton id="menu1" style="width:125px;" value="SCAHA info">
+						<p:menuitem style="font-size: 10pt;" value="Anaheim Ducks"
+							url="anaheimducks.xhtml" />
+						<p:menuitem style="font-size: 10pt;" value="Los Angeles Kings"
+							url="lakings.xhtml" />
+						<p:separator />
+						<p:menuitem style="font-size: 12px;" value="Calendar of Events"
+							url="calendar.xhtml" />
+						<p:menuitem style="font-size: 12px;" value="Executive Committee"
+							url="boardofdirectors.xhtml" id="executiveboard"/>
+						<p:menuitem style="font-size: 12px;" value="Coaches Certification"
+							url="coachesinfo.xhtml" id="coachesinfo"/>
+						<p:menuitem style="font-size: 12px;" value="Manager Tools"
+							url="managertools.xhtml" />
+						<p:menuitem style="font-size: 12px;" value="Meeting Minutes"
+							url="viewmeetingminutes.xhtml" id="meetingminutes"/>
+						<p:menuitem style="font-size: 12px;" value="Rinks"
+							url="scaharinks.xhtml" />
+						<p:menuitem style="font-size: 12px;" value="Safe Sport"
+							url="safesport.xhtml" />
+						<p:menuitem style="font-size: 12px;" value="Tournaments"
+							url="viewtournamentform.xhtml" id="scahatournaments"/>
+					</p:menuButton>
+					<p:spacer width="2px" />
+					<p:menuButton id="clubs" style="width:125px;" value="Club info">
+						<p:menuitem style="font-size: 12px;" value="Active Clubs"
+							url="/viewallclubs.xhtml" />
+						<p:menuitem style="font-size: 12px;" value="Declarations"
+							url="/declarations.xhtml" />
+						<p:menuitem style="font-size: 12px;" value="Openings"
+							url="/viewallopenings.xhtml" />
+						<p:menuitem style="font-size: 12px;" value="Tryouts"
+							url="/viewalltryouts.xhtml" />
+							
+					</p:menuButton>
+					<p:spacer width="2px" />
+					<p:menuButton id="menu2" style="width:125px;" value="Season Info"
+						type="button">
+						<p:menuitem style="font-size: 12px;" value="2013-2014 Guidebook"
+							url="downloads/2013-14-SCAHA-Guidebook.pdf" id="guidebook" target="_blank"/>
+						<p:separator />
+						<!-- <p:menuitem style="font-size: 12px;" value="Mite Program"
+							url="miteprogram.xhtml" /> -->
+						<p:menuitem style="font-size: 10pt;" value="Playoffs"
+							url="playoffscentral.xhtml" />
+						<p:menuitem style="font-size: 10pt;" value="Rosters"
+							url="roster.xhtml" />
+						<p:menuitem style="font-size: 10pt;"
+							value="Scholar Athlete Program" url="scholarathlete.xhtml" />
+						<p:menuitem style="font-size: 10pt;" value="Select Camp"
+							url="selectcamp.xhtml" />
+						<p:menuitem style="font-size: 10pt;" value="Standings"
+							url="scoreboard.xhtml" />
+						<p:menuitem style="font-size: 10pt;" value="Stats"
+							url="statscentral.xhtml" />
+						<p:menuitem style="font-size: 10pt;" value="Suspensions"
+							url="suspensions.xhtml" />	
+					</p:menuButton>
+					<p:spacer width="2px" />
+					<p:menuButton id="menusched" style="width:125px;" value="Schedule Info"
+						type="button">
+						<p:menuitem style="font-size: 12px;" value="Change Request List"
+							url="schedulechangerequestlist.xhtml" id="changerequest" rendered="#{profileBean.isSuperUser()}"/>
+						<p:menuitem style="font-size: 12px;" value="Schedule"
+							url="scoreboard.xhtml" id="scoreboard" />
+						<p:menuitem style="font-size: 12px;" value="Download It"
+							url="lahoa.xhtml" />
+					</p:menuButton>
+					<p:spacer width="2px" />
+					<p:commandButton value="Scoreboard"
+						actionListener="#{profileBean.scoreboard}" ajax="false"/>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="left" rendered="#{not empty profileBean.getProfile()}">
+					<p:menuButton id="customer" style="width:125px;" value="My Actions" type="button">
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Manage Profile" url="manageprofile.xhtml"
+							icon="ui-icon-extlink"
+							rendered="#{not empty profileBean.getProfile()}" />
+						 <p:menuitem style="font-size: 10pt;width:225px;"
+							value="Register For Scaha" icon="ui-icon-extlink"
+							url="manageUSAHockey.xhtml"
+							rendered="#{not empty profileBean.getProfile()}"
+							 /> 
+						  <p:menuitem style="font-size: 10pt;width:225px;"
+							value="Scholar Athlete" icon="ui-icon-extlink"
+							url="scholarathleteapplication.xhtml"
+							rendered="#{not empty profileBean.getProfile()}"
+							 />
+						<p:separator />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Admin Portal" 
+							url="adminportal.xhtml"
+							rendered="#{profileBean.isSuperUser()}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="CAHA Tier II Data" 
+							url="cahatieriiplayers.xhtml"
+							rendered="#{profileBean.isSuperUser()}" />
+						<p:separator />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Player History" 
+							url="viewplayerspenaltyhistory.xhtml"
+							rendered="#{profileBean.hasRoleList('S-STATS;S-VICE;S-PRES')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Team Penalty Counts" 
+							url="viewteampenaltycount.xhtml"
+							rendered="#{profileBean.hasRoleList('S-STATS;S-VICE;S-PRES')}" />
+						<p:separator />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Manager Portal" 
+							url="managerportal.xhtml"
+							rendered="#{profileBean.getProfile().getScahamanager().getIsmanager()}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Edit Playoffs" 
+							url="playoffscentraleditor.xhtml"
+							rendered="#{profileBean.hasRoleList('S-STATS')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Change Jersey #" 
+							url="updateroster.xhtml"
+							rendered="#{profileBean.hasRoleList('S-STATS')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Manage Suspensions" 
+							url="managesuspensions.xhtml"
+							rendered="#{profileBean.hasRoleList('S-STATS;S-VICE')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Review SCAHA Games" 
+							url="reviewscahagames.xhtml"
+							rendered="#{profileBean.hasRoleList('S-STATS;S-VICE;S-REG')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Approve Tourney Req" 
+							url="approvetournaments.xhtml"
+							rendered="#{profileBean.hasRoleList('S-STATS')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Approve Exhibition Req" 
+							url="approveexhibitiongames.xhtml"
+							rendered="#{profileBean.hasRoleList('S-STATS')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Review Exhibition Gms" 
+							url="reviewexhibitiongamesresults.xhtml"
+							rendered="#{profileBean.hasRoleList('S-STATS;S-VICE;S-REG')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Review Tourny Gms" 
+							url="reviewtournamentgamesresults.xhtml"
+							rendered="#{profileBean.hasRoleList('S-STATS;S-VICE;S-REG')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Patch Recipients" 
+							url="awardpatcheslist.xhtml"
+							rendered="#{profileBean.hasRoleList('S-STATS')}" />
+						<p:separator />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Review Club Ice"
+							url="clubice.xhtml"
+							rendered="#{profileBean.hasRoleList('C-REG;C-ICE;C-PRES')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;" 
+							value="Manage Your Teams"
+							url="addteams.xhtml"
+							rendered="#{profileBean.hasRoleList('C-REG;C-ICE;C-PRES;S-STATS')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Create Player LOI"
+							url="addplayerstoteam.xhtml"
+							rendered="#{profileBean.hasRoleList('C-REG')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Create Coach LOI"
+							url="addcoachestoteam.xhtml"
+							rendered="#{profileBean.hasRoleList('C-REG')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Add Coach to Teams"
+							url="addcoachtoadditionalteams.xhtml"
+							rendered="#{profileBean.hasRoleList('C-REG')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Review LOI's" 
+							url="registrarviewlois.xhtml"
+							rendered="#{profileBean.hasRoleList('C-REG')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Review Coach LOI's" 
+							url="registrarcoachlois.xhtml"
+							rendered="#{profileBean.hasRoleList('C-REG')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Release Player"
+							url="startplayerrelease.xhtml"
+							rendered="#{profileBean.hasRoleList('C-REG')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="View Club D-List"
+							url="clubviewdelinquencylist.xhtml"
+							rendered="#{profileBean.hasRoleList('C-PRES;C-DLIST')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="View Releases Status"
+							url="clubviewrelease.xhtml"
+							rendered="#{profileBean.hasRoleList('C-REG')}" />
+						<p:separator />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="View Safesport List"
+							url="registrarviewsafesport.xhtml"
+							rendered="#{profileBean.hasRoleList('C-REG;S-SAFE')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Add Player To D-List" 
+							url="addplayerdelinquent.xhtml"
+							rendered="#{profileBean.hasRoleList('S-REG')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Confirm Player LOI's"
+							url="confirmlois.xhtml"
+							rendered="#{profileBean.hasRoleList('S-REG')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Confirm Coach LOI's" 
+							url="confirmcoachlois.xhtml"
+							rendered="#{profileBean.hasRoleList('S-REG')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Manage Rosters" url="managerosters.xhtml"
+							rendered="#{profileBean.hasRoleList('S-REG')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="View D-List"
+							url="viewdelinquencylist.xhtml"
+							rendered="#{profileBean.hasRoleList('S-REG')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="View Releases"
+							url="confirmrelease.xhtml"
+							rendered="#{profileBean.hasRoleList('S-REG')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="View Safesport-List"
+							url="viewsafesport.xhtml"
+							rendered="#{profileBean.hasRoleList('S-REG')}" />
+						 <p:separator />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Review SA Applications"
+							url="approvescholarathlete.xhtml"
+							rendered="#{profileBean.hasRoleList('SUSER;S-SAC')}" />
+					</p:menuButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="left" rendered="#{profileBean.hasRoleList('C-REG')}">
+					<p:menuButton id="cregistrars" style="width:125px;" value="Registrar Support" type="button">
+						<!-- <p:menuitem style="font-size: 10pt;width:225px;"
+							icon="ui-icon-arrowthickstop-1-s"
+							value="Training Video"
+							url="http://www.scaha.com/downloads/ISCAHA_Registrar_Training.wmv"
+							rendered="#{profileBean.hasRoleList('C-REG')}"
+							target="_blank"
+							/> -->
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							icon="ui-icon-arrowthickstop-1-s"
+							value="Authorization Form"
+							url="downloads/SCAHA_LOI_AUTHORIZATION.docx"
+							rendered="#{profileBean.hasRoleList('C-REG')}"
+							target="_blank"
+							/>
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							icon="ui-icon-arrowthickstop-1-s"
+							value="Club Master List"
+							url="mlistforclubs.xhtml"
+							rendered="#{profileBean.hasRoleList('C-REG')}"
+							/>							
+					</p:menuButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right"
+					rendered="#{not empty profileBean.getProfile()}">
+					<h:outputText value="Welcome #{profileBean.getNickName()}"></h:outputText>
+					<p:separator />
+					<p:menuButton value="Options" iconPos="right">
+						<p:menuitem 
+							style="font-size:9pt;width:225px;"
+							value="Manage Profile" url="manageprofile.xhtml"
+							icon="ui-icon-extlink"  />
+						<p:menuitem 
+							style="font-size:9pt;width:225px;"
+							value="Register For Scaha" icon="ui-icon-extlink"
+							url="manageUSAHockey.xhtml" /> 
+						<p:menuitem 
+						 	style="font-size:9pt;width:225px;" 
+							value="Change Password"
+							url="changepassword.xhtml" icon="ui-icon-extlink" />
+						<p:separator />
+						<p:menuitem 
+							style="font-size:9pt;width:225px;"
+							value="Logout"
+							actionListener="#{profileBean.logout}" 
+							ajax="false" />
+					</p:menuButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right"
+					rendered="#{empty profileBean.getProfile()}">
+					<h:inputText style="width:175px;font-size: 10px;"
+						value="#{profileBean.name}" tabindex="1"></h:inputText>
+					<h:outputText value="/"></h:outputText>
+					<h:inputSecret style="width:100px;font-size: 10px;"
+						value="#{profileBean.password}" tabindex="2"></h:inputSecret>
+					<p:separator />
+					<p:commandButton value="login"
+						actionListener="#{profileBean.login}" ajax="false" tabindex="3" />
+					<br />
+				</p:toolbarGroup>
+			</p:toolbar>
+			<!-- #{gamecentralBean.setSelectedseason('SCAHA-1516')}
+			#{gamecentralBean.loadScrollingGamesfordate()} -->
+			<!-- #{scoreboardBean.setSelectedscheduleid(360)}
+			#{scoreboardBean.onScheduleChange()} -->
+			<!-- 
+			<p:carousel var="game" value="#{gamecentralBean.getListofgames()}" style="width:955;" responsive="true"
+				numVisible="6"
+			>
+				<p:panel padding="0" style="width:170px;height:100px;">
+					<f:facet name="header">
+						<h:outputText style="font-size: 6pt;float:left;" value="#{game.getGametime()} - #{game.getDisplaydivision()}" />
+						<h:outputText style="font-size: 6pt;float:right;" value="#{game.getStatus()}" />
+					</f:facet>
+		             <table cellpadding="2" cellspacing="0" border="0" width="100%">
+						<tr>
+							<td width="20" >
+								<p:graphicImage value="#{clubBean.getClubLogoByParmId()}"  width="20" height="20">
+					            	<f:param id="target" name="target" value="#{game.getAwayclubid()}" />
+							 	</p:graphicImage> 
+							</td>
+							<td width="205" align="left"><h:outputText style="font-size: 6pt;" value="#{game.getAwayteam().length() gt 20 ? game.getAwayteam().substring(0,20).concat('...') : game.getAwayteam()}" /></td>
+							<td width="15"><h:outputText style="font-size: 6pt;" value="#{game.getAwayscore()}" /></td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<p:separator style="width:100%;" />
+							</td>
+							
+						</tr>
+						<tr>
+							<td width="20">
+								<p:graphicImage value="#{clubBean.getClubLogoByGameObject(game,'Home')}"  width="20" height="20">
+					            	<f:param id="targethome" name="targethome" value="#{game.getHomeclubid()}" />
+							 	</p:graphicImage> 
+							</td>
+							<td width="205" align="left"><h:outputText style="font-size: 6pt;" value="#{game.getHometeam().length() gt 20 ? game.getHometeam().substring(0,20).concat('...') : game.getHometeam()}" /></td>
+							<td width="15"><h:outputText style="font-size: 6pt;" value="#{game.getHomescore()}" /></td>
+						</tr>
+					</table>
+				</p:panel>
+								
+		    </p:carousel>
+			-->
+			<ui:fragment style="font-size:9pt;font-family:Verdana;"
+				rendered="#{empty profileBean.getProfile()}">
+				<!-- <h:outputLink id="findme" value="/scaha/findme.xhtml" style="font-size:9pt;font-family:Verdana;">
+					<h:outputText style="font-size: 9pt;font-family: Verdana;"
+						value="Help! Find My Account" />
+				</h:outputLink> 
+				<h:outputText style="font-size: 9pt;font-family: Verdana;"
+					value=" / " />-->
+				<h:outputLink id="reglink" value="/scaha/register.xhtml" style="font-size:9pt;font-family:Verdana;">
+					<h:outputText style="font-size:9pt;font-family:Verdana;"
+						value="Create New Account" />
+				</h:outputLink>
+				<h:outputText style="font-size: 9pt;font-family: Verdana;"
+					value=" / " />
+				<h:outputLink id="fpasslink" value="/scaha/forgotpassword.xhtml">
+					<h:outputText
+						style="font-weight: normal;font-size: 9pt;font-family: Verdana;"
+						value="Forgot Password?" />
+				</h:outputLink>
+			</ui:fragment>
+			<ui:fragment rendered="#{not empty profileBean.getProfile()}">
+				<p:spacer height="15px" width="20px" />
+			</ui:fragment>
+		</div>
+	</h:form>
+
+</f:view>
+</html>

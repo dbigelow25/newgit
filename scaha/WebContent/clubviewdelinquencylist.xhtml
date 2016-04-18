@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:metadata>
+<f:event type="preRenderView" listener="#{profileBean.verifyHasRoles('C-PRES;C-DLIST')}" />
+</f:metadata>
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+<ui:define name="content">
+<div id="page-div">	
+	<h:form  id="form">
+
+		<div align="right">
+		<p:commandButton id="executesearch" value="Refresh" actionListener="#{delinquencyBean.playersDisplay()}" update="listofplayers"/>
+		<p:commandButton id="printlist" value="Print" >
+	  		<p:printer target=":form:listofplayers" />  
+  		</p:commandButton>
+		<p:commandButton id="closeaddteams" value="Close" ajax="false" actionListener="#{delinquencyBean.closePage()}"/>
+		</div>
+		<p:spacer width="10" height="10" />
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />    
+		<p:panel id ="panel" header="2015 Delinquency List:">
+		<p:dataTable 
+ 			id="listofplayers" 
+ 			var="player" 
+ 			value="#{delinquencyBean.clubplayerlist}" 
+ 			selection="#{delinquencyBean.selectedplayer}" 
+ 			selectionMode="single" 
+ 			rowKey="#{player.idplayer}" 
+ 			filteredValue="#{delinquencyBean.filteredplayers}"
+			>
+    
+                	<p:column filterBy="firstname" filterMatchMode="contains" filterStyle="width:150px" headerText="First Name">  
+			            <h:outputText value="#{player.getFirstname()}" />  
+			        </p:column>  
+			        <p:column filterBy="lastname" filterMatchMode="contains" filterStyle="width:150px" headerText="Last Name">  
+			            <h:outputText value="#{player.getLastname()}" />  
+			        </p:column>  
+			        <p:column headerText="2014 Team">  
+			            <h:outputText value="#{player.getCurrentteam()}" />  
+			        </p:column>
+			        <p:column headerText="DOB">  
+			            <h:outputText value="#{player.getDob()}" />  
+			        </p:column>
+			    </p:dataTable>
+			</p:panel>
+	</h:form>
+</div>
+</ui:define>
+</ui:composition>
+</html>

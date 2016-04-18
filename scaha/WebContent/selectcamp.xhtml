@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+		<h:form id="form">
+		<p:panel header="SCAHA Select Camp" footer="">
+			<div class="NewsText"><h:outputText value="#{selectcampBean.getBody()}" escape="false" /></div>
+		</p:panel>
+		<p:panel header="Edit The SCAHA Select Camp Content" widgetVar="panelwv#" rendered="#{profileBean.hasRoleList('S-SCMP')}" toggleable="true">	
+   			
+   			<p:editor  id="editor" widgetVar="edit" value="#{selectcampBean.body}" rendered="true"/>
+			<p:separator />
+  			<p:commandButton value="Update Select Camp" id="update" ajax="false" action="#{selectcampBean.updateSelectcamp()}" update="@form"/>
+			
+		  
+		</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

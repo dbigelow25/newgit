@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:metadata>
+<f:event type="preRenderView" listener="#{profileBean.verifyUserLogin()}" />
+</f:metadata>
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+		<h:form>
+		<ui:fragment id="edit-loi">
+			<p:fieldset id="fs1" toggleable="false" toggleSpeed="500">
+		
+				<p:panel id ="panel" header="SCAHA COACH/MANAGER LETTER OF INTENT AND MEMBERSHIP REGISTRATION #{coachloiBean.getCurrentyear()}">
+					<p:fieldset>
+					<table cellpadding="5" cellspacing="0" width="90%">
+						<tr>
+							<th colspan="6" align="center"><b>Club Information</b></th>
+						</tr>
+						<tr>
+							<td><b>#{coachloiBean.getCurrentyear()} Club:</b></td>
+							<td colspan="5"><h:outputText value="#{coachloiBean.getClubName()}"/></td>
+						</tr>
+						<tr>
+							<td valign="top"><b>#{coachloiBean.getCurrentyear()} Boys Team(s):</b></td>
+							<td colspan="2">
+								<p:dataTable id="boysteamsgrid" var="team" value="#{coachloiBean.getBoysteamdatamodel()}" selection="#{coachloiBean.selectedteam}"  editable="true" editMode="cell" paginator="true" >
+									<p:column headerText="team" >  
+						               	<h:outputText value="#{team.teamname}" />  
+						            </p:column>  
+							        <p:column headerText="Role">  
+							        	<p:cellEditor>
+							        		<f:facet name="output"><h:outputText value="#{team.coachrole}" /></f:facet>
+								        	<f:facet name="input" >
+									        	<p:selectOneMenu  style="width: 100%;" value="#{team.coachrole}">
+											    	<f:selectItem itemLabel="No Role" itemValue="No Role"/>
+											    	<f:selectItem itemLabel="Head Coach" itemValue="Head Coach"/>
+											    	<f:selectItem itemLabel="Assistant Coach" itemValue="Coach"/>
+											    	<f:selectItem itemLabel="Assistant Coach/Manager" itemValue="Assistant Coach/Manager"/>
+											    	<f:selectItem itemLabel="Student Coach" itemValue="Student Coach"/>
+											    	<f:selectItem itemLabel="Manager" itemValue="Manager"/>
+											    </p:selectOneMenu>
+											 </f:facet>
+									    </p:cellEditor>
+							        </p:column>
+		        				</p:dataTable>
+								<!-- <p:selectManyMenu showCheckbox="true" value="#{coachloiBean.selectedteams}" style="width:285px;height:125px">
+							    	<f:selectItems value="#{coachloiBean.getListofTeams('M')}" var="team" itemLabel="#{team.getTeamname()}" itemValue="#{team.getIdteam()}"/>
+							    </p:selectManyMenu>   -->
+							</td>
+							<td valign="top"><b>#{coachloiBean.getCurrentyear()} Girls Team(s):</b></td>
+							<td colspan="2" align="left">
+								<p:dataTable id="girlsteamsgrid" var="team" value="#{coachloiBean.getGirlsteamdatamodel()}" selection="#{coachloiBean.selectedteam}"  editable="true" editMode="cell" paginator="true" rows="5">
+									<p:column headerText="team" >  
+						               	<h:outputText value="#{team.teamname}" />  
+						            </p:column>  
+							        <p:column headerText="Role">  
+							        	<p:cellEditor>
+							        		<f:facet name="output"><h:outputText value="#{team.coachrole}" /></f:facet>
+								        	<f:facet name="input" >
+									        	<p:selectOneMenu  style="width: 100%;" value="#{team.coachrole}">
+											    	<f:selectItem itemLabel="No Role" itemValue="No Role"/>
+											    	<f:selectItem itemLabel="Head Coach" itemValue="Head Coach"/>
+											    	<f:selectItem itemLabel="Assistant Coach" itemValue="Coach"/>
+											    	<f:selectItem itemLabel="Assistant Coach/Manager" itemValue="Assistant Coach/Manager"/>
+											    	<f:selectItem itemLabel="Manager" itemValue="Manager"/>
+											    </p:selectOneMenu>
+											 </f:facet>
+									    </p:cellEditor>
+							        </p:column>
+		        				</p:dataTable>
+								<!-- <p:selectManyMenu value="#{coachloiBean.selectedgirlsteams}" showCheckbox="true" style="width:285px;height:125px">
+							    	<f:selectItems value="#{coachloiBean.getListofTeams('F')}" var="team" itemLabel="#{team.getTeamname()}" itemValue="#{team.getIdteam()}"/>
+							    </p:selectManyMenu> -->
+							</td>
+						</tr>
+					
+					</table>
+					</p:fieldset>
+					<p:spacer width="10" height="10" />
+					<p:fieldset>
+					<table cellpadding="5" cellspacing="0" width="90%">
+						<tr>
+							<th colspan="6" align="center"><b>Coach/Manager Information</b></th>
+						</tr>
+						<tr>
+							<td width="20%"><b>Name(Last,First):</b></td>
+							<td align="left" colspan="5"><h:outputText value="#{coachloiBean.lastname}" />,<p:spacer width="1"/><h:outputText value="#{coachloiBean.firstname}" /></td>
+						</tr>
+						<tr>
+							<td width="20%"><b>Address:</b></td>
+							<td align="left" colspan="5"><p:inputText id="address" style="width:150px;" value="#{coachloiBean.address}" required = "true" requiredMessage="Address cannot be blank."/></td>
+						</tr>
+						<tr>
+							<td width="20%"><b>City:</b></td>
+							<td><p:inputText id="city" style="width:100px;" value="#{coachloiBean.city}" required = "true" requiredMessage="City cannot be blank."/></td>
+							<td><b>State:</b></td>
+							<td><p:inputText id="state" style="width:20px;" value="#{coachloiBean.state}" required = "true" requiredMessage="State cannot be blank."/></td>
+							<td><b>Zip:</b></td>
+							<td><p:inputText id="zip" style="width:50px;" value="#{coachloiBean.zip}" required = "true" requiredMessage="Zip cannot be blank."/></td>
+						</tr>
+						<tr>
+							<td width="20%"><b>Home Number:</b></td>
+							<td><h:outputText value="#{coachloiBean.homenumber}" /></td>
+							<td><b>Email:</b></td>
+							<td><h:outputText value="#{coachloiBean.email}" /></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>	
+					</p:fieldset>
+					<p:spacer width="10" height="10" />
+					<script>
+						fieldset {
+						    border: 0;
+						}
+					</script>
+					<p:fieldset id="coachcredentials">
+					<table cellpadding="5" cellspacing="0" width="90%">
+						<tr>
+							<th colspan="6" align="center"><b>Coach/Manager Credentials</b></th>
+						</tr>
+						<!-- <tr>
+							<td width="20%"><b>Team Role:</b></td>
+							<td align="left" colspan="5">
+								<p:selectOneMenu value="#{coachloiBean.coachrole}">
+							    	<f:selectItem itemLabel="Head Coach" itemValue="Head Coach"/>
+							    	<f:selectItem itemLabel="Assistant Coach" itemValue="Assistant Coach"/>
+							    	<f:selectItem itemLabel="Student Coach" itemValue="Student Coach"/>
+							    	<f:selectItem itemLabel="Manager" itemValue="Manager"/>
+							    	<f:selectItem itemLabel="Assistant Coach/Manager" itemValue="Assistant Coach/Manager"/>
+							    	<p:ajax process="@this" listener="#{coachloiBean.checkRole()}" event="change" update="coachcredentials"  />
+							    </p:selectOneMenu>
+							</td>
+						</tr> -->
+						<tr >
+							<td><b><h:outputText value="CEP#:" rendered="#{coachloiBean.displaycoachcredentials}"/></b></td>
+							<td align="left"><p:inputText id="cepnumber" style="width:100px;" value="#{coachloiBean.cepnumber}" rendered="#{coachloiBean.displaycoachcredentials}"/></td>
+							<td><b><h:outputText value="CEP Level:" rendered="#{coachloiBean.displaycoachcredentials}"/></b></td>
+							<td align="left">
+								<p:selectOneMenu value="#{coachloiBean.ceplevel}" rendered="#{coachloiBean.displaycoachcredentials}">
+							    	<f:selectItem itemLabel="Select One" itemValue="0"/>
+							    	<f:selectItem itemLabel="Level 1" itemValue="1"/>
+							    	<f:selectItem itemLabel="Level 2" itemValue="2"/>
+							    	<f:selectItem itemLabel="Level 3" itemValue="3"/>
+							    	<f:selectItem itemLabel="Level 4" itemValue="4"/>
+							    	<f:selectItem itemLabel="Level 5" itemValue="5"/>
+							    </p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td valign="top"><b><h:outputText value="CEP Expires:" rendered="#{coachloiBean.displaycoachcredentials}"/></b></td>
+							<td valign="top" align="left"><p:inputText id="cepexpires" style="width:100px;" value="#{coachloiBean.cepexpires}" rendered="#{coachloiBean.displaycoachcredentials}"/></td>
+							<td valign="top"><b><h:outputText value="CEP Modules Completed:" rendered="#{coachloiBean.displaycoachcredentials}"/></b></td>
+							<td align="left" colspan="3">
+								<p:selectManyMenu id="cepmodules" showCheckbox="true" value="#{coachloiBean.cepmodulesselected}" style="width:100px;height:75px" rendered="#{coachloiBean.displaycoachcredentials}">
+							    	<f:selectItem itemLabel="8U" itemValue="8U" />  
+						            <f:selectItem itemLabel="10U" itemValue="10U" />  
+						            <f:selectItem itemLabel="12U" itemValue="12U" />
+						            <f:selectItem itemLabel="14U" itemValue="14U" />
+						            <f:selectItem itemLabel="18U" itemValue="18U" />
+						            <f:selectItem itemLabel="Girls" itemValue="Girls" />
+							    </p:selectManyMenu>
+							</td>
+						</tr>
+						<tr>
+							<td><b>Safe Sport Certification:</b></td>
+							<td align="left">
+								<p:selectOneMenu value="#{coachloiBean.safesport}">
+							    	<f:selectItem itemLabel="No" itemValue="0"/>
+							    	<f:selectItem itemLabel="Yes" itemValue="1"/>
+							    </p:selectOneMenu>
+							</td>
+							<td><b><h:outputText value="CAHA Screening Expires:" /></b></td>
+							<td align="left" colspan="3"><p:inputText id="screeningexpires" style="width:100px;" value="#{coachloiBean.screeningexpires}" /></td>
+							
+						</tr>
+					</table>
+					</p:fieldset>
+				</p:panel>
+			</p:fieldset>
+			<p:spacer width="10" height="10" />
+			<p:fieldset id="fs2" toggleable="false" toggleSpeed="500">
+		
+				<p:panel id ="panel5" header="Notices and Agreements">	
+					<h:panelGrid columns="1" cellpadding="5" cellspacing="0" border="0" style="width:100%">
+						<h:column >
+							By signing below, I understand and agree to the following as conditions of coaching in SCAHA and the member club for the above season:
+							<br></br>
+							<ul>
+								<li>I understand that I must obtain and maintain my coaching certification credentials as mandated by USA Hockey.</li>
+								<li>I understand that I must regularly be screened according to USA Hockey, CAHA and SCAHA policy.</li>
+								<li>I understand that my actions are subject to the USA Hockey Playing Rules, Bylaws, Guidebook and Codes of Conduct, the SCAHA Guidebook and the CAHA Guidebook and that regardless of my knowledge of the same, I understand that my actions will be gauged by their content and agree to conduct myself accordingly.</li>
+								<li>I have reviewed, understand and agree to be bound by the USA Hockey Coaching Code of Ethics.  I understand that violations of the Coaches Ethics Code may result in the full or partial forfeiture of my coaching privileges in programs sanctioned by USA Hockey and/or its various affiliates.  I further understand that lack of awareness or a misunderstanding of an ethical standard on my part is not a defense to a charge of unethical conduct.</li>
+								<li>I will conduct myself in a manner conducive to good sportsmanship by refraining from abusive, obscene or threatening language or gestures, physical violence, and any behavior that would be considered unsportsmanlike or would disrespect the game, its players, coaches, officials, parents or spectators.</li>
+								<li>I understand that as a coach, I am a role model to youth and young adult players and will ensure my actions both on and off the ice are appropriate.</li>
+								<li>Resolution of disputes shall be in accordance with and subject to the applicable SCAHA, CAHA and USA Hockey bylaws, rules and regulations.</li>
+								<li>I understand that, subject to an applicable hearing, any failure to comply with these conditions could subject myself to immediate suspension from SCAHA, fines and/or the revocation of the coaching privilege.</li>
+								<!-- <li>I understand that the California Amateur Hockey Association has adopted concussion-related education, awareness and protocol into their Guidebook and Rules of Play.</li>
+								<li>I understand the following guidelines and protocol exist, and will respect them if they must be instituted for any individual on the team:</li>
+								<ul>
+									<li>An athlete who is suspected of sustaining a concussion or head injury in an athletic activity shall be immediately removed from the activity for the remainder of the day. Removal from play can be at the request of a coach, official, team manager, parent/guardian, or the player</li>
+									<li>Athlete shall not be permitted to return to the activity until he/she is evaluated by a licensed health care provider, who is trained in the management of concussions, acting within the scope of his/her practice</li>
+									<li>Further, the athlete shall not be permitted to return to activity until he or she provides the approved and completed Concussion Release form, from that same licensed health care provider who is trained in the management of concussions, acting within the scope of his/her practice.</li>
+								</ul>
+								<li>Should it be determined that a player needs to be removed from play, I understand that the protocol outlined herein shall be followed for the safety of the player.</li>
+								<li>I understand that if a suspected concussion has occurred and protocol has been enacted for a player, there is no review period or negotiation as to the course of action and return to play outside of the recommendations of the licensed healthcare provider, who is trained in the management of concussions, acting within the scope of his/her practice, that has been selected to treat the player.</li> -->
+							</ul>
+						</h:column>
+			    	</h:panelGrid>
+			    	<h:panelGrid columns="4" cellpadding="5" cellspacing="0" border="0" style="width:100%">
+						<h:column >Signature (enter registration code):</h:column>
+						<h:column ><h:inputSecret id="loicode" style="width:40px;" value="#{coachloiBean.loicode}" required = "true" requiredMessage="Signature code for LOI was not provided."/></h:column>
+						<h:column >Date:</h:column>
+						<h:column ><h:outputText value="#{coachloiBean.currentdate}"/></h:column>
+					</h:panelGrid>
+					<p:messages id="loicodemessage" showDetail="true" autoUpdate="true" closable="false" />
+				</p:panel>
+			</p:fieldset>
+			<p:fieldset id="fs3" toggleable="false" toggleSpeed="500">
+				<div align="center"><p:commandButton id="completeLoi" value="Complete LOI" actionListener="#{coachloiBean.completeLOI()}" ajax="false"/></div>
+			</p:fieldset>
+		</ui:fragment>
+		</h:form>
+		<p:fieldset id="fs4" toggleable="false" toggleSpeed="500">
+		<h:form>
+			<div align="center"><p:commandButton value="Close" id="close" ajax="false" action="addcoachestoteam.xhtml?faces-redirect=true"/></div>
+		</h:form>
+		</p:fieldset>
+	</ui:define>
+</ui:composition>
+</html>

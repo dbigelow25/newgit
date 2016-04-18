@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<f:metadata>
+<f:event type="preRenderView" listener="#{profileBean.verifyUserLogin()}" />
+</f:metadata>
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+		<h:form>
+		<ui:fragment id="edit-loi">
+			<p:fieldset id="fs1" toggleable="false" toggleSpeed="500">
+		
+				<p:panel id ="panel" header="SCAHA COACH/MANAGER ADD TO ADDITIONAL TEAMS #{coachtoteamBean.getCurrentyear()}">
+					<p:fieldset>
+					<table cellpadding="5" cellspacing="0" width="90%">
+						<tr>
+							<th colspan="6" align="center"><b>Club Information</b></th>
+						</tr>
+						<tr>
+							<td><b>#{coachtoteamBean.getCurrentyear()} Club:</b></td>
+							<td colspan="5"><h:outputText value="#{coachtoteamBean.getClubname()}"/></td>
+						</tr>
+						<tr>
+							<td valign="top"><br></br><b>#{coachtoteamBean.getCurrentyear()} Boys Team(s):</b></td>
+							<style type="text/css">
+								.datalist-noborder .ui-widget-content {
+								border: none;
+								padding-top :0px;
+								}
+							</style>
+							<td colspan="2" valign="top">
+								<div class="datalist-noborder">
+								<p:dataList value="#{coachtoteamBean.boysteams}" var="team" >
+								#{team}
+								</p:dataList>
+								</div>
+							</td>
+							<td valign="top"><br></br><b>#{coachtoteamBean.getCurrentyear()} Girls Team(s):</b></td>
+							<td colspan="2" align="left" valign="top">
+								<div class="datalist-noborder">
+								<p:dataList value="#{coachtoteamBean.girlsteams}" var="team" >
+								#{team}
+								</p:dataList>
+								</div>
+							</td>
+						</tr>
+					</table>
+					</p:fieldset>
+					<p:spacer width="10" height="10" />
+					<p:fieldset>
+					<table cellpadding="5" cellspacing="0" width="90%">
+						<tr>
+							<th colspan="6" align="center"><b>Coach/Manager Information</b></th>
+						</tr>
+						<tr>
+							<td width="20%"><b>Name(Last,First):</b></td>
+							<td align="left" colspan="5"><h:outputText value="#{coachloiBean.lastname}" />,<p:spacer width="1"/><h:outputText value="#{coachloiBean.firstname}" /></td>
+						</tr>
+					</table>	
+					</p:fieldset>
+					<p:spacer width="10" height="10" />
+					<p:fieldset>
+					<table cellpadding="5" cellspacing="0" width="90%">
+						<tr>
+							<th colspan="6" align="center"><b>Coach/Manager Credentials</b></th>
+						</tr>
+						<tr>
+							<td><b><h:outputText value="CEP#:" /></b></td>
+							<td align="left"><h:outputText value="#{coachtoteamBean.cepnumber}" /></td>
+							<td><b><h:outputText value="CEP Level:" /></b></td>
+							<td align="left"><h:outputText value="#{coachtoteamBean.cepleveldisplay}" /></td>
+						</tr>
+						<tr>
+							<td><b><h:outputText value="CEP Expires:" /></b></td>
+							<td align="left"><h:outputText value="#{coachtoteamBean.cepexpires}" /></td>
+							<td><b><h:outputText value="CEP Module:" /></b></td>
+							<td align="left" colspan="3"><h:outputText value="#{coachtoteamBean.cepmoduledisplaystring}" /></td>
+						</tr>
+						<tr>
+							<td><b>Safe Sport Certification:</b></td>
+							<td align="left">
+								<h:outputText value="#{coachtoteamBean.displaysafesport}"/>
+							</td>
+							<td><b><h:outputText value="CAHA Screening Expires:" /></b></td>
+							<td align="left"><h:outputText value="#{coachtoteamBean.screeningexpires}" /></td>
+						</tr>
+					</table>
+					</p:fieldset>
+				</p:panel>
+			</p:fieldset>
+			<p:spacer width="10" height="10" />
+			<p:fieldset id="fs2" toggleable="false" toggleSpeed="500">
+				<div align="center"><p:commandButton id="closeloi" value="Close"  actionListener="#{coachtoteamBean.CloseLoi()}"/></div>
+			</p:fieldset>
+		</ui:fragment>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

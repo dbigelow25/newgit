@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+		<div id="page-div">
+		<h:form>
+		<ui:fragment id="edit-tournament">
+			<p:fieldset id="fs1" toggleable="false" toggleSpeed="500">
+				<p:panel id ="panel" header="Update #{tournamentBean.tournamentname}">
+					<h:panelGrid columns="2" cellpadding="5" cellspacing="0" border="0" width="100%">
+						<h:column width="10%">Tournament Name:</h:column>
+						<h:column >
+							<p:inputText id="tourneyname" style="width:200px;" value="#{tournamentBean.tournamentname}" />
+						</h:column>
+						<h:column width="10%">Start Date:</h:column>
+						<h:column >
+							<p:inputText id="startdate" style="width:80px;" value="#{tournamentBean.startdate}" /> (MM/DD/YYYY)
+						</h:column>
+						<h:column width="10%">End Date:</h:column>
+						<h:column >
+							<p:inputText id="enddate" style="width:80px;" value="#{tournamentBean.enddate}" /> (MM/DD/YYYY)
+						</h:column>
+						<h:column width="10%">Contact:</h:column>
+						<h:column >
+							<p:inputText id="contact" style="width:200px;" value="#{tournamentBean.contact}" />
+						</h:column>
+						<h:column width="10%">Phone:</h:column>
+						<h:column >
+							<p:inputText id="contactphone" style="width:200px;" value="#{tournamentBean.phone}" />
+						</h:column>
+						<h:column width="10%">Sanction Number:</h:column>
+						<h:column >
+							<p:inputText id="sanctionnumber" style="width:200px;" value="#{tournamentBean.sanction}" />
+						</h:column>
+						<h:column width="10%">Location:</h:column>
+						<h:column >
+							<p:inputText id="location" style="width:200px;" value="#{tournamentBean.location}" />
+						</h:column>
+						<h:column width="10%">Website:</h:column>
+						<h:column >
+							<p:inputText id="Website" style="width:200px;" value="#{tournamentBean.website}" />
+						</h:column>
+					</h:panelGrid>
+					
+				</p:panel>
+			</p:fieldset>
+			<p:spacer width="10" height="10" />
+			<p:fieldset id="fs6" toggleable="false" toggleSpeed="500">		
+			<div align="center"><p:commandButton id="completeTournament" value="Update" actionListener="#{tournamentBean.updateTournament()}" ajax="false"/></div>
+		</p:fieldset>
+		</ui:fragment>
+		</h:form>
+		<p:spacer width="10" height="10" />
+		<p:fieldset id="fs7" toggleable="false" toggleSpeed="500">
+			<h:form>
+				<div align="center"><p:commandButton value="Close" id="close" ajax="false" action="managerportal.xhtml"/></div>
+			</h:form>
+		</p:fieldset>
+				
+		</div>
+	</ui:define>
+</ui:composition>

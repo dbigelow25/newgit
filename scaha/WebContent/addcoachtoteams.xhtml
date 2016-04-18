@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:metadata>
+<f:event type="preRenderView" listener="#{profileBean.verifyUserLogin()}" />
+</f:metadata>
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+		<h:form>
+		<ui:fragment id="edit-loi">
+			<p:fieldset id="fs1" toggleable="false" toggleSpeed="500">
+		
+				<p:panel id ="panel" header="SCAHA COACH/MANAGER ADD TO ADDITIONAL TEAMS #{coachtoteamBean.getCurrentyear()}">
+					<p:fieldset>
+					<table cellpadding="5" cellspacing="0" width="90%">
+						<tr>
+							<th colspan="6" align="center"><b>Club Information</b></th>
+						</tr>
+						<tr>
+							<td><b>#{coachtoteamBean.getCurrentyear()} Club:</b></td>
+							<td colspan="5"><h:outputText value="#{coachtoteamBean.getClubName()}"/></td>
+						</tr>
+						<tr>
+							<td colspan="6">Note: only teams the coach is not currently loi'd to are displayed.</td>
+						</tr>
+						<tr>
+							<td valign="top"><b>#{coachtoteamBean.getCurrentyear()} Boys Team(s):</b></td>
+							<td colspan="2">
+								<p:dataTable id="boysteamsgrid" var="team" value="#{coachtoteamBean.getBoysteamdatamodel()}" selection="#{coachtoteamBean.selectedteam}"  editable="true" editMode="cell" paginator="true" >
+									<p:column headerText="team" >  
+						               	<h:outputText value="#{team.teamname}" />  
+						            </p:column>  
+							        <p:column headerText="Role">  
+							        	<p:cellEditor>
+							        		<f:facet name="output"><h:outputText value="#{team.coachrole}" /></f:facet>
+								        	<f:facet name="input" >
+									        	<p:selectOneMenu  style="width: 100%;" value="#{team.coachrole}">
+											    	<f:selectItem itemLabel="No Role" itemValue="No Role"/>
+											    	<f:selectItem itemLabel="Head Coach" itemValue="Head Coach"/>
+											    	<f:selectItem itemLabel="Coach" itemValue="Coach"/>
+											    	<f:selectItem itemLabel="Assistant Coach/Manager" itemValue="Assistant Coach/Manager"/>
+											    	<f:selectItem itemLabel="Manager" itemValue="Manager"/>
+											    </p:selectOneMenu>
+											 </f:facet>
+									    </p:cellEditor>
+							        </p:column>
+		        				</p:dataTable>
+							</td>
+							<td valign="top"><b>#{coachtoteamBean.getCurrentyear()} Girls Team(s):</b></td>
+							<td colspan="2" align="left">
+								<p:dataTable id="girlsteamsgrid" var="team" value="#{coachtoteamBean.getGirlsteamdatamodel()}" selection="#{coachtoteamBean.selectedteam}"  editable="true" editMode="cell" paginator="true" rows="5">
+									<p:column headerText="team" >  
+						               	<h:outputText value="#{team.teamname}" />  
+						            </p:column>  
+							        <p:column headerText="Role">  
+							        	<p:cellEditor>
+							        		<f:facet name="output"><h:outputText value="#{team.coachrole}" /></f:facet>
+								        	<f:facet name="input" >
+									        	<p:selectOneMenu  style="width: 100%;" value="#{team.coachrole}">
+											    	<f:selectItem itemLabel="No Role" itemValue="No Role"/>
+											    	<f:selectItem itemLabel="Head Coach" itemValue="Head Coach"/>
+											    	<f:selectItem itemLabel="Coach" itemValue="Coach"/>
+											    	<f:selectItem itemLabel="Assistant Coach/Manager" itemValue="Assistant Coach/Manager"/>
+											    	<f:selectItem itemLabel="Manager" itemValue="Manager"/>
+											    </p:selectOneMenu>
+											 </f:facet>
+									    </p:cellEditor>
+							        </p:column>
+		        				</p:dataTable>
+							</td>
+						</tr>
+					
+					</table>
+					</p:fieldset>
+					<p:spacer width="10" height="10" />
+					<p:fieldset>
+					<table cellpadding="5" cellspacing="0" width="90%">
+						<tr>
+							<th colspan="6" align="center"><b>Coach/Manager Information</b></th>
+						</tr>
+						<tr>
+							<td width="20%"><b>Name(Last,First):</b></td>
+							<td align="left" colspan="5"><h:outputText value="#{coachtoteamBean.lastname}" />,<p:spacer width="1"/><h:outputText value="#{coachtoteamBean.firstname}" /></td>
+						</tr>
+					</table>	
+					</p:fieldset>
+					<p:spacer width="10" height="10" />
+					<script>
+						fieldset {
+						    border: 0;
+						}
+					</script>
+					<p:fieldset id="coachcredentials">
+					<table cellpadding="5" cellspacing="0" width="90%">
+						<tr>
+							<th colspan="6" align="center"><b>Coach/Manager Credentials</b></th>
+						</tr>
+						<tr >
+							<td><b><h:outputText value="CEP#:" /></b></td>
+							<td align="left"><p:inputText id="cepnumber" style="width:100px;" value="#{coachloiBean.cepnumber}" /></td>
+							<td><b><h:outputText value="CEP Level:" /></b></td>
+							<td align="left">
+								<p:selectOneMenu value="#{coachtoteamBean.ceplevel}" >
+							    	<f:selectItem itemLabel="Select One" itemValue="0"/>
+							    	<f:selectItem itemLabel="Level 1" itemValue="1"/>
+							    	<f:selectItem itemLabel="Level 2" itemValue="2"/>
+							    	<f:selectItem itemLabel="Level 3" itemValue="3"/>
+							    	<f:selectItem itemLabel="Level 4" itemValue="4"/>
+							    	<f:selectItem itemLabel="Level 5" itemValue="5"/>
+							    </p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td valign="top"><b><h:outputText value="CEP Expires:"/></b></td>
+							<td valign="top" align="left"><p:inputText id="cepexpires" style="width:100px;" value="#{coachtoteamBean.cepexpires}" /></td>
+							<td valign="top"><b><h:outputText value="CEP Modules Completed:" /></b></td>
+							<td align="left" colspan="3">
+								<p:selectManyMenu id="cepmodules" showCheckbox="true" value="#{coachtoteamBean.cepmodulesselected}" style="width:100px;height:75px" >
+							    	<f:selectItem itemLabel="8U" itemValue="8U" />  
+						            <f:selectItem itemLabel="10U" itemValue="10U" />  
+						            <f:selectItem itemLabel="12U" itemValue="12U" />
+						            <f:selectItem itemLabel="14U" itemValue="14U" />
+						            <f:selectItem itemLabel="18U" itemValue="18U" />
+						            <f:selectItem itemLabel="Girls" itemValue="Girls" />
+							    </p:selectManyMenu>
+							</td>
+						</tr>
+						<tr>
+							<td><b>Safe Sport Certification:</b></td>
+							<td align="left">
+								<p:selectOneMenu value="#{coachtoteamBean.safesport}">
+							    	<f:selectItem itemLabel="No" itemValue="0"/>
+							    	<f:selectItem itemLabel="Yes" itemValue="1"/>
+							    </p:selectOneMenu>
+							</td>
+							<td><b><h:outputText value="CAHA Screening Expires:" /></b></td>
+							<td align="left" colspan="3"><p:inputText id="screeningexpires" style="width:100px;" value="#{coachtoteamBean.screeningexpires}" /></td>
+							
+						</tr>
+					</table>
+					</p:fieldset>
+				</p:panel>
+			</p:fieldset>
+			<p:spacer width="10" height="10" />
+			<p:fieldset id="fs3" toggleable="false" toggleSpeed="500">
+				<p:messages id="loicodemessage" showDetail="true" autoUpdate="true" closable="false" />
+				<div align="center"><p:commandButton id="completeLoi" value="Add to Teams" actionListener="#{coachtoteamBean.addtoTeams()}" ajax="false"/></div>
+			</p:fieldset>
+		</ui:fragment>
+		</h:form>
+		<p:fieldset id="fs4" toggleable="false" toggleSpeed="500">
+		<h:form>
+			<div align="center"><p:commandButton value="Close" id="close" ajax="false" action="addcoachestoteam.xhtml?faces-redirect=true"/></div>
+		</h:form>
+		</p:fieldset>
+	</ui:define>
+</ui:composition>
+</html>

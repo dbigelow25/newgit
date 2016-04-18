@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+>
+<f:view contentType="text/html">
+    
+ <h:head>
+	 <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+     </f:facet>
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{profileBean.verifyUserLogin()}" />
+	</f:metadata>
+</h:head>	    
+<h:body>
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+<ui:define name="content">
+
+	<!-- 
+	
+	This section is a common tabbed menu.  We tried to use TabView in one giant xhtml file.. but it became too complex
+	To manage.
+	
+	We have 4 basic functions.  One tab for each function.  Each file will have a different active index.. and a 
+	Star icon helping the user understand what area they are in...
+	
+	 -->  
+<div id="page-div">	 
+ <p:tabMenu activeIndex="0">  
+    <p:menuitem value="My Profile" url="manageprofile.xhtml" icon="ui-icon-star" />  
+    <p:menuitem value="Scaha Membership" url="membermanagement.xhtml" />  
+    <p:menuitem value="Change Password" url="changepassword.xhtml"/>  
+</p:tabMenu>  
+
+<p:spacer width="10" height="10" />
+	
+	<h:form id = "me-form">
+	
+	<ui:fragment id="view-pers" rendered="#{profileBean.isViewPerson()}">
+	
+  		<p:fieldset id="fs1" toggleable="false" toggleSpeed="500">  
+    	     The following information is your FAMILY ACCOUNT. <p/>
+    	     STOP AND READ!!  PLEASE DO NOT CHANGE THIS INFORMATION TO THAT OF ANOTHER FAMILY MEMBER OR CHILD! <br/>
+    	     THE ACCOUNT HOLDER NEEDS TO BE AN ADULT (LIKE YOU), PLEASE DO NOT FILL THIS INFORMATION OUT TO THAT OF ANOTHER FAMILY MEMBER OR CHILD! <p/>
+    	     The SCAHA REGISTRATION PROCESS will either CREATE or UPDATE this Family account with your child's information automatically.   YOU JUST NEED TO GO TO USA HOCKEY AND 
+    	     REGISTER FOR THE #{profileBean.getCurrentSCAHAHockeySeason().toUpperCase()} AND OBTAIN YOUR 14 DIGIT NUMBER.  THEN COME BACK TO THIS SITE, LOGIN, and START THE 'REGISTER FOR SCAHA' PROCESS...<p/>
+    	     DO NOT ATTEMPT TO CREATE A NEW ACCOUNT FOR YOUR CHILD, OR CHANGE INFORMATION BELOW TO REFLECT YOUR CHILD's DOB and NAME. <p/>
+    	     Thanks! 
+   		</p:fieldset>  
+	
+	  	<p:spacer width="10" height="10" />
+  	
+  		<p:fieldset id="fs2" toggleable="false" toggleSpeed="500">  	
+  		
+         	<p:panelGrid id ="view-pers-grid" columns="2" cellpadding="5">  
+            	<h:outputText style="font-size: 10pt;" value="User Name (e-mail):" />
+            	<h:outputText style="font-size: 10pt;" value="#{profileBean.getUserName()}" />
+            	<h:outputText style="font-size: 10pt;" value="Name:" />
+            	<h:outputText style="font-size: 10pt;" value="#{profileBean.getCompleteName()}" />
+            	<h:outputText style="font-size: 10pt;" value="Nick Name:" />
+            	<h:outputText style="font-size: 10pt;" value="#{profileBean.getNickName()}" />
+            	<h:outputText style="font-size: 10pt;" value="Gender:" />
+            	<h:outputText style="font-size: 10pt;" value="#{profileBean.getGender()}"/>
+            	<h:outputText style="font-size: 10pt;" value="Birth Day:" />
+            	<h:outputText style="font-size: 10pt;" value="#{profileBean.getDOB()}"/>
+            	<h:outputText style="font-size: 10pt;" value="Phone Number:" />
+            	<h:outputText style="font-size: 10pt;" value="#{profileBean.getPhoneNumber()}"/>
+            	<h:outputText style="font-size: 10pt;" value="Primary Email:" />
+            	<h:outputText style="font-size: 10pt;" value="#{profileBean.getAltemail()}"/>
+            	<h:outputText style="font-size: 10pt;" value="Address:" />
+            	<h:outputText style="font-size: 10pt;" value="#{profileBean.getCompleteAddress()}" />
+            </p:panelGrid>  
+		</p:fieldset>
+
+	  	<p:spacer width="10" height="10" />
+
+		<p:fieldset id="fs3">
+             <p:commandButton update="edit-pers-grid" value="Edit This Data" id="show-edit-per" ajax="false"  
+             actionListener="#{profileBean.setEditPerson()}"/> 
+         </p:fieldset>
+
+	</ui:fragment>
+
+	<ui:fragment id="edit-pers" rendered="#{profileBean.isEditPerson()}">
+	
+	<p:focus context="edit-pers"/> 
+	<p:fieldset id="fs4" toggleable="false" toggleSpeed="500">  
+	     The following information is your FAMILY ACCOUNT. <p/>
+    	     STOP AND READ!!  PLEASE DO NOT CHANGE THIS INFORMATION TO THAT OF ANOTHER FAMILY MEMBER OR CHILD! <br/>
+    	     THE ACCOUNT HOLDER NEEDS TO BE AN ADULT (LIKE YOU), PLEASE DO NOT FILL THIS INFORMATION OUT TO THAT OF ANOTHER FAMILY MEMBER OR CHILD! <p/>
+    	     The SCAHA REGISTRATION PROCESS will either CREATE or UPDATE this Family account with your child's information automatically.   YOU JUST NEED TO GO TO USA HOCKEY AND 
+    	     REGISTER FOR THE #{profileBean.getCurrentSCAHAHockeySeason().toUpperCase()} AND OBTAIN YOUR 14 DIGIT NUMBER.  THEN COME BACK TO THIS SITE, LOGIN, and START THE 'REGISTER FOR SCAHA' PROCESS...<p/>
+    	     DO NOT ATTEMPT TO CREATE A NEW ACCOUNT FOR YOUR CHILD, OR CHANGE INFORMATION BELOW TO REFLECT YOUR CHILD's DOB and NAME. <p/>
+    	     Thanks! 
+   	
+          <h:outputText style="font-size: 12px;" value="When you have completed making your changes, please click the Update Information button."/>
+   	</p:fieldset>  
+
+	<p:spacer width="10" height="10" />
+	
+	<p:fieldset id="fs5">
+		
+			<p:panelGrid columns="3" cellpadding="3" id="edit-pers-grid">  
+		
+					<p:outputLabel style="font-size: 10pt;"  for="username" value="User Name (e-mail):" />
+					<p:inputText id="username" style="width:200px;font-size:10pt;" value="#{profileBean.chgUserName}">
+					
+					</p:inputText>
+					<p:message id="m_username" style="font-size:12pt;" for="username" />
+		
+					<p:outputLabel style="font-size: 10pt;" for="firstname" value="First Name"></p:outputLabel>
+					<p:inputText id="firstname" style="width:200px;font-size:10pt;" value="#{profileBean.chgFirstName}" />
+					<p:message id="m_firstname" closable="true" for="firstname"/>
+					
+					<p:outputLabel style="font-size: 10pt;"  for="lastname" value="Last Name" ></p:outputLabel>
+					<p:inputText id="lastname" style="width:200px;font-size:10pt;" value="#{profileBean.chgLastName}" />
+					<p:message id="m_lastname" closable="true" for="lastname"/>
+					
+					<p:outputLabel style="font-size: 10pt;"  for="nickname" value="Nick Name"></p:outputLabel>
+					<p:inputText id="nickname" style="width:200px;font-size:10pt;" value="#{profileBean.chgNickName}"/>
+					<p:message id="m_nickname" closable="false" for="nickname"/>
+
+					<p:outputLabel style="font-size: 10pt;"  for="dob"  value="Date of Birth:"></p:outputLabel>
+					<p:inputMask id="dob" value="#{profileBean.chgDOB}" style="width:150px;font-size:10pt;" mask="99/99/9999" required = "true" requiredMessage="Date of Birth cannot be blank." >  
+						<f:validator validatorId="dobAdultValidator" />
+					</p:inputMask>
+					<p:message id="m_dob" closable="false" for="dob"/>
+	
+					<p:outputLabel style="font-size: 10pt;"  for="gender" value="Gender:" ></p:outputLabel>
+				    <p:selectOneMenu id="gender" style="font-size: 10pt;" value="#{profileBean.chgGender}">  
+			            <f:selectItem itemLabel="Male" itemValue="M"></f:selectItem> 
+           				<f:selectItem itemLabel="Female" itemValue="F"></f:selectItem> 
+      				</p:selectOneMenu> 		
+      				<p:message id="m_gender" closable="true" for="gender"/>			
+
+					<p:outputLabel style="font-size: 10pt;"  for="email" value="Primary eMail:"></p:outputLabel>
+					<p:inputText id="email" style="width:200px;font-size:10pt;" value="#{profileBean.chgAltEmail}" />
+					<p:message id="m_email" closable="true" for="email"/>
+
+					<p:outputLabel style="font-size: 10pt;"  for="phone"  value="Mobile Phone"></p:outputLabel>
+					<p:inputMask id="phone" value="#{profileBean.chgPhone}" style="width:150px;font-size:10pt;" mask="(999) 999-9999" />  
+					<p:message id="m_phone" closable="true" for="phone"/>
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="4" cellpadding="3" id="edit-pers-addr-grid">
+					<p:outputLabel style="font-size: 10pt;"  for="address" value="Address"></p:outputLabel>
+					<p:outputLabel style="font-size: 10pt;" for="city" value="City"></p:outputLabel>
+					<p:outputLabel style="font-size: 10pt;" for="state" value="State"></p:outputLabel>
+					<p:outputLabel style="font-size: 10pt;"  for="zip" value="Zip"></p:outputLabel>
+					<p:inputText id="address" style="width:250px;font-size:10pt;" value="#{profileBean.chgAddress}" />
+					<p:inputText id="city" style="width:200px;font-size:10pt;" value="#{profileBean.chgCity}" />
+					<p:inputMask  id="state" style="width:50px;font-size:10pt;" maxlength="2" value="#{profileBean.chgState}" mask="aa"/>
+					<p:inputMask id="zip" style="width:100px;font-size:10pt;" maxlength="5" value="#{profileBean.chgZip}" mask="99999"/>
+			</p:panelGrid>
+			
+		</p:fieldset>
+			
+		<p:spacer width="10" height="10" />
+
+		<p:fieldset id="fs6">
+
+			<p:spacer width="13" height="10" />
+             <p:commandButton value="Update Information" update="edit-pers,view-pers" id="finish-edit-per" ajax="false"  
+             actionListener="#{profileBean.updatePersonInfo()}"/>
+             			
+			<p:commandButton value="Cancel" update="edit-pers,view-pers" id="cancel-edit-per"  actionListener="#{profileBean.setNotEditPerson()}" immediate="true" ajax="false">  
+       			 <p:resetInput target="fs5" />  
+    		</p:commandButton>  
+
+
+		</p:fieldset>
+	  	<p:spacer width="10" height="10" />
+	</ui:fragment>
+	</h:form>
+	</div>
+</ui:define>
+</ui:composition>
+</h:body>
+</f:view>
+</html>

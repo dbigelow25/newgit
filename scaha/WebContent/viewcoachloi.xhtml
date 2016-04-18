@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:metadata>
+<f:event type="preRenderView" listener="#{profileBean.verifyUserLogin()}" />
+</f:metadata>
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+		<h:form>
+		<ui:fragment id="edit-loi">
+			<p:fieldset id="fs1" toggleable="false" toggleSpeed="500">
+		
+				<p:panel id ="panel" header="SCAHA COACH/MANAGER LETTER OF INTENT AND MEMBERSHIP REGISTRATION #{coachloiBean.getCurrentyear()}">
+					<p:fieldset>
+					<table cellpadding="5" cellspacing="0" width="90%">
+						<tr>
+							<th colspan="6" align="center"><b>Club Information</b></th>
+						</tr>
+						<tr>
+							<td valign="top"><b>#{coachloiBean.getCurrentyear()} Boys Team(s):</b></td>
+							<style type="text/css">
+								.datalist-noborder .ui-widget-content {
+								border: none;
+								}
+							</style>
+							<td colspan="2" valign="top">
+								<div class="datalist-noborder">
+								<p:dataList value="#{coachloiBean.boysteams}" var="team" >
+								#{team}
+								</p:dataList>
+								</div>
+							</td>
+							<td valign="top"><b>#{coachloiBean.getCurrentyear()} Girls Team(s):</b></td>
+							<td colspan="2" align="left" valign="top">
+								<div class="datalist-noborder">
+								<p:dataList value="#{coachloiBean.girlsteams}" var="team" >
+								#{team}
+								</p:dataList>
+								</div>
+							</td>
+						</tr>
+					</table>
+					</p:fieldset>
+					<p:spacer width="10" height="10" />
+					<p:fieldset>
+					<table cellpadding="5" cellspacing="0" width="90%">
+						<tr>
+							<th colspan="6" align="center"><b>Coach Information</b></th>
+						</tr>
+						<tr>
+							<td width="20%"><b>Name(Last,First):</b></td>
+							<td align="left" colspan="5"><h:outputText value="#{coachloiBean.lastname}" />,<p:spacer width="1"/><h:outputText value="#{coachloiBean.firstname}" /></td>
+						</tr>
+						<tr>
+							<td width="20%"><b>Address:</b></td>
+							<td align="left" colspan="5"><h:outputText value="#{coachloiBean.address}" /></td>
+						</tr>
+						<tr>
+							<td width="20%"><b>City:</b></td>
+							<td><h:outputText value="#{coachloiBean.city}" /></td>
+							<td><b>State:</b></td>
+							<td><h:outputText value="#{coachloiBean.state}" /></td>
+							<td><b>Zip:</b></td>
+							<td><h:outputText value="#{coachloiBean.zip}" /></td>
+						</tr>
+						<tr>
+							<td width="20%"><b>Home Number:</b></td>
+							<td><h:outputText value="#{coachloiBean.homenumber}" /></td>
+							<td><b>Email:</b></td>
+							<td><h:outputText value="#{coachloiBean.email}" /></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+					</p:fieldset>
+					<p:spacer width="10" height="10" />
+					<p:fieldset>
+					<table cellpadding="5" cellspacing="0" width="90%">
+						<tr>
+							<th colspan="6" align="center"><b>Coach/Manager Certification</b></th>
+						</tr>
+						<!-- <tr>
+							<td width="20%"><b>Team Role:</b></td>
+							<td align="left" colspan="5">
+								<h:outputText value="#{coachloiBean.coachrole}"/>
+							</td>
+						</tr> -->
+						<tr>
+							<td><b><h:outputText value="CEP#:" rendered="#{coachloiBean.displaycoachcredentials}"/></b></td>
+							<td align="left"><h:outputText value="#{coachloiBean.cepnumber}" rendered="#{coachloiBean.displaycoachcredentials}"/></td>
+							<td><b><h:outputText value="CEP Level:" rendered="#{coachloiBean.displaycoachcredentials}"/></b></td>
+							<td align="left"><h:outputText value="#{coachloiBean.cepleveldisplay}" rendered="#{coachloiBean.displaycoachcredentials}"/></td>
+						</tr>
+						<tr>
+							<td><b><h:outputText value="CEP Expires:" rendered="#{coachloiBean.displaycoachcredentials}"/></b></td>
+							<td align="left"><h:outputText value="#{coachloiBean.cepexpires}" rendered="#{coachloiBean.displaycoachcredentials}"/></td>
+							<td><b><h:outputText value="CEP Module:" rendered="#{coachloiBean.displaycoachcredentials}"/></b></td>
+							<td align="left" colspan="3"><h:outputText value="#{coachloiBean.cepmoduledisplaystring}" rendered="#{coachloiBean.displaycoachcredentials}"/></td>
+						</tr>
+						<tr>
+							<td><b>Safe Sport Certification:</b></td>
+							<td align="left">
+								<h:outputText value="#{coachloiBean.displaysafesport}"/>
+							</td>
+							<td><b><h:outputText value="CAHA Screening Expires:" /></b></td>
+							<td align="left"><h:outputText value="#{coachloiBean.screeningexpires}" /></td>
+						</tr>
+					</table>	
+					</p:fieldset>
+					
+				</p:panel>
+			</p:fieldset>
+			<div align="center"><p:commandButton id="printloi" value="Print LOI" onclick="window.print(); return false;"/><p:spacer width="5"/><p:commandButton id="closeloi" value="Close LOI"  actionListener="#{registrarcoachloiBean.CloseLoi()}"/></div>
+		</ui:fragment>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

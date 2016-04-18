@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+	
+	<h:form id="myform">
+	
+	<p:fieldset id="fs1" toggleable="false" toggleSpeed="500">  
+    	     STOP AND READ!!  PLEASE DO NOT ATTMEPT TO CREATE AN ACCOUNT FOR ONE OF YOUR CHILDREN!  THIS VIEW IS TO CREATE A <b>FAMILY ACCOUNT</b>
+    	     THE ACCOUNT HOLDER NEEDS TO BE AN ADULT (LIKE YOU), PLEASE DO NOT FILL THIS INFORMATION OUT TO THAT OF ANOTHER FAMILY MEMBER OR CHILD! <p/>
+    	     The SCAHA REGISTRATION PROCESS will either CREATE or UPDATE this Family account with your child's information automatically.   YOU JUST NEED TO GO TO USA HOCKEY AND 
+    	     REGISTER FOR THE #{profileBean.getCurrentSCAHAHockeySeason().toUpperCase()} AND OBTAIN YOUR 14 DIGIT NUMBER.  THEN COME BACK TO THIS SITE, LOGIN, and START THE 'REGISTER FOR SCAHA' PROCESS...<p/>
+    	     DO NOT ATTEMPT TO CREATE A NEW ACCOUNT FOR YOUR CHILD, OR CHANGE INFORMATION BELOW TO REFLECT YOUR CHILD's DOB and NAME. <p/>
+    	     Thanks!  
+   		</p:fieldset>  
+	
+	  	<p:spacer width="10" height="10" />	
+			<p:panel id ="panel" header="Create a Family Account:">
+				<p:panelGrid style="font-size:10pt;" columns="4" cellpadding="3">
+
+					<p:outputLabel for="firstname" style="font-size:12pt;" value="First Name" />
+					<p:inputText id="firstname" style="width:225px;font-size:12pt;" value="#{registrationBean.firstname}" required = "true" requiredMessage="First Name cannot be blank."/>
+					<p:tooltip for="firstname" style="font-size:12pt;" value="The First name you want to be called by" showEffect="fade" hideEffect="fade" />  
+					<p:message id="m_firstname" for="firstname" />
+
+					<p:outputLabel for="lastname" style="font-size:12pt;" value="Last Name" />
+					<p:inputText id="lastname" style="width:225px;font-size:12pt;" value="#{registrationBean.lastname}" required = "true" requiredMessage="Last Name cannot be blank."/>
+					<p:tooltip for="lastname" style="font-size:12pt;" value="The Last name you want to be called by" showEffect="fade" hideEffect="fade" />  
+					<p:message id="m_lastname" for="lastname" />
+
+					<p:outputLabel for="username" style="font-size:12pt;" value="User Name (e-mail)"/>
+					<p:inputText id="username" style="width:225px;font-size:12pt;" value="#{registrationBean.username}" required = "true" requiredMessage="User Name cannot be blank.">
+						<f:validator validatorId="validateUserName" />
+						<f:ajax event="blur" render="m_username" />
+					</p:inputText>
+					<p:tooltip for="username" style="font-size:12pt;" value="Your Usercode is your e-mail.  It needs to be unique to our system" showEffect="fade" hideEffect="fade" />  
+					<p:message id="m_username" style="font-size:12pt;" for="username" />
+
+					<p:outputLabel for="password" style="font-size:12pt;" value="Password:" />
+					<h:inputSecret id="password" style="width:225px;font-size:12pt;" value="#{registrationBean.password}"
+						required="true" requiredMessage="Password cannot be blank.">
+						<f:validator validatorId="confirmPasswordValidator" />
+						<f:attribute name="confirm"
+							value="#{confirmPassword.submittedValue}" />
+						<f:ajax event="blur" execute="password confirm"
+							render="m_password" />
+					</h:inputSecret>
+					<p:outputLabel value="" />
+					<p:message style="font-size:12pt;" id="m_password" for="password" />
+
+					<p:outputLabel for="confirm" style="font-size:12pt;" value="Password (again):" />
+					<h:inputSecret id="confirm" style="width:225px;font-size:12pt;" binding="#{confirmPassword}">
+						<f:ajax event="blur" execute="password confirm"
+							render="m_password m_confirm" />
+					</h:inputSecret>
+					<p:outputLabel value="" />
+					<p:message style="font-size:12pt;" id="m_confirm" for="confirm" />
+					
+					<p:outputLabel style="font-size:12pt;" for="nickname" value="Nick Name" />
+					<p:inputText id="nickname" style="width:225px;font-size:12pt;" value="#{registrationBean.nickname}"/>
+					<p:tooltip for="nickname" style="font-size:12pt;" value="What will be shown on the site screen.  If blank, your first and last name will be used" showEffect="fade" hideEffect="fade" />  
+					<p:message id="m_nickname" for="nickname" />	
+
+					<p:outputLabel for="dob" style="font-size:12pt;" value="Date of Birth" />
+					<p:inputMask id="dob" style="width:150px;font-size:12pt;" value="#{registrationBean.DOB}" mask="99/99/9999" required = "true" requiredMessage="Date of Birth cannot be blank.">
+						<f:validator validatorId="dobAdultValidator" />
+						<f:ajax event="blur" render="m_dob" />
+					</p:inputMask>
+					<p:tooltip for="dob" style="font-size:12pt;" value="When were you born? You have to be an adult to Create a Family Account " showEffect="fade" hideEffect="fade" />  
+					<p:message id="m_dob" for="dob" />	
+
+					<p:outputLabel for="gender" style="font-size:12pt;" value="Gender" />
+				    <p:selectOneMenu id="gender" style="font-size:12pt;" value="#{registrationBean.gender}">  
+			            <f:selectItem itemLabel="Male" itemValue="M" />  
+           				<f:selectItem itemLabel="Female" itemValue="F" />  
+      				</p:selectOneMenu> 
+      				
+					<p:message id="m_gender" for="gender" />
+					<p:tooltip for="gender" style="font-size:12pt;" value="You are either a (M)ale, or a (F)emale" showEffect="fade" hideEffect="fade" /> 
+
+					<p:outputLabel for="phone"  style="font-size:12pt;" value="Mobile Phone" />
+					<p:inputMask id="phone" value="#{registrationBean.phone}" style="width:225px;font-size:12pt;" mask="(999) 999-9999" required="true" requiredMessage="A mobile phone is needed"/>  
+					<p:message id="m_phone" for="phone" />
+					<p:tooltip for="phone" value="Put the mobile phone number you want to be contacted with and have alerts sent to" showEffect="fade" hideEffect="fade" /> 
+
+					<p:outputLabel for="email" style="font-size:12pt;" value="Primary e-mail" />
+					<p:inputText id="email" style="width:225px;font-size:12pt;" value="#{registrationBean.email}" />
+					<p:tooltip for="email" style="font-size:12pt;" value="This e-mail will be primarily used to send you all iScaha notifications." showEffect="fade" hideEffect="fade" />  
+					<p:message id="m_email" style="font-size:12pt;" for="email" />					
+					
+
+			</p:panelGrid>
+			
+			<p:separator id="customSeparator" style="width:800px;height:2px" />    
+			<p:panelGrid columns="3" cellpadding="3">
+
+					<p:outputLabel for="address" style="font-size:12pt;" value="Address"/>
+					<p:spacer width="200" height="10" />
+					<p:spacer width="200" height="10" />
+					<p:inputText id="address" style="width:350px;font-size:12pt;" value="#{registrationBean.address}" required = "true" requiredMessage="Address Cannot be blank." />
+					<p:tooltip for="address"  style="font-size:12pt;" value="Your Street Address in case we have to mail you something the old fashion way..." showEffect="fade" hideEffect="fade" />  
+					<p:message id="m_address" for="address" />
+					
+			</p:panelGrid>
+					
+			<p:panelGrid columns="3" cellpadding="3">
+					<p:outputLabel for="city" style="font-size:12pt;" value="City"/>
+					<p:outputLabel for="state" style="font-size:12pt;" value="State"/>
+					<p:outputLabel for="zip" style="font-size:12pt;" value="Zip"/>
+					<p:inputText id="city" style="width:175px;font-size:12pt;" value="#{registrationBean.city}" required = "true" requiredMessage="City cannot be blank." />
+					<p:inputText id="state" style="width:25px;font-size:12pt;" maxlength="2" value="#{registrationBean.state}" required = "true" requiredMessage="State cannot be blank." />
+					<p:inputText id="zip" style="width:75px;font-size:12pt;" maxlength="5" value="#{registrationBean.zip}" required = "true" requiredMessage="State cannot be blank." />
+					<p:tooltip for="city" style="font-size:12pt;" value="The city you live in in case we have to mail you something the old fashion way..." showEffect="fade" hideEffect="fade" />  
+					<p:tooltip for="state" style="font-size:12pt;"  value="The state you live in in case we have to mail you something the old fashion way..." showEffect="fade" hideEffect="fade" />  
+					<p:tooltip for="zip" style="font-size:12pt;" value="The Zipcode you live in in case we have to mail you something the old fashion way..." showEffect="fade" hideEffect="fade" />  
+					<p:message id="m_city" for="city" />
+					<p:message id="m_state" for="state" />
+					<p:message id="m_zip" for="zip" />
+
+			</p:panelGrid>
+
+			<p:spacer width="200" height="10" />
+
+			<p:panelGrid columns="2" cellpadding="20" style="align:right;">
+			    <p:commandButton id="register" value="Create Account" action="#{registrationBean.createRegistration}"  ajax="false" />
+				<p:commandButton value="Cancel" >  
+        			<p:ajax update="panel" resetValues="true" />  
+    			</p:commandButton>  				
+			   </p:panelGrid>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

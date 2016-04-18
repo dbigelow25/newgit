@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+	
+	<p:notificationBar position="top" effect="slide" widgetVar="bar" styleClass="top">  
+    	<h:outputText value="SCAHA" style="color:#FFCC00;font-size:36px;" />  
+	</p:notificationBar>  
+  
+		<h:form>		
+			<p:panel id ="panel" header="Search for Player to Issue Release For:">
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:inputText id="searchforplayer" style="width:150px;" value="#{playerreleaseBean.searchcriteria}" />
+					<p:commandButton id="executesearch" value="Search" actionListener="#{playerreleaseBean.playerSearch()}" ajax="true" update="playersearchresult"/>
+					<p:message id="m_searchforplayer" for="searchforplayer" />
+				</h:panelGrid>
+				<br></br>	
+				<p:dataTable id="playersearchresult" var="result" value="#{playerreleaseBean.getResultdatamodel()}" selection="#{playerreleaseBean.selectedplayer}" paginator="true" rows="10" autoupdate="false">
+                		<f:facet name="header">  
+			            Select a Player from the List  
+			        </f:facet> 
+			         <!-- <p:column selectionMode="single" style="width:2%" />
+			         <p:column headerText="Player ID">  
+			            <h:outputText value="#{result.getIdplayer()}" />  
+			        </p:column> -->  
+			        <p:column headerText="Player Name">  
+			            <h:outputText value="#{result.getPlayername()}" />  
+			        </p:column>  
+			        <p:column headerText="Date of Birth">  
+			            <h:outputText value="#{result.getDob()}" />  
+			        </p:column>
+			        <p:column headerText="Current Team">  
+			            <h:outputText value="#{result.getCurrentteam()}" />  
+			        </p:column>
+			        <p:column headerText="Address">  
+			            <h:outputText value="#{result.getAddress()}" />  
+			        </p:column>
+			        <p:column headerText="Status">  
+			            <h:outputText value="#{result.getStatus()}" />  
+			        </p:column>
+			        <p:column headerText="Options">
+			        	<p:splitButton id="release" value="Release Type:"  >
+					        <p:menuitem value="Permanent" action="#{playerreleaseBean.startPermanentRelease(result)}" />
+					        <p:menuitem value="Temporary" action="#{playerreleaseBean.startTemporaryRelease(result)}" />
+					    </p:splitButton>
+			        </p:column>  
+			    </p:dataTable>
+			<p:separator id="customSeparator" style="width:800px;height:2px" />    
+		</p:panel>
+	</h:form>
+	<h:form>
+		<div align="center"><p:commandButton value="Close" id="close" ajax="false" action="Welcome.xhtml"/></div>
+	</h:form>
+	</ui:define>
+</ui:composition>

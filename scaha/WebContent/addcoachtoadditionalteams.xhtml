@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<f:metadata>
+	<f:event type="preRenderView" listener="#{profileBean.verifyHasRoles('C-REG;C-PRES')}" />
+</f:metadata>
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+	<h:form>		
+		<p:messages id="loimessage" showDetail="true" autoUpdate="true" closable="false" />
+			<p:fieldset>
+			<p:panel id ="panel" header="Search for Coach:">
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:inputText id="searchforcoach" style="width:150px;" value="#{draftcoachesBean.searchcriteria}" required="false" requiredMessage="Enter a minimum of 5 characters to execute search."/>
+					<p:commandButton id="executesearch" value="Search" ajax="true" update="coachsearchresult" actionListener="#{draftcoachesBean.loidcoachSearch()}"/>
+					<p:tooltip for="searchforcoach" value="Enter at least 5 characters to generate a list of matching coaches" showEffect="fade" hideEffect="fade" />  
+					<p:message id="m_searchforcoach" for="searchforcoach" />
+				</h:panelGrid>
+				<br></br>	
+				<p:dataTable id="coachsearchresult" var="result" value="#{draftcoachesBean.listofcoaches}" selection="#{draftcoachesBean.selectedcoach}"  paginator="true" rows="12" >>
+                	<f:facet name="header">  
+			            Select a Coach from the List (note only coaches who have been loi'd will display in the list.)
+			        </f:facet> 
+			        <p:column id="selectedcoach" selectionMode="single" style="width:2%" />
+			   
+			        <p:column headerText="Coach Name">  
+			            <h:outputText value="#{result.getCoachname()}" />  
+			        </p:column>  
+			        <!-- <p:column headerText="Address">  
+			            <h:outputText value="#{result.getAddress()}" />  
+			        </p:column> -->
+			          
+			    </p:dataTable>
+				
+			</p:panel>	
+			</p:fieldset>
+			<br></br>
+			<p:fieldset>
+				<div align="center"><p:commandButton id="generateLoi" value="Goto Select Team" actionListener="#{draftcoachesBean.AddtoTeam()}" ajax="true"/></div>
+			</p:fieldset>
+			<br></br>
+			<p:fieldset>
+			<div align="center"><p:commandButton value="Close" id="close" ajax="false" action="Welcome.xhtml"/></div>
+			</p:fieldset>
+	</h:form>
+	
+	</ui:define>
+</ui:composition>
+</html>

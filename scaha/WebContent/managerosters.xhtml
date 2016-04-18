@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:metadata>
+<f:event type="preRenderView" listener="#{profileBean.verifyUserLogin()}" />
+</f:metadata>
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+	
+	<p:notificationBar position="top" effect="slide" widgetVar="bar" styleClass="top">  
+    	<h:outputText value="SCAHA" style="color:#FFCC00;font-size:36px;" />  
+	</p:notificationBar>  
+  	<h:form id="mess">
+    	<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />    
+	</h:form>
+	<p:dataTable id="listofclubs" var="club" value="#{managerosterBean.getClubs()}" >
+		<f:facet name="header" style="font-size: 14px;">  
+            Teams by Club  
+        </f:facet>  
+        <p:columnGroup type="header">  
+            <p:row>  
+                <p:column style="font-size: 13px;" headerText="Player" />  
+                <p:column style="font-size: 13px;" headerText="Active Players" />  
+                <p:column style="font-size: 13px;" headerText="Total Players" />
+                <p:column style="font-size: 13px;" headerText="Total Coaches" />
+                <p:column headerText="" />
+            </p:row>  
+        </p:columnGroup>  
+		<p:subTable id="listofteams" var="team" value="#{club.teams}" selection="#{managerrosterBean.selectedteam}">
+       		<f:facet name="header">
+	        	<h:outputText style="font-size: 12px;" value=" #{club.clubname}" />
+	        </f:facet>
+       		<p:column style="font-size: 12px;align: center;">
+	            #{team.getTeamname()}
+            </p:column >
+         	<p:column style="font-size: 12px;" headerText="Active Players">
+	            #{team.getActiveplayercount()}
+            </p:column >
+         	<p:column style="font-size: 12px;" headerText="Total Players">
+	            #{team.getTotalplayercount()}
+            </p:column >
+         	<p:column style="font-size: 12px;" headerText="Total Coaches">
+	            #{team.getTotalcoachescount()}
+            </p:column >
+         	<p:column headerText="Option" >  
+	            <p:commandButton id="wwrelease" value="Edit Roster" action="#{managerosterBean.viewroster(team)}" />
+			</p:column>
+    	</p:subTable>
+	</p:dataTable> 
+	</ui:define>
+</ui:composition>
+</html>

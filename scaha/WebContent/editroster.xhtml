@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:metadata>
+<f:event type="preRenderView" listener="#{profileBean.verifyUserLogin()}" />
+</f:metadata>
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+<div id="page-div">			
+  	<h:form id="mess">
+    	<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />    
+	</h:form>
+	<h:form id="rosterlists">
+	<p:panel id ="panel" style="font-size: 14px;align: center;" header="#{editrosterBean.teamname} Roster for 2014 Season">
+		<p:dataTable id="listofplayers" var="player" value="#{editrosterBean.getPlayers()}" >
+			<p:column style="font-size: 12px;align: center;" headerText="#">
+            	#{player.getJerseynumber()}
+           	</p:column >
+        	<p:column style="font-size: 12px;align: center;" headerText="Last Name">
+            	#{player.getLastname()}
+           	</p:column >
+        	<p:column style="font-size: 12px;align: center;" headerText="First Name">
+            	#{player.getFirstname()}
+           	</p:column >
+        	<p:column style="font-size: 12px;" headerText="GP">
+            	#{player.getGp()}
+           	</p:column >
+        	<p:column style="font-size: 12px;" headerText="DOB">
+            	#{player.getDob()}
+           	</p:column >
+        	<p:column style="font-size: 12px;" headerText="LOI Date">
+            	#{player.getEligibility()}
+           	</p:column >
+        	<p:column style="font-size: 12px;" headerText="Eligibility">
+            	#{player.getRosterdate()}
+           	</p:column >
+        	<p:column style="font-size: 12px;" headerText="Drop">
+            	#{player.getDrop()}
+           	</p:column >
+        	<p:column style="font-size: 12px;" headerText="Added">
+            	#{player.getAdded()}
+           	</p:column >
+        	<p:column style="font-size: 12px;" headerText="Active">
+            	#{player.getActive()}
+           	</p:column >
+        	<p:column style="font-size: 12px;" headerText="Updated">
+            	#{player.getUpdated()}
+           	</p:column >
+        	<p:column headerText="Option" >  
+	            <p:commandButton id="wwrelease" value="Edit Player" action="#{editrosterBean.editrosterdetail(player)}" />
+			</p:column>
+    	</p:dataTable>
+    	<p:spacer width="10" height="10" />
+    	<p:dataTable id="listofcoaches" var="coach" value="#{editrosterBean.getCoaches()}" >
+			<p:column style="font-size: 12px;align: center;" headerText="">
+            	#{coach.getTeamrole()}
+           	</p:column >
+        	<p:column style="font-size: 12px;align: center;" headerText="Last Name">
+            	#{coach.getLastname()}
+           	</p:column >
+        	<p:column style="font-size: 12px;align: center;" headerText="First Name">
+            	#{coach.getFirstname()}
+           	</p:column >
+        	<p:column style="font-size: 12px;" headerText="LOI Date">
+            	#{coach.getLoidate()}
+           	</p:column >
+        	<p:column style="font-size: 12px;" headerText="Eligibility">
+            	#{coach.getEligibility()}
+           	</p:column >
+        	<p:column style="font-size: 12px;" headerText="Drop">
+            	#{coach.getDrop()}
+           	</p:column >
+        	<p:column style="font-size: 12px;" headerText="Added">
+            	#{coach.getAdded()}
+           	</p:column >
+        	<p:column style="font-size: 12px;" headerText="Active">
+            	#{coach.getActive()}
+           	</p:column >
+        	<p:column style="font-size: 12px;" headerText="Updated">
+            	#{coach.getUpdated()}
+           	</p:column >
+        	<p:column headerText="Option" >  
+	            <p:commandButton id="coachloi" value="Edit Coach" action="#{editrosterBean.editcoachrosterdetail(coach)}" />
+			</p:column>
+    	</p:dataTable>
+    </p:panel>
+    </h:form>
+    <p:spacer width="10" height="10" />
+    <p:fieldset id="fs8" toggleable="false" toggleSpeed="500">
+		<h:form id="updateentireroster">
+			<div align="center"><b>Apply this roster date to entire team:</b>&nbsp;&nbsp;<p:inputText id="city" style="width:130px;" value="#{editrosterBean.enteredrosterdate}"  /> (MM/DD/YYYY)
+			<br></br><br></br>
+			<p:commandButton update=":rosterlists:listofplayers,:rosterlists:listofcoaches" value="Update Roster Date for Entire Team" id="updaterosterdate" ajax="true" action="#{editrosterBean.updateTeamRostereffectivedate()}" /></div>
+		</h:form>
+	</p:fieldset>
+    <p:spacer width="10" height="10" />
+	<p:fieldset id="fs7" toggleable="false" toggleSpeed="500">
+		<h:form>
+			<div align="center"><p:commandButton value="Close" id="close" ajax="false" action="managerosters.xhtml"/></div>
+		</h:form>
+	</p:fieldset>
+ </div>
+</ui:define>
+</ui:composition>
+</html>
