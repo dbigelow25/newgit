@@ -16,10 +16,10 @@
 						href="/" />
 					<p:separator />
 					<p:menuButton id="menu1" style="width:125px;" value="SCAHA info">
-						<p:menuitem style="font-size: 10pt;" value="Anaheim Ducks"
+						<!-- <p:menuitem style="font-size: 10pt;" value="Anaheim Ducks"
 							url="anaheimducks.xhtml" />
 						<p:menuitem style="font-size: 10pt;" value="Los Angeles Kings"
-							url="lakings.xhtml" />
+							url="lakings.xhtml" /> -->
 						<p:separator />
 						<p:menuitem style="font-size: 12px;" value="Calendar of Events"
 							url="calendar.xhtml" />
@@ -53,8 +53,8 @@
 					<p:spacer width="2px" />
 					<p:menuButton id="menu2" style="width:125px;" value="Season Info"
 						type="button">
-						<p:menuitem style="font-size: 12px;" value="2013-2014 Guidebook"
-							url="downloads/2013-14-SCAHA-Guidebook.pdf" id="guidebook" target="_blank"/>
+						<p:menuitem style="font-size: 12px;" value="Guidebook"
+							url="downloads/SCAHA-Guidebook.pdf" id="guidebook" target="_blank"/>
 						<p:separator />
 						<!-- <p:menuitem style="font-size: 12px;" value="Mite Program"
 							url="miteprogram.xhtml" /> -->
@@ -213,7 +213,11 @@
 							url="addplayerdelinquent.xhtml"
 							rendered="#{profileBean.hasRoleList('S-REG')}" />
 						<p:menuitem style="font-size: 10pt;width:225px;"
-							value="Confirm Player LOI's"
+							value="Player LOI Hot List"
+							url="quickplayerloiconfirm.xhtml"
+							rendered="#{profileBean.hasRoleList('S-REG')}" />
+						<p:menuitem style="font-size: 10pt;width:225px;"
+							value="Manage Player LOI's"
 							url="confirmlois.xhtml"
 							rendered="#{profileBean.hasRoleList('S-REG')}" />
 						<p:menuitem style="font-size: 10pt;width:225px;"

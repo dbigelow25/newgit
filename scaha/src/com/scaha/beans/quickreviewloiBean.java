@@ -24,7 +24,7 @@ import com.scaha.objects.PlayerDataModel;
 //import com.gbli.common.SendMailSSL;
 
 
-public class reviewloiBean implements Serializable {
+public class quickreviewloiBean implements Serializable {
 
 	// Class Level Variables
 	private static final long serialVersionUID = 1L;
@@ -40,7 +40,8 @@ public class reviewloiBean implements Serializable {
 	private String selectedplayerid = null;
 	private String notes = null;
 	private Integer rosteridforconfirm = null;
-	private String page = null;
+	private String completedloicount = null;
+	private String totalloicount = null;
 	
  	@PostConstruct
     public void init() {
@@ -48,22 +49,32 @@ public class reviewloiBean implements Serializable {
         PlayerDataModel = new PlayerDataModel(players);
         this.setSelectedtabledisplay("1");
         
-      //will need to load player profile information for displaying loi
-      	HttpServletRequest hsr = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-          	
-        if(hsr.getParameter("page") != null)
-        {
-    		page = hsr.getParameter("page").toString();
-        }else{
-        	page = "";
-        }
+        //this loads the number of completed and total number of lois to be done.
+        loadLoiCounts();
+        
+        //this loads the 10 oldest loi's needing confirmation.
         playersDisplay();
     }
 	
-    public reviewloiBean() {  
+    public quickreviewloiBean() {  
          
     }  
     
+    public String getCompletedLoiCount(){
+    	return completedloicount;
+    }
+    
+    public void setCompletedLoiCount(String value){
+    	completedloicount=value;
+    }
+    
+    public String getTotalLoiCount(){
+    	return totalloicount;
+    }
+    
+    public void setTotalLoiCount(String value){
+    	totalloicount=value;
+    }
     public Integer getRosteridforconfirm(){
     	return rosteridforconfirm;
     }
@@ -71,14 +82,6 @@ public class reviewloiBean implements Serializable {
     public void setRosteridforconfirm(Integer value){
     	rosteridforconfirm=value;
     }
-    
-    public String getPage(){
-		return page;
-	}
-	
-	public void setPage(String cyear){
-		page=cyear;
-	}
     
     public String getSelectedplayerid(){
     	return selectedplayerid;
@@ -129,7 +132,9 @@ public class reviewloiBean implements Serializable {
 	}
 	
 	    
-    //retrieves list of players
+    //retrieves list of player, for this page we will load the next 10 loi's to be processed.
+	//the logic will be to take the 10 oldest loi's for this season that do not have the 
+	//confirmed flag set to 1, notes has values, and/or is active is set to 1 from the roster table 
     public void playersDisplay(){
     	ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
     	List<Player> tempresult = new ArrayList<Player>();
@@ -139,53 +144,10 @@ public class reviewloiBean implements Serializable {
 
     		if (db.setAutoCommit(false)) {
     			
-    			if (selectedtabledisplay.equals("1")){
-    				CallableStatement cs = db.prepareCall("CALL scaha.getLoiListByClub(?,?)");
-	    			java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-	    			cs.setDate("lookupdate", sqlDate);
-	    			if (this.selectedclub==null){
-	    				cs.setInt("clubid", 0);
-	    			}else {
-	    				cs.setInt("clubid", Integer.parseInt(this.selectedclub));
-	    			}
-	    			
-	    			rs = cs.executeQuery();
-    			} else if (selectedtabledisplay.equals("2")){
-    				CallableStatement cs = db.prepareCall("CALL scaha.getLoiMissingBirthCertificateByClub(?)");
-    				if (this.selectedclub==null){
-	    				cs.setInt("clubid", 0);
-	    			}else {
-	    				cs.setInt("clubid", Integer.parseInt(this.selectedclub));
-	    			}
-	    			
-	    			rs = cs.executeQuery();
-    			} else if (selectedtabledisplay.equals("3")){
-    				CallableStatement cs = db.prepareCall("CALL scaha.getLoiMissingTransferByClub(?)");
-    				if (this.selectedclub==null){
-	    				cs.setInt("clubid", 0);
-	    			}else {
-	    				cs.setInt("clubid", Integer.parseInt(this.selectedclub));
-	    			}
-	    			
-	    			rs = cs.executeQuery();
-    			} else if (selectedtabledisplay.equals("4")){
-    				CallableStatement cs = db.prepareCall("CALL scaha.getLoiByClub(?)");
-	    			cs.setInt("clubid", Integer.parseInt(this.selectedclub));
-    				rs = cs.executeQuery();
-    			} else if (selectedtabledisplay.equals("5")){
-    				CallableStatement cs = db.prepareCall("CALL scaha.getAllLoiByClub(?)");
-    				if (this.selectedclub==null){
-	    				cs.setInt("clubid", 0);
-	    			}else {
-	    				cs.setInt("clubid", Integer.parseInt(this.selectedclub));
-	    			}
-    				rs = cs.executeQuery();
-    				
-	    			
-    			}
-    		    
-    		    
-    			if (rs != null){
+				CallableStatement cs = db.prepareCall("CALL scaha.getLatestQuickLois()");
+				rs = cs.executeQuery();
+    			
+				if (rs != null){
     				
     				while (rs.next()) {
     					String idplayer = rs.getString("idperson");
@@ -266,7 +228,7 @@ public class reviewloiBean implements Serializable {
     		
     	} catch (SQLException e) {
     		// TODO Auto-generated catch block
-    		LOGGER.info("ERROR IN Searching FOR Lois for lookup date:" + date.toString());
+    		LOGGER.info("ERROR IN Loading Quick Loi's for:" + date.toString());
     		e.printStackTrace();
     		db.rollback();
     	} finally {
@@ -370,7 +332,7 @@ public class reviewloiBean implements Serializable {
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		try{
-			context.getExternalContext().redirect("addtransfercitizenship.xhtml?playerid=" + sidplayer);
+			context.getExternalContext().redirect("addtransfercitizenship.xhtml?page=quick&playerid=" + sidplayer);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -419,6 +381,9 @@ public class reviewloiBean implements Serializable {
 			db.free();
 		}
 		
+		//this loads the number of completed and total number of lois to be done.
+        loadLoiCounts();
+		
 		//now we need to reload the data object for the loi list
 		playersDisplay();
 	}
@@ -430,7 +395,7 @@ public class reviewloiBean implements Serializable {
 				
 		FacesContext context = FacesContext.getCurrentInstance();
 		try{
-			context.getExternalContext().redirect("scahaviewloi.xhtml?playerid=" + sidplayer + "&rid=" + sidroster);
+			context.getExternalContext().redirect("scahaviewloi.xhtml?page=quick&playerid=" + sidplayer + "&rid=" + sidroster);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -472,24 +437,22 @@ public class reviewloiBean implements Serializable {
 			db.free();
 		}
 		
+		//this loads the number of completed and total number of lois to be done.
+        loadLoiCounts();
 		playersDisplay();
 	}
 	
-	public void CloseLoi(String spage){
+	public void CloseLoi(){
 		FacesContext context = FacesContext.getCurrentInstance();
 		try{
-			if (spage.equals("quick")){
-				context.getExternalContext().redirect("quickplayerloiconfirm.xhtml");
-			}else{
-				context.getExternalContext().redirect("confirmlois.xhtml");
-			}
+			context.getExternalContext().redirect("confirmlois.xhtml");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public void confirmLoifromview(Integer sidplayer,String spage){
+	public void confirmLoifromview(Integer sidplayer){
 		
 			ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
 			
@@ -524,12 +487,7 @@ public class reviewloiBean implements Serializable {
 		
 			FacesContext context = FacesContext.getCurrentInstance();
 			try{
-				if (spage.equals("quick")){
-					context.getExternalContext().redirect("quickplayerloiconfirm.xhtml");
-				}else{
-					context.getExternalContext().redirect("confirmlois.xhtml");
-				}
-				
+				context.getExternalContext().redirect("confirmlois.xhtml");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -537,5 +495,48 @@ public class reviewloiBean implements Serializable {
 			
 		}
 	
+	public void loadLoiCounts(){
+		
+		ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
+		
+		try{
+
+			if (db.setAutoCommit(false)) {
+			
+				//Need to provide info to the stored procedure to save or update
+ 				LOGGER.info("loading loi counts");
+ 				CallableStatement cs = db.prepareCall("CALL scaha.loadLoiCounts()");
+    		    rs = cs.executeQuery();
+    			
+    			if (rs != null){
+    				
+    				while (rs.next()) {
+    					this.completedloicount = rs.getString("completedcount");
+        				this.totalloicount = rs.getString("totalcount");
+        			}
+    				LOGGER.info("We have results for loi counts");
+    			}
+    			rs.close();
+    			db.cleanup();
+    		
+    		    
+ 			} else {
+		
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			LOGGER.info("ERROR IN loading loi counts");
+			e.printStackTrace();
+			db.rollback();
+		} finally {
+			//
+			// always clean up after yourself..
+			//
+			db.free();
+		}
+	
+		
+	}
 }
 

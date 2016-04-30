@@ -44,6 +44,7 @@ public class rosteractionBean implements Serializable {
 	private String dob = null;
 	private String firstname = null;
 	private String lastname = null;
+	private String page = null;
 	
 	@PostConstruct
     public void init() {
@@ -60,13 +61,30 @@ public class rosteractionBean implements Serializable {
     		setSelectedplayer(hsr.getParameter("playerid").toString());
         }
     	
+    	if(hsr.getParameter("page") != null)
+        {
+    		setPage(hsr.getParameter("page").toString());
+        }else{
+        	setPage("");
+        }
+    	
+    	
     	loadPlayerProfile(selectedplayer);
 
     	//doing anything else right here
-    	gotoTransferInformation = "addtransfercitizenship.xhtml?playerid=" + this.selectedplayer;
-    	gotoCitizenship = "managecitizenship.xhtml?playerid=" + this.selectedplayer;
+    	gotoTransferInformation = "addtransfercitizenship.xhtml?playerid=" + this.selectedplayer + "&page=" + page;
+    	gotoCitizenship = "managecitizenship.xhtml?playerid=" + this.selectedplayer + "&page=" + page;
     }  
-    
+	
+	
+	public void setPage(String value){
+		page = value;
+	}
+	
+	public String getPage(){
+		return page;
+	}
+			
 	public void setDob(String value){
 		dob = value;
 	}
@@ -333,7 +351,13 @@ public class rosteractionBean implements Serializable {
     	rlb.playersDisplay();
 
 		try{
-			context.getExternalContext().redirect("confirmlois.xhtml");
+			
+			if (page.equals("quick")){
+				context.getExternalContext().redirect("quickplayerloiconfirm.xhtml");
+			}else{
+				context.getExternalContext().redirect("confirmlois.xhtml");
+			}
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

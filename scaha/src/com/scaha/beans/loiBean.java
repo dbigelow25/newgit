@@ -87,6 +87,7 @@ public class loiBean implements Serializable, MailableObject {
 	private Integer rosteridforconfirm = null;
 	private String currentyear = null;
 	private String prioryear = null;
+	private String page = null;
 	
 	@PostConstruct
     public void init() {
@@ -110,6 +111,13 @@ public class loiBean implements Serializable, MailableObject {
         {
     		selectedplayer = Integer.parseInt(hsr.getParameter("playerid").toString());
         }
+    	if(hsr.getParameter("page") != null)
+        {
+    		page = hsr.getParameter("page").toString();
+        }else{
+        	page = "";
+        }
+    	
     	
     	loadPlayerProfile(selectedplayer);
     	setDisplayplayerup(false);
@@ -157,7 +165,14 @@ public class loiBean implements Serializable, MailableObject {
     	sendingnote=value;
     }
     
+    public String getPage(){
+		return page;
+	}
 	
+	public void setPage(String cyear){
+		page=cyear;
+	}
+    
     public String getCurrentyear(){
     		return currentyear;
     }
@@ -1476,7 +1491,13 @@ public void getClubID(){
 		FacesContext context = FacesContext.getCurrentInstance();
 		origin = ((HttpServletRequest)context.getExternalContext().getRequest()).getRequestURL().toString();
 		try{
-			context.getExternalContext().redirect("confirmlois.xhtml");
+			if (page.equals("quick")){
+				context.getExternalContext().redirect("quickplayerloiconfirm.xhtml");
+			}else{
+				context.getExternalContext().redirect("confirmlois.xhtml");
+			}
+			
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1520,7 +1541,12 @@ public void getClubID(){
 		FacesContext context = FacesContext.getCurrentInstance();
 		origin = ((HttpServletRequest)context.getExternalContext().getRequest()).getRequestURL().toString();
 		try{
-			context.getExternalContext().redirect("confirmlois.xhtml");
+			if (page.equals("quick")){
+				context.getExternalContext().redirect("quickplayerloiconfirm.xhtml");
+			}else{
+				context.getExternalContext().redirect("confirmlois.xhtml");
+			}
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

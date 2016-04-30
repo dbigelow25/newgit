@@ -60,6 +60,11 @@
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>quickreviewloiBean</managed-bean-name>
+		<managed-bean-class>com.scaha.beans.quickreviewloiBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>rosteractionBean</managed-bean-name>
 		<managed-bean-class>com.scaha.beans.rosteractionBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
