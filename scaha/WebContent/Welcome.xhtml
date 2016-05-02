@@ -10,21 +10,19 @@
 >
 <ui:define name="content">
 <h:body>
+<table border="0">
+		<tr>
+			<td valign="top">
 <div id="page-div">
-
-
-
-	 <p:panel header="Latest SCAHA News." > 
+	<p:panel header="Latest SCAHA News." > 
 	  	<f:facet name="footer">
 	        Copyright 2016.  Website maintained by <a href="mailto:lahockeyfan2@yahoo.com;dbigelow@the-rinks.com?subject=SCAHA Website">Rob Foster/Dave Bigelow</a>
-	        
 	    </f:facet>
 	  
 	
   	  <ui:repeat id="newslist" value="#{newsBean.getNewsItemList()}" var="newsitem">
 		<div class="NewsTitle">#{newsitem.title} 
    		   <p:commandButton rendered="#{profileBean.isSuperUser()}" id="editButton" icon="ui-icon-search"  ajax="true" update="form:editor" onclick="panelwv#{newsitem.getIDStr()}.show();"/>
-   		        
    		   </div>
    		<div class="NewsDate">#{newsitem.subject} / Written By: #{newsitem.author} / Published On : #{newsitem.updated}</div>  
    		<div class="NewsText"><h:outputText value="#{newsitem.body}" escape="false" /></div>
@@ -69,6 +67,27 @@
 		</p:panel>
 	</p:panel>
 </div>
+			</td>
+			<td valign="top">
+<p:spacer width="10" height="21" /><div>
+	<p:panel header="Quick Functions"  rendered="#{profileBean.hasRoleList('S-STATS;S-REG')}">
+		<h:form>
+			<p:commandButton  onclick="window.location.href='quickplayerloiconfirm.xhtml'; return false;" value="Player LOI Hot List" id="hotlist" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-REG')}"/>
+			<p:commandButton  onclick="window.location.href='managerosters.xhtml'; return false;" value="Manage Rosters" id="managerosters" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-REG')}"/>
+			<p:commandButton  onclick="window.location.href='viewdelinquencylist.xhtml'; return false;" value="Delinquency List" id="delinquencylist" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-REG')}"/>
+			<p:commandButton  onclick="window.location.href='addplayerdelinquent.xhtml'; return false;" value="Add Delinquency" id="adddelinquency" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-REG')}"/>
+			<p:commandButton  onclick="window.location.href='confirmrelease.xhtml'; return false;" value="Releases" id="releases" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-REG')}"/>
+			<p:commandButton  onclick="window.location.href='viewsafesport.xhtml'; return false;" value="Safe Sport List" id="safesportlist" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-REG')}"/>
+			<p:separator value="Other Pages"/>
+			<p:commandButton  onclick="window.location.href='confirmlois.xhtml'; return false;" value="Manage Player Loi's" id="manageplayerlois" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-REG')}"/>
+			<p:commandButton  onclick="window.location.href='confirmcoachlois.xhtml'; return false;" value="Manage Coach Loi's" id="managecoachlois" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-REG')}"/>
+			<p:separator />
+		</h:form>
+	</p:panel>
+</div>
+</td>
+		</tr>
+	</table>
 </h:body>
 </ui:define>
 </ui:composition>
