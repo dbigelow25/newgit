@@ -44,13 +44,14 @@
 							    </p:selectOneMenu>
 							</td>
 						</tr>
+						<p:fragment rendered="#{releaseBean.displayfreeandclearonly}">
 						<tr>
 							<td colspan="6">Note:  If selecting "End of Season Free and Clear", submit without filling out the rest of the form.</td>
 						</tr>
 						<tr>
 							<td><b>Outstanding Suspension:</b></td>
 							<td>
-								<p:selectOneMenu value="#{releaseBean.selectedsuspension}">
+								<p:selectOneMenu value="#{releaseBean.selectedsuspension}" rendered="#{releaseBean.displayfreeandclearonly}">
 							    	<f:selectItem itemLabel="No" itemValue="0"/>
 							    	<f:selectItem itemLabel="Yes" itemValue="1"/>
 							    </p:selectOneMenu>
@@ -106,6 +107,7 @@
 							<td width="40%" valign="top"><b>Restrictions/Comments:</b></td>
 							<td colspan="5"><p:inputTextarea value="#{releaseBean.comments}" rows="3" cols="50"/></td>
 						</tr>
+						</p:fragment>
 					</table>	
 				</p:panel>
 			</p:fieldset>

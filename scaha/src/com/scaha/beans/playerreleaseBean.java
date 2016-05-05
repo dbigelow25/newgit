@@ -231,13 +231,13 @@ public Integer loadClubid(){
 		}
 	}
 	
-	public void startTemporaryRelease(Result selectedPlayer){
+	public void startTemporaryRelease(Result selectedPlayer,String type){
 		
 		String sidplayer = selectedPlayer.getIdplayer();
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		try{
-			context.getExternalContext().redirect("releaseform.xhtml?playerid=" + sidplayer);
+			context.getExternalContext().redirect("releaseform.xhtml?playerid=" + sidplayer + "&releasetype=" + type);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

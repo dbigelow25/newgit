@@ -37,6 +37,7 @@ public class releaseBean implements Serializable, MailableObject {
 	private static final Logger LOGGER = Logger.getLogger(ContextManager.getLoggerContext());
 	private static String mail_permreg_body = Utils.getMailTemplateFromFile("/mail/permanentrelease.html");
 	private static String mail_tempreg_body = Utils.getMailTemplateFromFile("/mail/temporaryrelease.html");
+	private static String mail_eosreg_body = Utils.getMailTemplateFromFile("/mail/endofseasonrelease.html");
 	transient private ResultSet rs = null;
 	private String firstname = null;
 	private String lastname = null;
@@ -68,6 +69,7 @@ public class releaseBean implements Serializable, MailableObject {
 	private String clubname = null;
 	private Boolean displaypermanent = null;
 	private Boolean displaytemporary = null;
+	private Boolean displayfreeandclearonly = null;
 	private String displayreason = null;
 	private String displaysuspension = null;
 	private String displayacceptingclub = null;
@@ -193,6 +195,14 @@ public class releaseBean implements Serializable, MailableObject {
     	displaytemporary = snum;
     }
 	
+    public Boolean getDisplayfreeandclearonly() {
+		// TODO Auto-generated method stub
+		return displayfreeandclearonly;
+	}
+    
+    public void setDisplayfreeandclearonly(Boolean snum){
+    	displayfreeandclearonly = snum;
+    }
     
 	public String getClubname() {
 		// TODO Auto-generated method stub
@@ -348,50 +358,56 @@ public class releaseBean implements Serializable, MailableObject {
 		myTokens.add("PARENTNAME:" + this.parentname);
 		myTokens.add("PARENTEMAIL:" + this.parentemail);
 		myTokens.add("REASON: " + this.displayreason);
-		myTokens.add("SUSPENSION:" + this.displaysuspension);
-		if (this.displaypermanent){
-			myTokens.add("FINANCIAL:" + this.displayfinancial);
-		}
-		if (this.displaytemporary){
-			if (this.beginningdate==null || this.beginningdate.equals("")){
-				myTokens.add("BEGINNINGDATE: " + this.beginningdate);
-			} else {
-				myTokens.add("BEGINNINGDATE:" + this.beginningdate);
-			}
-			if (this.endingdate==null || this.endingdate.equals("")){
-				myTokens.add("ENDINGDATE: " + this.endingdate);
-			} else {
-				myTokens.add("ENDINGDATE:" + this.endingdate);
-			}
-		}
 		myTokens.add("RELEASINGCLUB:" + this.releasingclubdivision);
-		if (this.displayacceptingclub==null){
-			myTokens.add("ACCEPTINGCLUB: ");
-		}else {
-			myTokens.add("ACCEPTINGCLUB:" + this.displayacceptingclub);
+		if (this.displayfreeandclearonly){
+			myTokens.add("SUSPENSION:" + this.displaysuspension);
+			if (this.displaypermanent){
+				myTokens.add("FINANCIAL:" + this.displayfinancial);
+			}
+			if (this.displaytemporary){
+				if (this.beginningdate==null || this.beginningdate.equals("")){
+					myTokens.add("BEGINNINGDATE: " + this.beginningdate);
+				} else {
+					myTokens.add("BEGINNINGDATE:" + this.beginningdate);
+				}
+				if (this.endingdate==null || this.endingdate.equals("")){
+					myTokens.add("ENDINGDATE: " + this.endingdate);
+				} else {
+					myTokens.add("ENDINGDATE:" + this.endingdate);
+				}
+			}
+			
+			if (this.displayacceptingclub==null){
+				myTokens.add("ACCEPTINGCLUB: ");
+			}else {
+				myTokens.add("ACCEPTINGCLUB:" + this.displayacceptingclub);
+			}
+			if (this.displayacceptingdivision==null){
+				myTokens.add("DIVISION:  ");
+			} else {
+				myTokens.add("DIVISION:" + this.displayacceptingdivision);
+			}
+			if (this.displayacceptingskilllevel==null){
+				myTokens.add("SKILLLEVEL:  ");
+			}else {
+				myTokens.add("SKILLLEVEL:" + this.displayacceptingskilllevel);
+			}
+			if (this.comments==null || this.comments.equals("")){
+				myTokens.add("COMMENTS: " + this.comments);
+			} else {
+				myTokens.add("COMMENTS:" + this.comments);
+			}
 		}
-		if (this.displayacceptingdivision==null){
-			myTokens.add("DIVISION:  ");
-		} else {
-			myTokens.add("DIVISION:" + this.displayacceptingdivision);
-		}
-		if (this.displayacceptingskilllevel==null){
-			myTokens.add("SKILLLEVEL:  ");
-		}else {
-			myTokens.add("SKILLLEVEL:" + this.displayacceptingskilllevel);
-		}
-		if (this.comments==null || this.comments.equals("")){
-			myTokens.add("COMMENTS: " + this.comments);
-		} else {
-			myTokens.add("COMMENTS:" + this.comments);
-		}
-		
 		String result = null;
 		if (this.displaypermanent){
 			result = Utils.mergeTokens(releaseBean.mail_permreg_body,myTokens);
 		}
 		if (this.displaytemporary){
-			result = Utils.mergeTokens(releaseBean.mail_tempreg_body,myTokens);
+			if (!this.displayfreeandclearonly){
+				result = Utils.mergeTokens(releaseBean.mail_eosreg_body,myTokens);
+			}else{
+				result = Utils.mergeTokens(releaseBean.mail_tempreg_body,myTokens);
+			}
 		}
 		
 		return result;
@@ -557,7 +573,15 @@ public class releaseBean implements Serializable, MailableObject {
         				reason.setReasonid(idreason);
         				reason.setReasonname(releaselabel);
         				
-        				templist.add(reason);
+        				//need to check if end of season free and clear release, then only display this option
+        				if (!this.displayfreeandclearonly){
+        					if (idreason.equals("3")){
+        						templist.add(reason);
+        					}
+        				}else{
+        					templist.add(reason);
+        				}
+        				
     				}
     				LOGGER.info("We have results for club list");
     			}
@@ -844,12 +868,23 @@ public class releaseBean implements Serializable, MailableObject {
     			CallableStatement cs = db.prepareCall("CALL scaha.addRelease(?,?,?,?,?,?,?,?,?,?,?,?,?)");
     			cs.setInt("personid", this.selectedplayer);
     			cs.setInt("reason", Integer.parseInt(this.selectedreason));
-    			cs.setInt("suspension", Integer.parseInt(this.selectedsuspension));
+    			if (!this.displayfreeandclearonly){
+    				cs.setInt("suspension", 0);
+    			}else{
+    				cs.setInt("suspension", Integer.parseInt(this.selectedsuspension));
+    			}
+    			
     			cs.setString("beginningdate", this.beginningdate);
     			cs.setString("endingdate", this.endingdate);
-    			cs.setInt("acceptingclub", Integer.parseInt(this.selectedacceptingclub));
-    			cs.setInt("acceptingdivision", Integer.parseInt(this.selectedacceptingdivision));
-    			cs.setInt("acceptingskilllevel", Integer.parseInt(this.selectedacceptingskilllevel));
+    			if (!this.displayfreeandclearonly){
+    				cs.setInt("acceptingclub", 0);
+        			cs.setInt("acceptingdivision", 0);
+        			cs.setInt("acceptingskilllevel", 0);
+        		}else{
+    				cs.setInt("acceptingclub", Integer.parseInt(this.selectedacceptingclub));
+        			cs.setInt("acceptingdivision", Integer.parseInt(this.selectedacceptingdivision));
+        			cs.setInt("acceptingskilllevel", Integer.parseInt(this.selectedacceptingskilllevel));
+        		}
     			cs.setString("comments", this.comments);
     			cs.setInt("clubid", this.clubid);
     			
@@ -873,11 +908,18 @@ public class releaseBean implements Serializable, MailableObject {
     		    LOGGER.info("Sending email to club registrar, family, and scaha registrar");
     			cs = db.prepareCall("CALL scaha.getReleaseLookups(?,?,?,?,?,?)");
     		    cs.setInt("reason", Integer.parseInt(this.selectedreason));
-    			cs.setInt("suspension", Integer.parseInt(this.selectedsuspension));
-    			cs.setInt("acceptingclub", Integer.parseInt(this.selectedacceptingclub));
-    			cs.setInt("acceptingdivision", Integer.parseInt(this.selectedacceptingdivision));
-    			cs.setInt("acceptingskilllevel", Integer.parseInt(this.selectedacceptingskilllevel));
-    			if (this.selectedfinancial==null){
+    		    if (!this.displayfreeandclearonly){
+    		    	cs.setInt("suspension", 0);
+        			cs.setInt("acceptingclub", 0);
+        			cs.setInt("acceptingdivision", 0);
+        			cs.setInt("acceptingskilllevel", 0);
+        		}else{
+    		    	cs.setInt("suspension", Integer.parseInt(this.selectedsuspension));
+        			cs.setInt("acceptingclub", Integer.parseInt(this.selectedacceptingclub));
+        			cs.setInt("acceptingdivision", Integer.parseInt(this.selectedacceptingdivision));
+        			cs.setInt("acceptingskilllevel", Integer.parseInt(this.selectedacceptingskilllevel));
+        		}
+    		    if (this.selectedfinancial==null){
     				cs.setInt("financial", 0);
     			} else {
     				cs.setInt("financial", Integer.parseInt(this.selectedfinancial));
@@ -889,11 +931,16 @@ public class releaseBean implements Serializable, MailableObject {
     				while (rs.next()) {
     					this.displayreason = rs.getString("reasonname");
     					this.displaysuspension = rs.getString("suspension");
-    					if (this.selectedacceptingclub.equals("999")){
-    						this.displayacceptingclub = "Non-SCAHA";
+    					if (!this.displayfreeandclearonly){
+    						this.displayacceptingclub = "";
     					}else{
-    						this.displayacceptingclub = rs.getString("acceptingclubname");
+    						if (this.selectedacceptingclub.equals("999")){
+        						this.displayacceptingclub = "Non-SCAHA";
+        					}else{
+        						this.displayacceptingclub = rs.getString("acceptingclubname");
+        					}
     					}
+    					
     					
     					this.displayacceptingdivision = rs.getString("division_name");
     					this.displayacceptingskilllevel = rs.getString("levelsname");
@@ -920,22 +967,26 @@ public class releaseBean implements Serializable, MailableObject {
     				}
     			}
     		    rs.close();
-    		    //next receiving club
-    			LOGGER.info("Sending email to club registrar, family, and scaha registrar");
-    			cs = db.prepareCall("CALL scaha.getClubRegistrarEmail(?)");
-    		    cs.setInt("iclubid", Integer.parseInt(this.getSelectedacceptingclub()));
-    		    rs = cs.executeQuery();
-    		    if (rs != null){
-    				while (rs.next()) {
-    					if (to.equals("")){
-    						to = rs.getString("usercode");
-    					}else{
-    						to = to + ',' + rs.getString("usercode");
-    					}
-    					
-    				}
-    			}
-    		    rs.close();
+    		    
+    		    if (this.displayfreeandclearonly){
+				
+	    		    //next receiving club
+	    			LOGGER.info("Sending email to club registrar, family, and scaha registrar");
+	    			cs = db.prepareCall("CALL scaha.getClubRegistrarEmail(?)");
+	    		    cs.setInt("iclubid", Integer.parseInt(this.getSelectedacceptingclub()));
+	    		    rs = cs.executeQuery();
+	    		    if (rs != null){
+	    				while (rs.next()) {
+	    					if (to.equals("")){
+	    						to = rs.getString("usercode");
+	    					}else{
+	    						to = to + ',' + rs.getString("usercode");
+	    					}
+	    					
+	    				}
+	    			}
+	    		    rs.close();
+    		    }
     		    //next scaha registrar
     		    cs = db.prepareCall("CALL scaha.getSCAHARegistrarEmail()");
     		    rs = cs.executeQuery();
@@ -997,9 +1048,17 @@ public class releaseBean implements Serializable, MailableObject {
 		if (releasetype.equals("p")){
 			this.displaypermanent = true;
 			this.displaytemporary = false;
+			this.displayfreeandclearonly = true;
+		} else if (releasetype.equals("f")){
+			this.displaytemporary = true;
+			this.displaypermanent = false;
+			this.displayfreeandclearonly = false;
+			//need to set value of the reason drop down
+			this.selectedreason="3";
 		} else {
 			this.displaypermanent = false;
 			this.displaytemporary = true;
+			this.displayfreeandclearonly = true;
 		}
 	}
 

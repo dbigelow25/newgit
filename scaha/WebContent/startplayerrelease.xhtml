@@ -47,8 +47,9 @@
 			        </p:column>
 			        <p:column headerText="Options">
 			        	<p:splitButton id="release" value="Release Type:"  >
+					        <p:menuitem value="End of Season Free and Clear" action="#{playerreleaseBean.startTemporaryRelease(result,'f')}" />
 					        <p:menuitem value="Permanent" action="#{playerreleaseBean.startPermanentRelease(result)}" />
-					        <p:menuitem value="Temporary" action="#{playerreleaseBean.startTemporaryRelease(result)}" />
+					        <p:menuitem value="Temporary" action="#{playerreleaseBean.startTemporaryRelease(result,'t')}" />
 					    </p:splitButton>
 			        </p:column>  
 			    </p:dataTable>
