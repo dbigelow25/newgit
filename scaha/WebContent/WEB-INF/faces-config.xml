@@ -90,6 +90,11 @@
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>quickreviewcoachloiBean</managed-bean-name>
+		<managed-bean-class>com.scaha.beans.quickreviewcoachloiBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>playerreleaseBean</managed-bean-name>
 		<managed-bean-class>com.scaha.beans.playerreleaseBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>

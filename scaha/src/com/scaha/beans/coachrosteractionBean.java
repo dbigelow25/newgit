@@ -46,6 +46,9 @@ public class coachrosteractionBean implements Serializable {
 	private String safesport = null;
 	private Boolean displaycoachcredentials = null;
 	private Integer rosterid = null;
+	private String page = null;
+	private String firstname = null;
+	private String lastname = null;
 	
 	@PostConstruct
     public void init() {
@@ -62,11 +65,40 @@ public class coachrosteractionBean implements Serializable {
         {
     		setRosterid(Integer.parseInt(hsr.getParameter("rosterid").toString()));
         }
-    	
+    	if(hsr.getParameter("page") != null)
+        {
+    		page = hsr.getParameter("page").toString();
+        }else{
+        	page = "";
+        }
     	loadCoachProfile(selectedcoach);
 
     	//doing anything else right here
     }  
+    
+	public String getLastname(){
+		return lastname;
+	}
+	
+	public void setLastname(String cyear){
+		lastname=cyear;
+	}
+	
+	public String getFirstname(){
+		return firstname;
+	}
+	
+	public void setFirstname(String cyear){
+		firstname=cyear;
+	}
+	
+	public String getPage(){
+		return page;
+	}
+	
+	public void setPage(String cyear){
+		page=cyear;
+	}
     
 	public void setRosterid(Integer id){
 		rosterid = id;
@@ -276,6 +308,8 @@ public class coachrosteractionBean implements Serializable {
     				
     				while (rs.next()) {
     					coachname = rs.getString("fname") + ' ' + rs.getString("lname");
+    					firstname = rs.getString("fname");
+    					lastname = rs.getString("lname");
     					screeningexpires = rs.getString("screeningexpires");
         				cepnumber = rs.getString("cepnumber");
         				ceplevel = rs.getInt("ceplevel");
@@ -341,7 +375,7 @@ public class coachrosteractionBean implements Serializable {
 			
 				//Need to provide info to the stored procedure to save or update
  				LOGGER.info("update coach details");
- 				CallableStatement cs = db.prepareCall("CALL scaha.updateCoachbyCoachId(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+ 				CallableStatement cs = db.prepareCall("CALL scaha.updateCoachbyCoachId(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
     		    cs.setInt("coachid", Integer.parseInt(this.selectedcoach));
     		    cs.setString("screenexpires", this.screeningexpires);
     		    cs.setString("cepnum", this.cepnumber);
@@ -385,6 +419,8 @@ public class coachrosteractionBean implements Serializable {
     		    cs.setInt("u14", u14);
     		    cs.setInt("u18", u18);
     		    cs.setInt("ugirls", ugirls);
+    		    cs.setString("infirstname",this.firstname);
+    		    cs.setString("inlastname",this.lastname);
     		    rs = cs.executeQuery();
     			
     		    db.commit();
@@ -407,7 +443,13 @@ public class coachrosteractionBean implements Serializable {
     			
                 context.addMessage(null, new FacesMessage("Successful", "You ave updated the Coach"));
                 try{
-        			context.getExternalContext().redirect("confirmcoachlois.xhtml");
+                	
+                	if (page.equals("quick")){
+        				context.getExternalContext().redirect("quickcoachloiconfirm.xhtml");
+        			}else{
+        				context.getExternalContext().redirect("confirmcoachlois.xhtml");
+        			}
+        			
         		} catch (IOException e) {
         			// TODO Auto-generated catch block
         			e.printStackTrace();
@@ -433,7 +475,12 @@ public class coachrosteractionBean implements Serializable {
 	public void Close(){
 		FacesContext context = FacesContext.getCurrentInstance();
 		try{
-			context.getExternalContext().redirect("confirmcoachlois.xhtml");
+			if (page.equals("quick")){
+				context.getExternalContext().redirect("quickcoachloiconfirm.xhtml");
+			}else{
+				context.getExternalContext().redirect("confirmcoachlois.xhtml");
+			}
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

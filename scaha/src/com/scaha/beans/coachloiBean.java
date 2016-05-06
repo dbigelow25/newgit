@@ -99,6 +99,7 @@ public class coachloiBean implements Serializable, MailableObject {
 	private String origin = null;
 	private String currentyear = null;
 	private Team selectedteam = null;
+	private String page = null;
 	
 	//these are used for creating the team select role tables.
 	private TeamDataModel boysteamdatamodel = null;
@@ -130,6 +131,12 @@ public class coachloiBean implements Serializable, MailableObject {
         {
     		selectedcoach = Integer.parseInt(hsr.getParameter("coachid").toString());
         }
+    	if(hsr.getParameter("page") != null)
+        {
+    		page = hsr.getParameter("page").toString();
+        }else{
+        	page = "";
+        }
     	
     	loadCoachProfile(selectedcoach);
 
@@ -158,6 +165,14 @@ public class coachloiBean implements Serializable, MailableObject {
     	
     	//doing anything else right here
     }  
+    
+    public String getPage(){
+		return page;
+	}
+	
+	public void setPage(String cyear){
+		page=cyear;
+	}
     
     public TeamDataModel getBoysteamdatamodel(){
     	return boysteamdatamodel;
@@ -1574,7 +1589,11 @@ public class coachloiBean implements Serializable, MailableObject {
 		FacesContext context = FacesContext.getCurrentInstance();
 		origin = ((HttpServletRequest)context.getExternalContext().getRequest()).getRequestURL().toString();
 		try{
-			context.getExternalContext().redirect("confirmcoachlois.xhtml");
+			if (page.equals("quick")){
+				context.getExternalContext().redirect("quickcoachloiconfirm.xhtml");
+			}else{
+				context.getExternalContext().redirect("confirmcoachlois.xhtml");
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1617,7 +1636,11 @@ public class coachloiBean implements Serializable, MailableObject {
 		FacesContext context = FacesContext.getCurrentInstance();
 		origin = ((HttpServletRequest)context.getExternalContext().getRequest()).getRequestURL().toString();
 		try{
-			context.getExternalContext().redirect("confirmcoachlois.xhtml");
+			if (page.equals("quick")){
+				context.getExternalContext().redirect("quickcoachloiconfirm.xhtml");
+			}else{
+				context.getExternalContext().redirect("confirmcoachlois.xhtml");
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

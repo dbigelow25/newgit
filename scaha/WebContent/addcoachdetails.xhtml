@@ -32,9 +32,17 @@
 		<h:form>
 			<p:fieldset id="fs1" toggleable="false" toggleSpeed="500">
 			<h:panelGrid columns="2" cellpadding="5" cellspacing="0" border="0" width="90%">
-				<h:column><b>2014 Details for <h:outputText value="#{coachrosteractionBean.coachname}"/></b></h:column>
+				<h:column><b>2016 Details for <h:outputText value="#{coachrosteractionBean.coachname}"/></b></h:column>
 			</h:panelGrid>
 			<table cellpadding="5" cellspacing="0" width="90%">
+				<tr>
+					<td width="20%"><b>First Name:</b></td>
+					<td align="left"><p:inputText id="fname" style="width:100px;" value="#{coachrosteractionBean.firstname}" /></td>
+				</tr>
+				<tr>
+					<td width="20%"><b>Last Name:</b></td>
+					<td align="left"><p:inputText id="lname" style="width:100px;" value="#{coachrosteractionBean.lastname}" /></td>
+				</tr>
 				<tr>
 					<td width="20%"><b>Team Role:</b></td>
 					<td align="left" colspan="5">
