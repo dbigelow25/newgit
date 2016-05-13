@@ -1343,8 +1343,7 @@ public void getClubID(){
 			}
 			db.cleanup();
     	} catch (SQLException e) {
-    		// TODO Auto-generated catch block
-    		LOGGER.info("ERROR IN loading club by profile");
+    		// TODO nnfo("ERROR IN loading club by profile");
     		e.printStackTrace();
     		db.rollback();
     	} finally {

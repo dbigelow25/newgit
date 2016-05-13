@@ -125,6 +125,8 @@ public class managerBean implements Serializable, MailableObject {
 	private Boolean addingexhibitiongame = null;
 	private String currentseason = null;
 		
+	//miscellaneous variables
+	private Boolean displaymessage = null;
 	
 	@PostConstruct
     public void init() {
@@ -167,11 +169,21 @@ public class managerBean implements Serializable, MailableObject {
         
         //now lets highlight the areas needing action.
         setAlerts();
+        
 	}
 	
     public managerBean() {  
         
     }  
+    
+    public void setDisplaymessage(Boolean value){
+    	this.displaymessage = value;
+    }
+    
+    public Boolean getDisplaymessage(){
+    	return this.displaymessage;
+    }
+    
     
     public void setDisplaymultiple(Boolean value){
     	this.displaymultiple = value;
@@ -1608,6 +1620,7 @@ public class managerBean implements Serializable, MailableObject {
 		Boolean Tournaments = false;
 		Boolean TournamentGames = false;
 		Boolean ExhibitionGames = false;
+		this.setDisplaymessage(false);
 		
 		try{
 
@@ -1628,7 +1641,7 @@ public class managerBean implements Serializable, MailableObject {
     					this.currentpimcount = rs.getString("pimcount");
     					this.maxpimcount = rs.getString("maxpimcount");
         			}
-    				LOGGER.info("We have results for exhibition list by team:" + this.teamid);
+    				LOGGER.info("We have results for manager team flags list by team:" + this.teamid);
     			}
     			
     			rs.close();
@@ -1653,22 +1666,74 @@ public class managerBean implements Serializable, MailableObject {
 		
 		if (ScahaGames){
 			context.addMessage("scahagamesmessages", new FacesMessage(FacesMessage.SEVERITY_WARN,"Action Needed!", "You have SCAHA Games needing scoresheet entry and/or scoresheet upload"));
+			this.setDisplaymessage(true);
 		}
 		
 		if (Tournaments){
 			context.addMessage("scahagamesmessages", new FacesMessage(FacesMessage.SEVERITY_WARN,"Action Needed!", "A holiday weekend is less than two weeks away, have you submitted your tournmanet notification?"));
+			this.setDisplaymessage(true);
 		}
 		
 		if (TournamentGames){
 			context.addMessage("scahagamesmessages", new FacesMessage(FacesMessage.SEVERITY_WARN,"Action Needed!", "You have Tournament Games needing the scoresheet uploaded."));
+			this.setDisplaymessage(true);
 		}
 		
 		if (ExhibitionGames){
 			context.addMessage("scahagamesmessages", new FacesMessage(FacesMessage.SEVERITY_WARN,"Action Needed!", "You have Exhibition Games needing the scoresheet uploaded."));
+			this.setDisplaymessage(true);
 		}
 		
+		//now lets get dynamic messages from database 
+		try{
 
+			
+			
+			LOGGER.info("get dynamic messages");
+			CallableStatement cs = db.prepareCall("CALL scaha.getmessages()");
+			rs = cs.executeQuery();
+		    
+		    if (rs != null){
+				
+				while (rs.next()) {
+					String severity = rs.getString("severity");
+					String message = rs.getString("message");
+					this.setDisplaymessage(true);
+					context.addMessage("scahagamesmessages", new FacesMessage(getSeverity(severity),"", message));
+    			}
+				LOGGER.info("We have results for messages");
+			}
+			
+			rs.close();
+		    db.commit();
+			db.cleanup();
+				
+		    
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		LOGGER.info("ERROR IN Deleting the Tournament");
+		e.printStackTrace();
+		db.rollback();
+	} finally {
+		//
+		// always clean up after yourself..
+		//
+		db.free();
+	}
+	}
+	
+	private FacesMessage.Severity getSeverity(String messageseverity){
 		
+		FacesMessage.Severity fmessage = null;
+		if (messageseverity.equals("Info")){
+			fmessage = FacesMessage.SEVERITY_INFO;
+		} else if (messageseverity.equals("Warn")){
+			fmessage = FacesMessage.SEVERITY_WARN;
+		} else {
+			fmessage = FacesMessage.SEVERITY_ERROR;
+		}
+		
+		return fmessage;
 	}
 	
 	private void setTodaysDate(){

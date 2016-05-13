@@ -7,28 +7,33 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpServletRequest;
 
+import com.gbli.common.SendMailSSL;
+import com.gbli.common.Utils;
 import com.gbli.connectors.ScahaDatabase;
 import com.gbli.context.ContextManager;
 import com.scaha.objects.Club;
-import com.scaha.objects.Coach;
+import com.scaha.objects.MailableObject;
 import com.scaha.objects.Player;
 import com.scaha.objects.PlayerDataModel;
 
 //import com.gbli.common.SendMailSSL;
 
 
-public class reviewloiBean implements Serializable {
+public class reviewloiBean implements Serializable, MailableObject {
 
 	// Class Level Variables
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = Logger.getLogger(ContextManager.getLoggerContext());
+	private static String mail_reg_body = Utils.getMailTemplateFromFile("/mail/voidloi.html");
 	transient private ResultSet rs = null;
 	private List<Player> players = null;
     private PlayerDataModel PlayerDataModel = null;
@@ -41,6 +46,12 @@ public class reviewloiBean implements Serializable {
 	private String notes = null;
 	private Integer rosteridforconfirm = null;
 	private String page = null;
+	private String to = null;
+	private String subject = null;
+	private String cc = null;
+	private Integer clubid = null;
+	private String clubname = null;
+	
 	
  	@PostConstruct
     public void init() {
@@ -58,12 +69,73 @@ public class reviewloiBean implements Serializable {
         	page = "";
         }
         playersDisplay();
+        
     }
 	
     public reviewloiBean() {  
          
     }  
     
+    public Integer getClubid(){
+    	return clubid;
+    }
+    
+    public void setClubid(Integer sclub){
+    	clubid = sclub;
+    }
+    
+    public String getClubname() {
+		// TODO Auto-generated method stub
+		return clubname;
+	}
+    
+    public void setClubname(String ssubject){
+    	clubname = ssubject;
+    }
+    
+    
+    public String getSubject() {
+		// TODO Auto-generated method stub
+		return subject;
+	}
+    
+    public void setSubject(String ssubject){
+    	subject = ssubject;
+    }
+    
+    public String getPreApprovedCC() {
+		// TODO Auto-generated method stub
+		return cc;
+	}
+	
+	public void setPreApprovedCC(String scc){
+		cc = scc;
+	}
+	
+	
+	
+	public String getToMailAddress() {
+		// TODO Auto-generated method stub
+		return to;
+	}
+    
+    public void setToMailAddress(String sto){
+    	to = sto;
+    }
+	
+    @Override
+	public InternetAddress[] getToMailIAddress() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public InternetAddress[] getPreApprovedICC() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
     public Integer getRosteridforconfirm(){
     	return rosteridforconfirm;
     }
@@ -381,7 +453,9 @@ public class reviewloiBean implements Serializable {
 		
 		String sidplayer = selectedPlayer.getIdplayer();
 		String playname = selectedPlayer.getFirstname() + ' ' + selectedPlayer.getLastname();
+		this.setSelectedplayer(selectedPlayer);
 		
+		getClubID(sidplayer);
 		//need to set to void
 		ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
 		
@@ -401,6 +475,45 @@ public class reviewloiBean implements Serializable {
     		    //logging 
     			LOGGER.info("We are voiding the loi for player id:" + sidplayer);
     		    
+    			//need to send an email acknowledging the loi is voided.
+    			to = "";
+    			LOGGER.info("Sending void loi email to club registrar, and family");
+    			cs = db.prepareCall("CALL scaha.getClubRegistrarEmail(?)");
+    		    cs.setInt("iclubid", this.clubid);
+    		    rs = cs.executeQuery();
+    		    if (rs != null){
+    				while (rs.next()) {
+    					if (!to.equals("")){
+    						to = to + "," + rs.getString("usercode");
+    					}else {
+    						to = rs.getString("usercode");
+    					}
+    				}
+    			}
+				rs.close();
+    		    
+    			cs = db.prepareCall("CALL scaha.getFamilyEmail(?)");
+    		    cs.setInt("iplayerid", Integer.parseInt(sidplayer));
+    		    rs = cs.executeQuery();
+    		    if (rs != null){
+    				while (rs.next()) {
+    					to = to + ',' + rs.getString("usercode");
+    				}
+    			}
+    		    rs.close();
+				
+    		    
+    		    //hard my email address for testing purposes
+    		    //to = "lahockeyfan2@yahoo.com";
+    		    this.setToMailAddress(to);
+    		    this.setPreApprovedCC("");
+    		    this.setSubject(this.selectedplayer.getFirstname() + " " + this.selectedplayer.getLastname() + " LOI Void with " + this.getClubname());
+    		    
+				SendMailSSL mail = new SendMailSSL(this);
+				LOGGER.info("Finished creating mail object for " + this.selectedplayer.getFirstname() + " " + this.selectedplayer.getLastname() + " LOI Void with " + this.getClubname());
+				mail.sendMail();
+				
+    			
     			FacesContext context = FacesContext.getCurrentInstance();  
                 context.addMessage(null, new FacesMessage("Successful", "You have voided the loi for:" + playname));
 			} else {
@@ -536,6 +649,51 @@ public class reviewloiBean implements Serializable {
 			}
 			
 		}
+
+	public String getTextBody() {
+		// TODO Auto-generated method stub
+		List<String> myTokens = new ArrayList<String>();
+		myTokens.add("FIRSTNAME:" + this.selectedplayer.getFirstname());
+		myTokens.add("LASTNAME:" + this.selectedplayer.getLastname());
+		myTokens.add("CLUBNAME:" + this.getClubname());
+		
+		return Utils.mergeTokens(reviewloiBean.mail_reg_body,myTokens);
+		
+	}
 	
+	public void getClubID(String splayerid){
+		
+		//first lets get club id for the logged in profile
+		ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
+		
+		try{
+			Vector<Integer> v = new Vector<Integer>();
+			v.add(Integer.parseInt(splayerid));
+			db.getData("CALL scaha.getClubforPersonId(?)", v);
+		    
+			if (db.getResultSet() != null){
+				//need to add to an array
+				rs = db.getResultSet();
+				
+				while (rs.next()) {
+					this.clubid = rs.getInt("idclub");
+					this.setClubname(rs.getString("clubname"));
+					}
+				rs.close();
+				LOGGER.info("We have results for club for a profile");
+			}
+			db.cleanup();
+    	} catch (SQLException e) {
+    		// TODO nnfo("ERROR IN loading club by profile");
+    		e.printStackTrace();
+    		db.rollback();
+    	} finally {
+    		//
+    		// always clean up after yourself..
+    		//
+    		db.free();
+    	}
+
+    }
 }
 

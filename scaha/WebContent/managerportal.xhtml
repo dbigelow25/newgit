@@ -83,8 +83,11 @@
 			<td>
 				<ui:fragment id="edit-transfers" >
 					<h:form id="scahagameform">
+						<p:panel id ="messagepanel" header="Alerts/Messages" rendered="#{managerBean.displaymessage}">
+							<p:messages id="scahagamesmessages" escape="true" showDetail="true" autoUpdate="true" closable="false" />
+						</p:panel>
 						<p:panel id ="panel" header="SCAHA GAMES">
-						<p:messages id="scahagamesmessages" escape="true" showDetail="true" autoUpdate="true" closable="false" />
+						
 						<p:dataTable id="scahagames" var="TempGame" value="#{managerBean.getTempGamedatamodel()}" selection="#{managerBean.selectedgame}" selectionMode="single" paginator="true" rows="10" autoupdate="false">
 				            <f:facet name="header">  
 					        	#{profileBean.getCurrentSCAHAHockeySeason().toUpperCase()} SCAHA GAMES

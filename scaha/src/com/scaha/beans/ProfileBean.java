@@ -183,8 +183,11 @@ public class ProfileBean implements Serializable,  MailableObject  {
 	    			db.free();
 	    		}
 	    		
-	    				
-    			if (origin != null) {
+	    		if (pro.getScahamanager().getIsmanager()){
+	    			FacesContext context = FacesContext.getCurrentInstance();
+	    			//this.origin = ((HttpServletRequest)context.getExternalContext().getRequest()).getRequestURL().toString();
+					context.getExternalContext().redirect("managerportal.xhtml");
+	    		} else if(origin != null) {
         			FacesContext.getCurrentInstance().getExternalContext().redirect(origin);
     			}
     			

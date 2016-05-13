@@ -70,7 +70,7 @@
 			</td>
 			<td valign="top">
 <p:spacer width="10" height="21" /><div>
-	<p:panel header="Quick Actions"  rendered="#{profileBean.hasRoleList('S-STATS;S-REG;C-REG;C-ICE;C-PRES')}">
+	<p:panel header="Quick Actions"  rendered="#{not empty profileBean.getProfile()}">
 		<h:form>
 			<!-- this group of buttons is for statistician -->
 			<p:commandButton  onclick="window.location.href='reviewscahagames.xhtml'; return false;" value="SCAHA Games" id="scahagames" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-STATS;S-VICE;S-REG')}"/>
