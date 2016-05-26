@@ -30,6 +30,7 @@
 		<p:spacer width="10" height="10" />
 		<ui:fragment id="edit-tournamentdetails" >
 		<h:form>
+		
 			<p:fieldset id="fs1" toggleable="false" toggleSpeed="500">
 			<table cellpadding="5" cellspacing="0" width="90%">
 				<tr>
@@ -65,26 +66,61 @@
 					<td align="left"><p:inputText id="email" style="width:200px;" value="#{modifytournamentBean.email}" /></td>
 				</tr>
 			</table>	
-			<div align="center"><p:commandButton id="starttournament" value="Add Tournament" actionListener="#{modifytournamentBean.addTournament()}" ajax="true"/></div>
+			
 			</p:fieldset>
-		</h:form>
-		</ui:fragment>
-		<ui:fragment id="edit-tournamentvenues" >
-		<h:form>
 			<p:fieldset id="fs2" toggleable="false" toggleSpeed="500">
 			<table cellpadding="5" cellspacing="0" width="90%">
 				<tr>
 					<td width="20%"><b>Venues:</b></td>
 					<td align="left">
-						<p:selectCheckboxMenu id="menu" value="#{modifytournamentBean.selectedVenues}" 
-                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-				            <f:selectItems value="#{modifytournamentBean.venues}" />
+						<p:selectCheckboxMenu id="menu" value="#{modifytournamentBean.selectedvenues}" 
+                              filter="true" filterMatchMode="contains" label="Select Venue(s)" panelStyle="width:250px;height:250px;">
+				            <f:selectItems value="#{modifytournamentBean.venues}" var="venue" itemLabel="#{venue.getLinklabel()}" itemValue="#{venue.getLinkid()}"/>
 				        </p:selectCheckboxMenu>
 					</td>
 				</tr>
 			</table>	
-			<div align="center"><p:commandButton id="tournamentvenues" value="Add Venues" actionListener="#{modifytournamentBean.addVenues()}" ajax="true"/></div>
 			</p:fieldset>
+			<p:fieldset id="fs3" toggleable="false" toggleSpeed="500">
+			<table cellpadding="5" cellspacing="0" width="90%">
+				<tr>
+					<td width="20%"><b>Levels:</b></td>
+					<td align="left">
+						<p:selectCheckboxMenu id="selectedlevels" value="#{modifytournamentBean.selectedlevels}" 
+                              filter="true" filterMatchMode="contains" label="Select Levels" panelStyle="width:250px;height:250px;">
+				            <f:selectItem itemLabel="High School Varsity AAA" itemValue="hsaaa"/>
+				            <f:selectItem itemLabel="High School Varsity AA" itemValue="hsaa"/>
+				            <f:selectItem itemLabel="High School Varsity A" itemValue="hsa"/>
+				            <f:selectItem itemLabel="High School Junior Varsity AAA" itemValue="hsjvaaa"/>
+				            <f:selectItem itemLabel="High School Junior Varsity AA" itemValue="hsjvaa"/>
+				            <f:selectItem itemLabel="High School Junior Varsity A" itemValue="hsjva"/>
+				            <f:selectItem itemLabel="Midget 18U AAA" itemValue="18uaaa"/>
+				            <f:selectItem itemLabel="Midget 18U AA" itemValue="18uaa"/>
+				            <f:selectItem itemLabel="Midget 18U A" itemValue="18ua"/>
+				            <f:selectItem itemLabel="Midget 16U AAA" itemValue="16uaaa"/>
+				            <f:selectItem itemLabel="Midget 16U AA" itemValue="16uaa"/>
+				            <f:selectItem itemLabel="Midget 16U A" itemValue="16ua"/>
+				            <f:selectItem itemLabel="Bantam 14U AAA" itemValue="14uaaa"/>
+				            <f:selectItem itemLabel="Bantam 14U AA" itemValue="14uaa"/>
+				            <f:selectItem itemLabel="Bantam 14U A" itemValue="14ua"/>
+				            <f:selectItem itemLabel="Bantam 14U B" itemValue="14ub"/>
+				            <f:selectItem itemLabel="Peewee 12U AAA" itemValue="12uaaa"/>
+				            <f:selectItem itemLabel="Peewee 12U AA" itemValue="12uaa"/>
+				            <f:selectItem itemLabel="Peewee 12U A" itemValue="12ua"/>
+				            <f:selectItem itemLabel="Peewee 12U BB" itemValue="12ubb"/>
+				            <f:selectItem itemLabel="Peewee 12U B" itemValue="12ub"/>
+				            <f:selectItem itemLabel="Squirt 10U A" itemValue="10ua"/>
+				            <f:selectItem itemLabel="Squirt 10U BB" itemValue="10ubb"/>
+				            <f:selectItem itemLabel="Squirt 10U B" itemValue="10ub"/>
+				            <f:selectItem itemLabel="Mite Track 1" itemValue="8utr1"/>
+				            <f:selectItem itemLabel="Mite Track 2" itemValue="8utr2"/>
+				        </p:selectCheckboxMenu>
+					</td>
+				</tr>
+			</table>	
+			<div align="center"><p:commandButton id="starttournament" value="Add Tournament" actionListener="#{modifytournamentBean.addTournament()}" ajax="true" update="@form"/></div>
+			</p:fieldset>
+		
 		</h:form>
 		</ui:fragment>
 		<p:fieldset id="fs2" toggleable="false" toggleSpeed="500">

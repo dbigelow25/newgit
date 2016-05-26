@@ -92,6 +92,7 @@
 			<p:commandButton  onclick="window.location.href='reviewtournamentgamesresults.xhtml'; return false;" value="Review Tourney Games" id="tourneygames" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-STATS;S-VICE;S-REG')}"/>
 			<p:commandButton  onclick="window.location.href='reviewexhibitiongamesresults.xhtml'; return false;" value="Review Exhibition Games" id="exhibitiongames" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-STATS;S-VICE;S-REG')}"/>
 			<p:separator value="Other Pages" rendered="#{profileBean.hasRoleList('S-STATS')}"/>
+			<p:commandButton  onclick="window.location.href='addtournament.xhtml'; return false;" value="Add Tournaments" id="addtourneys" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-STATS')}"/>
 			<p:commandButton  onclick="window.location.href='awardpatcheslist.xhtml'; return false;" value="Award Patches" id="patches" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-STATS')}"/>
 			<p:commandButton  onclick="window.location.href='updateroster.xhtml'; return false;" value="Jersey #'s" id="jerseys" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-STATS')}"/>
 			<p:commandButton  onclick="window.location.href='playoffscentraleditor.xhtml'; return false;" value="Playoffs" id="playoffs" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-STATS')}"/>

@@ -52,6 +52,7 @@ public class modifytournamentBean implements Serializable{
     
     //properties for storing the selected row of each of the datatables
 	private String[] selectedvenues = null;
+	private String[] selectedlevels = null;
 	
 	
 		
@@ -60,7 +61,7 @@ public class modifytournamentBean implements Serializable{
     public void init() {
 		
 		//not sure what is needed yet.
-        
+		loadVenues();
     }
 	
     public modifytournamentBean() {  
@@ -71,8 +72,16 @@ public class modifytournamentBean implements Serializable{
         return selectedvenues;
     }
  
-    public void setSelectedVenues(String[] selectedVenues) {
+    public void setSelectedvenues(String[] selectedVenues) {
         this.selectedvenues = selectedVenues;
+    }
+    
+    public String[] getSelectedlevels() {
+        return selectedlevels;
+    }
+ 
+    public void setSelectedlevels(String[] selectedVenues) {
+        this.selectedlevels = selectedVenues;
     }
     
     public List<Link> getVenues(){
@@ -187,12 +196,180 @@ public class modifytournamentBean implements Serializable{
     		    cs.setString("director", this.director);
     		    cs.setString("phone", this.phone);
     		    cs.setString("email", this.email);
-    		    cs.executeQuery();
-    		    
-    		    //ok now we need to add venues
-    		    
-    		    //and now we finish up with 
-    		    
+    		    rs = cs.executeQuery();
+    			
+    		    Integer tourneyid = null;
+    			if (rs != null){
+    				
+    				while (rs.next()) {
+    			
+    					tourneyid = rs.getInt(1);
+    					CallableStatement cs2 = db.prepareCall("CALL scaha.addtournamentvenue(?,?)");
+    					
+		    		    //ok now we need to add venues
+		    		    for (int i = 0; i < this.selectedvenues.length; i++) {
+		    		    	cs2.setInt("tourneyid", tourneyid);
+		        		    cs2.setInt("venueid", Integer.parseInt(this.selectedvenues[i]));
+		        		    cs2.executeQuery();
+		        		}
+		    		    cs2.close();
+		    		    
+		    		    
+		    		    
+		    		    //and now we finish up with the levels and age groups
+		    		    cs2 = db.prepareCall("CALL scaha.addtournamentlevel(?,?,?,?)");
+		    		    String tempagegroup = "";
+		    		    String tempskillgroup = "";
+		    		    Integer flag=0;
+		    		    for (int i = 0; i < this.selectedlevels.length; i++) {
+		    		    	if (this.selectedlevels[i].equals("hsaaa")){
+		    		    		tempagegroup = "High School Varsity";
+		    		    		tempskillgroup = "AAA";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("hsaa")){
+		    		    		tempagegroup = "High School Varsity";
+		    		    		tempskillgroup = "AA";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("hsa")){
+		    		    		tempagegroup = "High School Varsity";
+		    		    		tempskillgroup = "A";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("hsjvaaa")){
+		    		    		tempagegroup = "High School Junior Varsity";
+		    		    		tempskillgroup = "AAA";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("hsjvaa")){
+		    		    		tempagegroup = "High School Junior Varsity";
+		    		    		tempskillgroup = "AA";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("hsjva")){
+		    		    		tempagegroup = "High School Junior Varsity";
+		    		    		tempskillgroup = "A";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("18uaaa")){
+		    		    		tempagegroup = "Midget 18U";
+		    		    		tempskillgroup = "AAA";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("18uaa")){
+		    		    		tempagegroup = "Midget 18U";
+		    		    		tempskillgroup = "AA";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("18ua")){
+		    		    		tempagegroup = "Midget 18U";
+		    		    		tempskillgroup = "A";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("16uaaa")){
+		    		    		tempagegroup = "Midget 18U";
+		    		    		tempskillgroup = "AAA";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("16uaa")){
+		    		    		tempagegroup = "Midget 16U";
+		    		    		tempskillgroup = "AA";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("16ua")){
+		    		    		tempagegroup = "Midget 16U";
+		    		    		tempskillgroup = "A";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("14uaaa")){
+		    		    		tempagegroup = "Bantam";
+		    		    		tempskillgroup = "AAA";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("14uaa")){
+		    		    		tempagegroup = "Bantam";
+		    		    		tempskillgroup = "AA";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("14ua")){
+		    		    		tempagegroup = "Bantam";
+		    		    		tempskillgroup = "A";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("14ub")){
+		    		    		tempagegroup = "Bantam";
+		    		    		tempskillgroup = "B";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("12uaaa")){
+		    		    		tempagegroup = "Peewee";
+		    		    		tempskillgroup = "AAA";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("12uaa")){
+		    		    		tempagegroup = "Peewee";
+		    		    		tempskillgroup = "AA";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("12ua")){
+		    		    		tempagegroup = "Peewee";
+		    		    		tempskillgroup = "A";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("12ubb")){
+		    		    		tempagegroup = "Peewee";
+		    		    		tempskillgroup = "BB";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("12ub")){
+		    		    		tempagegroup = "Peewee";
+		    		    		tempskillgroup = "B";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("10ua")){
+		    		    		tempagegroup = "Squirt";
+		    		    		tempskillgroup = "A";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("10ubb")){
+		    		    		tempagegroup = "Squirt";
+		    		    		tempskillgroup = "BB";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("10ub")){
+		    		    		tempagegroup = "Squirt";
+		    		    		tempskillgroup = "B";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("8utr1")){
+		    		    		tempagegroup = "Mite";
+		    		    		tempskillgroup = "Track1";
+		    		    		flag=1;
+		    		    	}
+		    		    	if (this.selectedlevels[i].equals("8utr2")){
+		    		    		tempagegroup = "Mite";
+		    		    		tempskillgroup = "Track2";
+		    		    		flag=1;
+		    		    	}
+		    		    	
+		    		    	
+		    		    	
+		    		    	cs2.setInt("tourneyid", tourneyid);
+		    		    	cs2.setString("AgeGroup", tempagegroup);
+		    		    	cs2.setString("Skill", tempskillgroup);
+		        		    cs2.setInt("flag", flag);
+		        		    cs2.executeQuery();
+		        		    
+		        		    //need to clear the variables.
+		        		    tempagegroup="";
+		        		    tempskillgroup="";
+		        		    flag=0;
+		        		}
+		    		    
+    				}
+    			}
+		    				
     		    db.commit();
     			
     		    FacesContext context = FacesContext.getCurrentInstance();  
@@ -218,6 +395,17 @@ public class modifytournamentBean implements Serializable{
 			db.free();
 		}
 		
+		//need to clear the fields now.
+		this.director="";
+		this.email="";
+		this.enddate="";
+		this.phone="";
+		this.sanction="";
+		this.selectedlevels=null;
+		this.selectedvenues=null;
+		this.startdate="";
+		this.tournamentname="";
+		this.website="";
 		
 	}
 
@@ -233,13 +421,13 @@ public class modifytournamentBean implements Serializable{
     			//Vector<Integer> v = new Vector<Integer>();
     			//v.add(1);
     			//db.getData("CALL scaha.getTeamsByClub(?)", v);
-    		    CallableStatement cs = db.prepareCall("CALL scaha.getVenues()");
+    		    CallableStatement cs = db.prepareCall("CALL scaha.getVenueList()");
     		    rs = cs.executeQuery();
     			
     			if (rs != null){
     				
     				while (rs.next()) {
-    					Integer idvenue = rs.getInt("idvenues");
+    					Integer idvenue = rs.getInt("idvenue");
         				String description = rs.getString("description");
         				
         				Link link = new Link();
