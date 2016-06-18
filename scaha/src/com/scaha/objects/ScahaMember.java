@@ -120,6 +120,12 @@ public class ScahaMember extends ScahaObject implements Serializable {
 
 			
 			this.setSCAHANumber(Utils.getRandom5CharStringUpper());
+			this.setSCAHANumber(this.SCAHANumber.replaceAll("0", "Y"));
+			this.setSCAHANumber(this.SCAHANumber.replaceAll("O", "Y"));
+			this.setSCAHANumber(this.SCAHANumber.replaceAll("1", "Z"));
+			this.setSCAHANumber(this.SCAHANumber.replaceAll("I", "X"));
+			this.setSCAHANumber(this.SCAHAYear.concat(SCAHANumber));
+			
 			Vector<String> v = new Vector<String>();
 			v.add(this.getSCAHAYear());
 			v.add(this.getSCAHANumber());
