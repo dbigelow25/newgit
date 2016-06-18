@@ -114,6 +114,11 @@ public class ScahaMember extends ScahaObject implements Serializable {
 		
 		while (ians > 0 ) {
 		
+			//need to put in logic to remove 0,O,l,and 1 to prevent any confusion when using the code on loi
+			//need to include season number to beginning of code something like 7_WVOZC
+			
+
+			
 			this.setSCAHANumber(Utils.getRandom5CharStringUpper());
 			Vector<String> v = new Vector<String>();
 			v.add(this.getSCAHAYear());
@@ -126,7 +131,8 @@ public class ScahaMember extends ScahaObject implements Serializable {
 			_db.getData("call scaha.checkMemberNumberUnique(?,?)", v);
 			_db.getResultSet().next();
 			ians = _db.getResultSet().getInt(1);
-
+			
+			
 		}
 		
 		// We should have a unique number by now..

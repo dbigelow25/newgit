@@ -50,6 +50,7 @@
 			<p:commandButton id="closecmd" value="Close" immediate = "true" ajax="false" actionListener="#{gamesheetBean.gamesheetClose()}" />
 			<p:spacer height="30" />
 			</ui:fragment >
+			<!-- this section is for editing the game meta data -->
 			<ui:fragment id="fedit" rendered="#{gamesheetBean.isEditgame()}">
 			<p:panelGrid style="width=100%;" columns="6">
 		    <p:outputLabel for="elgtype" value="Game Type:" />
@@ -84,12 +85,14 @@
 			<p:commandButton id="cancelcmd" value="Cancel" ajax="true"   update="gameinfo" actionListener="#{gamesheetBean.cancelScheduleInfoChanges()}" />
 		    </p:panelGrid>
 			</ui:fragment>
+			<!-- end game meta data editing section -->
 		</p:panel>
 		</p:layoutUnit>
  		<p:layoutUnit id="left" position="west" size="225" resizable="false" closable="false" collapsible="false" header="#{gamesheetBean.livegame.hometeam.getTeamname()}" >
-			 <p:contextMenu id="homemenu" for="homeroster">  
+			 <!-- need to change this to not pop up a menu but to toggle on initial click -->
+			 <!-- <p:contextMenu id="homemenu" for="homeroster">  
     			 <p:menuitem value="Toggle MIA" update=":form1:homeside" icon="ui-icon-edit" actionListener="#{gamesheetBean.toggleMIA('H')}"/>  
-    		</p:contextMenu>  	
+    		</p:contextMenu>-->  	
     		<p:panel id = "homeside">
 			<p:dataTable 
 				id="homeroster" 
@@ -99,6 +102,7 @@
  				selectionMode="single" 
  				rowStyleClass="#{spot.isMia() ? 'rostermia' : null}"
  				 >
+ 				 <p:ajax event="rowSelect" listener="#{gamesheetBean.toggleMIA('H')}" update=":form1:homeside" />
             	<p:column headerText="#" style="width:25px;">  
 	               <h:outputText value="#{spot.tag ne 'PL' ? spot.tag : spot.jerseynumber}" /> 
 	            </p:column>  
@@ -109,9 +113,10 @@
 			</p:panel>
 		</p:layoutUnit>
 		<p:layoutUnit id="right" position="east" size="225" resizable="false" closable="false" collapsible="false" header="#{gamesheetBean.livegame.awayteam.getTeamname()}" >
-			 <p:contextMenu id="awaymenu" for="awayroster">  
+			 <!-- need to change this to not pop up a menu but to toggle on initial click -->
+			 <!-- <p:contextMenu id="awaymenu" for="awayroster">  
     			 <p:menuitem value="Toggle MIA" update="awayside" icon="ui-icon-edit" actionListener="#{gamesheetBean.toggleMIA('A')}"/>  
-    		</p:contextMenu>  	
+    		</p:contextMenu> -->  	
 			<p:panel id = "awayside">
 			<p:dataTable 
 				id="awayroster" 
@@ -121,6 +126,7 @@
  				selectionMode="single" 
 				rowStyleClass="#{spot.isMia() ? 'rostermia' : null}"
  				 >
+ 				 <p:ajax event="rowSelect" listener="#{gamesheetBean.toggleMIA('A')}" update="awayside" />
             	 	<p:column headerText="#" style="width:25px;">  
 	               <h:outputText value="#{spot.tag ne 'PL' ? spot.tag : spot.jerseynumber}" /> 
 	            </p:column>   

@@ -7,10 +7,24 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <f:view contentType="text/html">
-	<h:form>
+	<h:form  >
+		<p:focus for="login"/>
 		<div
 			style="text-align: right; width: 100%; font-weight: normal; font-size: 9pt; font-family: Verdana;">
 			<p:toolbar >
+				<p:toolbarGroup align="right"
+					rendered="#{empty profileBean.getProfile()}" >
+					
+					<h:inputText style="width:175px;font-size: 10px;"
+						value="#{profileBean.name}" tabindex="1"></h:inputText>
+					<h:outputText value="/"></h:outputText>
+					<h:inputSecret style="width:125px;font-size: 10px;"
+						value="#{profileBean.password}" tabindex="2"></h:inputSecret>
+					<p:separator />
+					<p:commandButton id="login" value="login"
+						actionListener="#{profileBean.login}" ajax="false" tabindex="3" />
+					<br />
+				</p:toolbarGroup>
 				<p:toolbarGroup align="left">
 					<p:button id="gohome" style="width:30px;" icon="ui-icon-home"
 						href="/" />
@@ -62,8 +76,8 @@
 							url="playoffscentral.xhtml" />
 						<p:menuitem style="font-size: 10pt;" value="Rosters"
 							url="roster.xhtml" />
-						<p:menuitem style="font-size: 10pt;"
-							value="Scholar Athlete Program" url="scholarathlete.xhtml" />
+						<!-- <p:menuitem style="font-size: 10pt;"
+							value="Scholar Athlete Program" url="scholarathlete.xhtml" /> -->
 						<p:menuitem style="font-size: 10pt;" value="Select Camp"
 							url="selectcamp.xhtml" />
 						<p:menuitem style="font-size: 10pt;" value="Standings"
@@ -98,11 +112,11 @@
 							url="manageUSAHockey.xhtml"
 							rendered="#{not empty profileBean.getProfile()}"
 							 /> 
-						  <p:menuitem style="font-size: 10pt;width:225px;"
+						  <!-- <p:menuitem style="font-size: 10pt;width:225px;"
 							value="Scholar Athlete" icon="ui-icon-extlink"
 							url="scholarathleteapplication.xhtml"
 							rendered="#{not empty profileBean.getProfile()}"
-							 />
+							 /> -->
 						<p:separator />
 						<p:menuitem style="font-size: 10pt;width:225px;"
 							value="Admin Portal" 
@@ -299,18 +313,7 @@
 							ajax="false" />
 					</p:menuButton>
 				</p:toolbarGroup>
-				<p:toolbarGroup align="right"
-					rendered="#{empty profileBean.getProfile()}">
-					<h:inputText style="width:175px;font-size: 10px;"
-						value="#{profileBean.name}" tabindex="1"></h:inputText>
-					<h:outputText value="/"></h:outputText>
-					<h:inputSecret style="width:100px;font-size: 10px;"
-						value="#{profileBean.password}" tabindex="2"></h:inputSecret>
-					<p:separator />
-					<p:commandButton value="login"
-						actionListener="#{profileBean.login}" ajax="false" tabindex="3" />
-					<br />
-				</p:toolbarGroup>
+				
 			</p:toolbar>
 			<!-- #{gamecentralBean.setSelectedseason('SCAHA-1516')}
 			#{gamecentralBean.loadScrollingGamesfordate()} -->
