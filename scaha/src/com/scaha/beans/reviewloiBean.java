@@ -51,7 +51,7 @@ public class reviewloiBean implements Serializable, MailableObject {
 	private String cc = null;
 	private Integer clubid = null;
 	private String clubname = null;
-	
+	private String search = null;
 	
  	@PostConstruct
     public void init() {
@@ -68,6 +68,12 @@ public class reviewloiBean implements Serializable, MailableObject {
         }else{
         	page = "";
         }
+        if(hsr.getParameter("search") != null)
+        {
+    		search = hsr.getParameter("search").toString();
+        }else{
+        	search = "";
+        }
         playersDisplay();
         
     }
@@ -75,6 +81,14 @@ public class reviewloiBean implements Serializable, MailableObject {
     public reviewloiBean() {  
          
     }  
+    
+    public String getSearch(){
+    	return search;
+    }
+    
+    public void setSearch(String value){
+    	search = value;
+    }
     
     public Integer getClubid(){
     	return clubid;
@@ -591,7 +605,27 @@ public class reviewloiBean implements Serializable, MailableObject {
 	public void CloseLoi(String spage){
 		FacesContext context = FacesContext.getCurrentInstance();
 		try{
-			if (spage.equals("quick")){
+			if (spage.equals("bcloi")){
+				context.getExternalContext().redirect("workwithbirthcertificate.xhtml?search=" + this.search);
+			}
+			else if (spage.equals("quick")){
+				context.getExternalContext().redirect("quickplayerloiconfirm.xhtml");
+			}else{
+				context.getExternalContext().redirect("confirmlois.xhtml");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void CloseLoi(String spage, String ssearch){
+		FacesContext context = FacesContext.getCurrentInstance();
+		try{
+			if (spage.equals("bcloi")){
+				context.getExternalContext().redirect("workwithbirthcertificate.xhtml?search=" + ssearch);
+			}
+			else if (spage.equals("quick")){
 				context.getExternalContext().redirect("quickplayerloiconfirm.xhtml");
 			}else{
 				context.getExternalContext().redirect("confirmlois.xhtml");
@@ -650,6 +684,56 @@ public class reviewloiBean implements Serializable, MailableObject {
 			
 		}
 
+	public void confirmLoifromview(Integer sidplayer,String spage, String ssearch){
+		
+		ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
+		
+		try{
+
+			if (db.setAutoCommit(false)) {
+			
+				//Need to provide info to the stored procedure to save or update
+ 				LOGGER.info("confirming player :" + sidplayer);
+ 				CallableStatement cs = db.prepareCall("CALL scaha.confirmCoachLoi(?)");
+    		    cs.setInt("icoachid", sidplayer);
+    		    cs.executeQuery();
+    		    LOGGER.info("We have confirmed loi for player id:" + sidplayer.toString());
+    			
+    			db.commit();
+    			db.cleanup();
+ 			} else {
+		
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			LOGGER.info("ERROR IN Confirming player id " + sidplayer.toString());
+			e.printStackTrace();
+			db.rollback();
+		} finally {
+			//
+			// always clean up after yourself..
+			//
+			db.free();
+		}
+	
+		FacesContext context = FacesContext.getCurrentInstance();
+		try{
+			if (spage.equals("bcloi")){
+				context.getExternalContext().redirect("workwithbirthcertificate.xhtml?search=" + ssearch);
+			}
+			else if (spage.equals("quick")){
+				context.getExternalContext().redirect("quickplayerloiconfirm.xhtml");
+			}else{
+				context.getExternalContext().redirect("confirmlois.xhtml");
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	public String getTextBody() {
 		// TODO Auto-generated method stub
 		List<String> myTokens = new ArrayList<String>();

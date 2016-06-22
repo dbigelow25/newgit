@@ -116,7 +116,7 @@
 			 <!-- need to change this to not pop up a menu but to toggle on initial click -->
 			 <!-- <p:contextMenu id="awaymenu" for="awayroster">  
     			 <p:menuitem value="Toggle MIA" update="awayside" icon="ui-icon-edit" actionListener="#{gamesheetBean.toggleMIA('A')}"/>  
-    		</p:contextMenu> -->  	
+    		</p:contextMenu>   -->	
 			<p:panel id = "awayside">
 			<p:dataTable 
 				id="awayroster" 
@@ -124,12 +124,12 @@
 				value="#{gamesheetBean.awayteam}" 
 				selection="#{gamesheetBean.selectedawayrosterspot}"
  				selectionMode="single" 
-				rowStyleClass="#{spot.isMia() ? 'rostermia' : null}"
+ 				rowStyleClass="#{spot.isMia() ? 'rostermia' : null}"
  				 >
- 				 <p:ajax event="rowSelect" listener="#{gamesheetBean.toggleMIA('A')}" update="awayside" />
-            	 	<p:column headerText="#" style="width:25px;">  
+ 				 <p:ajax event="rowSelect" listener="#{gamesheetBean.toggleMIA('A')}" update=":form1:awayside" />
+            	<p:column headerText="#" style="width:25px;">  
 	               <h:outputText value="#{spot.tag ne 'PL' ? spot.tag : spot.jerseynumber}" /> 
-	            </p:column>   
+	            </p:column>  
 		        <p:column headerText="Name">  
 		        	<h:outputText value="#{spot.lname}, #{spot.fname}" />  
 		        </p:column>

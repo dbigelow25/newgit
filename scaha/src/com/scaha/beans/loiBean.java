@@ -88,6 +88,7 @@ public class loiBean implements Serializable, MailableObject {
 	private String currentyear = null;
 	private String prioryear = null;
 	private String page = null;
+	private String search = null;
 	
 	@PostConstruct
     public void init() {
@@ -116,6 +117,12 @@ public class loiBean implements Serializable, MailableObject {
     		page = hsr.getParameter("page").toString();
         }else{
         	page = "";
+        }
+    	if(hsr.getParameter("search") != null)
+        {
+    		search = hsr.getParameter("search").toString();
+        }else{
+        	search = "";
         }
     	
     	
@@ -173,6 +180,15 @@ public class loiBean implements Serializable, MailableObject {
 		page=cyear;
 	}
     
+	public String getSearch(){
+		return search;
+	}
+	
+	public void setSearch(String cyear){
+		search=cyear;
+	}
+    
+	
     public String getCurrentyear(){
     		return currentyear;
     }
@@ -1490,7 +1506,10 @@ public void getClubID(){
 		FacesContext context = FacesContext.getCurrentInstance();
 		origin = ((HttpServletRequest)context.getExternalContext().getRequest()).getRequestURL().toString();
 		try{
-			if (page.equals("quick")){
+			if (page.equals("bcloi")){
+				context.getExternalContext().redirect("workwithbirthcertificate.xhtml?search=" + this.search);
+			}
+			else if (page.equals("quick")){
 				context.getExternalContext().redirect("quickplayerloiconfirm.xhtml");
 			}else{
 				context.getExternalContext().redirect("confirmlois.xhtml");
@@ -1540,7 +1559,10 @@ public void getClubID(){
 		FacesContext context = FacesContext.getCurrentInstance();
 		origin = ((HttpServletRequest)context.getExternalContext().getRequest()).getRequestURL().toString();
 		try{
-			if (page.equals("quick")){
+			if (page.equals("bcloi")){
+				context.getExternalContext().redirect("workwithbirthcertificate.xhtml?search=" + this.search);
+			}
+			else if (page.equals("quick")){
 				context.getExternalContext().redirect("quickplayerloiconfirm.xhtml");
 			}else{
 				context.getExternalContext().redirect("confirmlois.xhtml");

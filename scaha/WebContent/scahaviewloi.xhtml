@@ -94,7 +94,7 @@
 					</table>
 				 </div>
 			</p:fieldset>
-			<div align="center"><p:commandButton id="printloi" value="Print LOI" onclick="window.print(); return false;"/><p:spacer width="5"/><p:commandButton id="closeloi" value="Close LOI"  actionListener="#{reviewloiBean.CloseLoi(loiBean.getPage())}"/><p:spacer width="5"/><p:commandButton id="sendnote" value="Send Note"  actionListener="#{loiBean.SendNote()}"/><p:spacer width="5"/><p:commandButton id="updatenote" value="Update Note Only"  actionListener="#{loiBean.UpdateNote()}"/><p:spacer width="5"/><p:commandButton id="confirmloi" value="Confirm Loi"  actionListener="#{reviewloiBean.confirmLoifromview(loiBean.getRosteridforconfirm(),loiBean.getPage())}"/></div>
+			<div align="center"><p:commandButton id="printloi" value="Print LOI" onclick="window.print(); return false;"/><p:spacer width="5"/><p:commandButton id="closeloi" value="Close LOI"  actionListener="#{reviewloiBean.CloseLoi(loiBean.getPage(),loiBean.getSearch())}"/><p:spacer width="5"/><p:commandButton id="sendnote" value="Send Note"  actionListener="#{loiBean.SendNote()}"/><p:spacer width="5"/><p:commandButton id="updatenote" value="Update Note Only"  actionListener="#{loiBean.UpdateNote()}"/><p:spacer width="5"/><p:commandButton id="confirmloi" value="Confirm Loi"  actionListener="#{reviewloiBean.confirmLoifromview(loiBean.getRosteridforconfirm(),loiBean.getPage(),loiBean.getSearch())}"/></div>
 		</h:form>
 		</ui:fragment>
 		</div>

@@ -45,6 +45,7 @@ public class rosteractionBean implements Serializable {
 	private String firstname = null;
 	private String lastname = null;
 	private String page = null;
+	private String search = null;
 	
 	@PostConstruct
     public void init() {
@@ -67,14 +68,28 @@ public class rosteractionBean implements Serializable {
         }else{
         	setPage("");
         }
+    	if(hsr.getParameter("search") != null)
+        {
+    		setSearch(hsr.getParameter("search").toString());
+        }else{
+        	setSearch("");
+        }
     	
     	
     	loadPlayerProfile(selectedplayer);
 
     	//doing anything else right here
-    	gotoTransferInformation = "addtransfercitizenship.xhtml?playerid=" + this.selectedplayer + "&page=" + page;
-    	gotoCitizenship = "managecitizenship.xhtml?playerid=" + this.selectedplayer + "&page=" + page;
+    	gotoTransferInformation = "addtransfercitizenship.xhtml?playerid=" + this.selectedplayer + "&page=" + page + "&search=" + search;
+    	gotoCitizenship = "managecitizenship.xhtml?playerid=" + this.selectedplayer + "&page=" + page + "&search=" + search;
     }  
+	
+	public void setSearch(String value){
+		search = value;
+	}
+	
+	public String getSearch(){
+		return search;
+	}
 	
 	
 	public void setPage(String value){
@@ -351,8 +366,10 @@ public class rosteractionBean implements Serializable {
     	rlb.playersDisplay();
 
 		try{
-			
-			if (page.equals("quick")){
+			if (page.equals("bcloi")){
+				context.getExternalContext().redirect("workwithbirthcertificate.xhtml?search=" + this.search);
+			}
+			else if (page.equals("quick")){
 				context.getExternalContext().redirect("quickplayerloiconfirm.xhtml");
 			}else{
 				context.getExternalContext().redirect("confirmlois.xhtml");
