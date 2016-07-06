@@ -1,6 +1,8 @@
 package com.scaha.objects;
 
 import java.io.Serializable;
+import java.sql.CallableStatement;
+import java.sql.SQLException;
 import java.util.logging.Logger;
 
 import com.gbli.connectors.ScahaDatabase;
@@ -106,6 +108,8 @@ public class LiveGameRosterSpot extends ScahaObject implements Serializable {
 	public void setJerseynumber(String jerseynumber) {
 		this.jerseynumber = jerseynumber;
 	}
+	
+	
 
 	/**
 	 * @return the fname

@@ -19,6 +19,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.mail.internet.InternetAddress;
+
 import com.gbli.common.SendMailSSL;
 import com.gbli.common.Utils;
 import com.gbli.connectors.ScahaDatabase;
@@ -48,6 +49,9 @@ public class GamesheetBean implements Serializable,  MailableObject {
 	
 	@ManagedProperty(value="#{profileBean}")
 	private ProfileBean pb;
+	
+	@ManagedProperty(value="#{rosterBean}")
+	private rosterBean rb;
 	
 	private LiveGame livegame = null;
 	private LiveGameRosterSpot selectedhomerosterspot;	
@@ -337,6 +341,20 @@ public class GamesheetBean implements Serializable,  MailableObject {
 		this.pb = pb;
 	}
 
+	/**
+	 * @return the pb
+	 */
+	public rosterBean getRb() {
+		return rb;
+	}
+
+	/**
+	 * @param pb the pb to set
+	 */
+	public void setRb(rosterBean rb) {
+		this.rb = rb;
+	}
+	
 	/**
 	 * @return the livegame
 	 */
@@ -2346,5 +2364,23 @@ public SogList refreshHomeSog() {
 		 this.venues.put("San Diego Ice Arena","SDIA");
 		 this.venues.put("Carlsbad  Ice Arena","CARLSBAD");*/
 		 
+    }
+    
+    public void loadRosterForEdit(String homeaway){
+    	if (homeaway.equals("H")){
+    		rb.setSelectedteam(this.livegame.getHometeam().ID);
+        }else {
+        	rb.setSelectedteam(this.livegame.getAwayteam().ID);
+    	}
+    	rb.onTeamChange();
+    }
+    
+    public void reloadTeamRoster(String homeaway){
+    	if (homeaway.equals("H")){
+    		this.setHometeam(this.refreshHomeRoster());
+    	}else {
+    		this.setHometeam(this.refreshAwayRoster());
+    	}
+    	
     }
 }
