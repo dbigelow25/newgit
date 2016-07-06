@@ -2378,8 +2378,14 @@ public SogList refreshHomeSog() {
     public void reloadTeamRoster(String homeaway){
     	if (homeaway.equals("H")){
     		this.setHometeam(this.refreshHomeRoster());
+    		this.setHomepenalties(this.refreshHomePenalty());
+    		this.setHomescoring(this.refreshHomeScoring());
+    		this.setHomesogs(this.refreshHomeSog());
     	}else {
-    		this.setHometeam(this.refreshAwayRoster());
+    		this.setAwayteam(this.refreshAwayRoster());
+    		this.setAwaypenalties(this.refreshAwayPenalty());
+    		this.setAwayscoring(this.refreshAwayScoring());
+    		this.setAwaysogs(this.refreshAwaySog());
     	}
     	
     }

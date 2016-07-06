@@ -58,8 +58,8 @@ public class GeneralSeasonList extends ListDataModel<GeneralSeason> implements S
 				// Lets preserve what is marked as current
 				
 				//need to comment this out when working locally
-				if (gc.getIsCurrent() == 1) {
-				//if (gc.getUSAYear().equals("6")) {	
+				//if (gc.getIsCurrent() == 1) {
+				if (gc.getUSAYear().equals("6")) {	
 					current = gc;
 				}
 
