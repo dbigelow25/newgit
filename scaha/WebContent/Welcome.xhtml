@@ -16,7 +16,7 @@
 <div id="page-div">
 	<p:panel header="Latest SCAHA News." > 
 	  	<f:facet name="footer">
-	        Copyright 2016.  Website maintained by <a href="mailto:lahockeyfan2@yahoo.com;dbigelow@the-rinks.com?subject=SCAHA Website">Rob Foster/Dave Bigelow</a>
+	        Copyright 2016.  Website maintained by <a href="mailto:lahockeyfan2@yahoo.com?subject=SCAHA Website">Rob Foster</a>
 	    </f:facet>
 	  
 	
@@ -72,6 +72,8 @@
 <p:spacer width="10" height="21" /><div>
 	<p:panel header="Quick Actions"  rendered="#{not empty profileBean.getProfile()}">
 		<h:form>
+			<!-- this group of buttons is for scaha folks to contact managers -->
+			<p:commandButton  onclick="window.location.href='GroupEmail.xhtml'; return false;" value="Email Managers" id="emailmanagers" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-STATS;S-VICE;S-PRES;S-REG')}"/>
 			<!-- this group of buttons is for scaha registrar -->
 			<p:commandButton  onclick="window.location.href='quickplayerloiconfirm.xhtml'; return false;" value="Player LOI Hot List" id="hotlist" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-REG')}"/>
 			<p:commandButton  onclick="window.location.href='quickcoachloiconfirm.xhtml'; return false;" value="Coach LOI Hot List" id="coachhotlist" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('S-REG')}"/>
