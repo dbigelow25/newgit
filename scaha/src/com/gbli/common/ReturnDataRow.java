@@ -4,10 +4,7 @@
 package com.gbli.common;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Vector;
-
-import org.primefaces.expression.impl.ThisExpressionResolver;
 
 
 /**
@@ -119,7 +116,7 @@ public class ReturnDataRow extends Vector {
 	 * @param col1 the col1 to set
 	 */
 	public void setColm1(String col1) {
-		this.colm1 = colm1;
+		this.colm1 = col1;
 	}
 
 	/**
