@@ -319,10 +319,15 @@
 			            
 			            <h:outputText value="#{coach.getGirls()}" />  
 			        </p:column>
+			        <p:column >  
+			            <f:facet name="header">
+		            		<h:outputText value="Notes" />
+				        </f:facet>
+			            
+			            <h:outputText value="#{coach.notes}" />  
+			        </p:column>
 			        <p:column headerText="Option" >  
-			             <p:splitButton id="wwtransfer" icon="ui-icon-folder-open" >
-					        <p:menuitem value="View LOI" action="#{registrarcoachloiBean.viewLoi(coach)}"/>
-					    </p:splitButton>
+			             
 					</p:column>
 			    </p:dataTable>
 			<p:separator id="customSeparator" style="width:800px;height:2px" />

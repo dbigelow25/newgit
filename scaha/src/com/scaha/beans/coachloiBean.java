@@ -100,6 +100,7 @@ public class coachloiBean implements Serializable, MailableObject {
 	private String currentyear = null;
 	private Team selectedteam = null;
 	private String page = null;
+	private String searchcriteria = "";
 	
 	//these are used for creating the team select role tables.
 	private TeamDataModel boysteamdatamodel = null;
@@ -138,6 +139,12 @@ public class coachloiBean implements Serializable, MailableObject {
         	page = "";
         }
     	
+    	if(hsr.getParameter("search") != null)
+        {
+    		searchcriteria = hsr.getParameter("search").toString();
+        }else{
+        	searchcriteria = "";
+        }
     	loadCoachProfile(selectedcoach);
 
     	//need to add scaha session object
@@ -166,7 +173,15 @@ public class coachloiBean implements Serializable, MailableObject {
     	//doing anything else right here
     }  
     
-    public String getPage(){
+    public String getSearchcriteria(){
+		return searchcriteria;
+	}
+	
+	public void setSearchcriteria(String cyear){
+		searchcriteria=cyear;
+	}
+    
+	public String getPage(){
 		return page;
 	}
 	
@@ -1591,6 +1606,8 @@ public class coachloiBean implements Serializable, MailableObject {
 		try{
 			if (page.equals("quick")){
 				context.getExternalContext().redirect("quickcoachloiconfirm.xhtml");
+			}else if (page.equals("bcloi")){
+				context.getExternalContext().redirect("workwithcoaches.xhtml?search=" + this.searchcriteria);
 			}else{
 				context.getExternalContext().redirect("confirmcoachlois.xhtml");
 			}
@@ -1638,6 +1655,8 @@ public class coachloiBean implements Serializable, MailableObject {
 		try{
 			if (page.equals("quick")){
 				context.getExternalContext().redirect("quickcoachloiconfirm.xhtml");
+			}else if (page.equals("bcloi")){
+				context.getExternalContext().redirect("workwithcoaches.xhtml?search=" + this.searchcriteria);
 			}else{
 				context.getExternalContext().redirect("confirmcoachlois.xhtml");
 			}

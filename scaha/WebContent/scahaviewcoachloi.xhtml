@@ -134,7 +134,7 @@
 					</table>
 				 </div>
 			</p:fieldset>
-			<div align="center"><p:commandButton id="printloi" value="Print LOI" onclick="window.print(); return false;"/><p:spacer width="5"/><p:commandButton id="closeloi" value="Close LOI"  actionListener="#{reviewcoachloiBean.CloseLoi()}"/><p:spacer width="5"/><p:commandButton id="sendnote" value="Send Note"  actionListener="#{coachloiBean.SendNote()}"/><p:spacer width="5"/><p:commandButton id="updatenote" value="Update Note Only"  actionListener="#{coachloiBean.UpdateNoteOnly()}"/><!-- <p:spacer width="5"/><p:commandButton id="confirmloi" value="Confirm LOI"  actionListener="#{reviewcoachloiBean.confirmLoiFromViewLoi(coachloiBean.selectedcoach)}"/> --></div>
+			<div align="center"><p:commandButton id="printloi" value="Print LOI" onclick="window.print(); return false;"/><p:spacer width="5"/><p:commandButton id="closeloi" value="Close LOI"  actionListener="#{reviewcoachloiBean.CloseLoi(coachloiBean.getPage(),coachloiBean.getSearchcriteria())}"/><p:spacer width="5"/><p:commandButton id="sendnote" value="Send Note"  actionListener="#{coachloiBean.SendNote()}"/><p:spacer width="5"/><p:commandButton id="updatenote" value="Update Note Only"  actionListener="#{coachloiBean.UpdateNoteOnly()}"/><!-- <p:spacer width="5"/><p:commandButton id="confirmloi" value="Confirm LOI"  actionListener="#{reviewcoachloiBean.confirmLoiFromViewLoi(coachloiBean.selectedcoach)}"/> --></div>
 		</ui:fragment>
 		</h:form>
 	</ui:define>

@@ -50,6 +50,11 @@
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>coachbcloiBean</managed-bean-name>
+		<managed-bean-class>com.scaha.beans.coachbcloiBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>coachloiBean</managed-bean-name>
 		<managed-bean-class>com.scaha.beans.coachloiBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>

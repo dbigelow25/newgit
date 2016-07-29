@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import com.gbli.connectors.ScahaDatabase;
 import com.gbli.context.ContextManager;
@@ -38,18 +39,51 @@ public class reviewcoachloiBean implements Serializable {
 	private Boolean displayclublist = null;
 	private String selectedclub = null;
 	private String selectedcoachid = null;
-	
+	private String page = "";
+	private String searchcriteria = "";
 	
 	@PostConstruct
     public void init() {
 	    coaches = new ArrayList<Coach>();  
         CoachDataModel = new CoachDataModel(coaches);
         this.setSelectedtabledisplay("1");
+      
+        HttpServletRequest hsr = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+      	
+      	if(hsr.getParameter("page") != null)
+          {
+      		page = hsr.getParameter("page").toString();
+          }else{
+          	page = "";
+          }
+      	
+      	if(hsr.getParameter("search") != null)
+          {
+      		searchcriteria = hsr.getParameter("search").toString();
+          }else{
+          	searchcriteria = "";
+          }
+          	
         
         coachesDisplay(); 
     }  
     
-   
+	public String getSearchcriteria(){
+		return searchcriteria;
+	}
+	
+	public void setSearchcriteria(String cyear){
+		searchcriteria=cyear;
+	}
+    
+	public String getPage(){
+		return page;
+	}
+	
+	public void setPage(String cyear){
+		page=cyear;
+	}
+    
     
     public String getSelectedcoachid(){
     	return selectedcoachid;
@@ -475,7 +509,11 @@ public void confirmLoi(Coach selectedCoach){
 	public void CloseLoi(){
 		FacesContext context = FacesContext.getCurrentInstance();
 		try{
-			context.getExternalContext().redirect("confirmcoachlois.xhtml");
+			if (page.equals("bcloi")){
+				context.getExternalContext().redirect("workwithcoaches.xhtml?search=" + this.searchcriteria);
+			}else {
+				context.getExternalContext().redirect("confirmcoachlois.xhtml");
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -525,5 +563,19 @@ public void confirmLoi(Coach selectedCoach){
 		
 	}
 	
+	public void CloseLoi(String spage, String searchriteria){
+		FacesContext context = FacesContext.getCurrentInstance();
+		try{
+			if (spage.equals("bcloi")){
+				context.getExternalContext().redirect("workwithcoaches.xhtml?search=" + searchriteria);
+			}
+			else{
+				context.getExternalContext().redirect("confirmcoachlois.xhtml");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
 

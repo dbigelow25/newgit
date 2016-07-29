@@ -49,6 +49,7 @@ public class coachrosteractionBean implements Serializable {
 	private String page = null;
 	private String firstname = null;
 	private String lastname = null;
+	private String searchcriteria = "";
 	
 	@PostConstruct
     public void init() {
@@ -71,11 +72,26 @@ public class coachrosteractionBean implements Serializable {
         }else{
         	page = "";
         }
+    	if(hsr.getParameter("search") != null)
+        {
+    		searchcriteria = hsr.getParameter("search").toString();
+        }else{
+        	searchcriteria = "";
+        }
+    	
     	loadCoachProfile(selectedcoach);
 
     	//doing anything else right here
     }  
     
+	public String getSearchcriteria(){
+		return searchcriteria;
+	}
+	
+	public void setSearchriteria(String cyear){
+		searchcriteria=cyear;
+	}
+	
 	public String getLastname(){
 		return lastname;
 	}
@@ -446,6 +462,8 @@ public class coachrosteractionBean implements Serializable {
                 	
                 	if (page.equals("quick")){
         				context.getExternalContext().redirect("quickcoachloiconfirm.xhtml");
+                	}else if (page.equals("bcloi")){
+        				context.getExternalContext().redirect("workwithcoaches.xhtml?search=" + this.searchcriteria);
         			}else{
         				context.getExternalContext().redirect("confirmcoachlois.xhtml");
         			}
@@ -477,6 +495,8 @@ public class coachrosteractionBean implements Serializable {
 		try{
 			if (page.equals("quick")){
 				context.getExternalContext().redirect("quickcoachloiconfirm.xhtml");
+			}else if (page.equals("bcloi")){
+				context.getExternalContext().redirect("workwithcoaches.xhtml?search=" + this.searchcriteria);
 			}else{
 				context.getExternalContext().redirect("confirmcoachlois.xhtml");
 			}
