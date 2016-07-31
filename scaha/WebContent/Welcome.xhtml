@@ -113,8 +113,8 @@
 			<p:commandButton  onclick="window.location.href='clubice.xhtml'; return false;" value="View Club Ice" id="viewclubice" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('C-REG;C-ICE;C-PRES')}"/>
 			<p:commandButton  onclick="window.location.href='clubviewrelease.xhtml'; return false;" value="Release Status" id="releasestatus" ajax="false" style="width:130px;height:40px" rendered="#{profileBean.hasRoleList('C-REG')}"/>
 			<p:separator value="Other Pages" rendered="#{profileBean.hasRoleList('C-REG;C-ICE;C-PRES')}"/>
-			<p:commandButton  onclick="window.location.href='manageUSAHockey.xhtml'; return false;" value="Register for SCAHA" id="registerscaha" ajax="false" style="width:130px;height:40px" rendered="#{not empty profileBean.getProfile()}"/>
-			<p:commandButton  onclick="window.location.href='manageprofile.xhtml'; return false;" value="Manage Profile" id="manageprofile" ajax="false" style="width:130px;height:40px" rendered="#{not empty profileBean.getProfile()}"/>
+			<p:commandButton  onclick="window.location.href='manageUSAHockey.xhtml'; return false;" value="Register for SCAHA" id="registerscaha" ajax="false" style="width:130px;height:40px" rendered="#{ !(empty profileBean.getProfile())}"/>
+			<p:commandButton  onclick="window.location.href='manageprofile.xhtml'; return false;" value="Manage Profile" id="manageprofile" ajax="false" style="width:130px;height:40px" rendered="#{ !(empty profileBean.getProfile())}"/>
 			<!-- <p:commandButton  onclick="window.location.href='scholarathleteapplication.xhtml'; return false;" value="Apply Scholar Athlete" id="scholarathlete" ajax="false" style="width:130px;height:40px" rendered="#{not empty profileBean.getProfile()}"/> -->
 		</h:form>
 	</p:panel>

@@ -101,7 +101,7 @@
 					<p:commandButton value="Scoreboard"
 						actionListener="#{profileBean.scoreboard}" ajax="false"/>
 				</p:toolbarGroup>
-				<p:toolbarGroup align="left" rendered="#{not empty profileBean.getProfile()}">
+				<p:toolbarGroup align="left" rendered="#{ ! (empty profileBean.getProfile())}">
 					<p:menuButton id="customer" style="width:125px;" value="My Actions" type="button">
 						<p:menuitem style="font-size: 10pt;width:225px;"
 							value="Manage Profile" url="manageprofile.xhtml"
