@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/mobilelayout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+>
+<ui:define name="content">
+<h:body>
+<h:outputText value="Rosters" style="font-size: 18px; font-weight: bold;"/>
+<h:form>
+<table border="0" width="100%">
+		<tr>
+			<td>
+				<h:outputText value="Age Group:" style="font-size: 14px; "/>
+				<p:spacer height="3" width="4" />
+		        <p:selectOneButton id="division" value="#{rosterBean.agegroup}">
+		            <f:selectItem itemLabel="Squirt" itemValue="squirt" />
+		            <f:selectItem itemLabel="Peewee" itemValue="peewee" />
+		            <f:selectItem itemLabel="Bantam" itemValue="bantam" />
+		            <f:selectItem itemLabel="16U" itemValue="midget16" />
+		            <f:selectItem itemLabel="18U" itemValue="midget18" />
+		        </p:selectOneButton>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<h:outputText value="Skill Level:" style="font-size: 14px; "/>
+				<p:spacer height="3" width="4" />
+		        <p:selectOneButton id="skilllevel" value="#{rosterBean.skillgroup}" >
+		            <f:selectItem itemLabel="AA" itemValue="AA" />
+		            <f:selectItem itemLabel="A" itemValue="A" />
+		            <f:selectItem itemLabel="BB" itemValue="BB" />
+		            <f:selectItem itemLabel="B" itemValue="B" />
+		        </p:selectOneButton>
+		    </td>
+		</tr>
+		<tr>
+			<td>
+				<h:outputText value="Team:" style="font-size: 14px; "/>
+				<p:spacer height="3" width="4" />
+		        <p:selectOneButton id="team" value="#{rosterBean.selectedteam}" >
+		            <ui:repeat value="#{rosterBean.getTeams()}" var="team" >
+		            	<f:selectItem itemLabel="team.teamname" itemValue="teamid" />
+		            </ui:repeat>
+		        </p:selectOneButton>
+		    </td>
+		</tr>
+		<tr>
+			<Td><p:spacer height="3" width="1" />
+			</Td>
+		</tr>
+		<tr>
+			<Td><h:outputText value="#{rosterBean.scheduletitle} " style="font-size: 14px; font-weight: bold;"/>:
+			</Td>
+		</tr>
+		<tr>
+			<td valign="top" width="100%">
+				<ui:repeat id="mobileschedule" value="#{scoreboardBean.getLivegamelist()}" var="game" >
+			        
+			        <table border="1" cellpadding="0" cellspacing="0" width="95%" style="background-color: ;border-color: LightBlue;">
+			        	<tr>
+			        		<td>
+			        			<table border="0" width="100%">
+			        				<tr>
+			        					<td colspan="3" align="left" style="white-space: nowrap;">
+			        					<h:outputText value="#{game.getStartdate()} " style="font-size: 14px; "/>
+			        					<p:spacer height="3" width="1" />
+			        					<h:outputText value="#{game.getStarttime()} " style="font-size: 14px; "/></td>
+			        					<td colspan="2" align="right" style="white-space: nowrap;"><h:outputText style="font-size: 14px;" value="#{game.getVenueshortname()} " /></td>
+			        				</tr>
+			        				<tr>
+			        					<td align="left" width="44%"><h:outputText value="#{game.getAwayteam().getTeamname()}" style="font-size: 14px; "/></td>
+			        					<td align="center" width="5%"><h:outputText value="#{ (game.statetag == 'Scheduled' ? '--' : game.getAwayscore()) } " style="font-size: 14px; "/></td>
+			        					<td align="center" width="2%">vs.</td>
+			        					<td align="center" width="5%"><h:outputText value="#{ (game.statetag == 'Scheduled' ? '--' : game.getHomescore()) }" style="font-size: 14px; "/></td>
+			        					<td align="right" width="44%"><h:outputText value="#{game.getHometeam().getTeamname()}" style="font-size: 14px; "/></td>
+			        					
+			        				</tr>
+			        			</table>
+			        			
+			            	</td>	
+			        	</tr>
+			        </table>
+			        <p:spacer height="3" width="10" />
+			    </ui:repeat>
+				
+			</td>
+		</tr>
+	</table>
+</h:form>
+</h:body>
+</ui:define>
+</ui:composition>

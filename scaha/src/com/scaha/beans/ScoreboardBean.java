@@ -82,6 +82,11 @@ public class ScoreboardBean implements Serializable,  MailableObject {
 	private static final long serialVersionUID = 2L;
 	private static final Logger LOGGER = Logger.getLogger(ContextManager.getLoggerContext());
 	
+	//some variables for the mobile version
+	private String agegroup = null;
+	private String skillgroup = null;
+	private String scheduletitle = null;
+	
 	//
 	// lets go get it!
 	//
@@ -236,7 +241,7 @@ public class ScoreboardBean implements Serializable,  MailableObject {
 		}
 	}
 	
-	private void refreshScheduleList() {
+	public void refreshScheduleList() {
 		
 		//
 		// ok.. lets do the schedules now..
@@ -298,6 +303,30 @@ public class ScoreboardBean implements Serializable,  MailableObject {
 		return this.subject;
 	}
 
+	public String getScheduletitle(){
+    	return scheduletitle;
+    }
+    
+    public void setScheduletitle(String tdate){
+    	scheduletitle=tdate;
+    }
+    
+	public String getAgegroup(){
+    	return agegroup;
+    }
+    
+    public void setAgegroup(String tdate){
+    	agegroup=tdate;
+    }
+    
+    public String getSkillgroup(){
+    	return skillgroup;
+    }
+    
+    public void setSkillgroup(String tdate){
+    	skillgroup=tdate;
+    }
+	
 	public String getRequestingclub(){
     	return requestingclub;
     }
@@ -789,6 +818,64 @@ public class ScoreboardBean implements Serializable,  MailableObject {
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/YYYY");
 		Date date = new Date();
 		this.setTodaysdate(dateFormat.format(date).toString());
+		
+	}
+	 
+	public void loadgamesformobile(){
+		Integer scheduleidformobile = 0;
+		
+		//need to find out the age group and skill group selected and then refresh the live game list
+		if (agegroup.equals("squirt") && skillgroup.equals("A")){
+			scheduleidformobile=401;
+			scheduletitle = "Squirt A";
+		}
+		if (agegroup.equals("squirt") && skillgroup.equals("BB")){
+			scheduleidformobile=400;
+			scheduletitle = "Squirt BB";
+		}
+		if (agegroup.equals("squirt") && skillgroup.equals("B")){
+			scheduleidformobile=399;
+			scheduletitle = "Squirt B";
+		}
+		if (agegroup.equals("peewee") && skillgroup.equals("AA")){
+			scheduleidformobile=415;
+			scheduletitle = "Peewee AA";
+		}
+		if (agegroup.equals("peewee") && skillgroup.equals("A")){
+			scheduleidformobile=404;
+			scheduletitle = "Peewee A";
+		}
+		if (agegroup.equals("peewee") && skillgroup.equals("BB")){
+			scheduleidformobile=403;
+			scheduletitle = "Peewee BB";
+		}
+		if (agegroup.equals("peewee") && skillgroup.equals("B")){
+			scheduleidformobile=402;
+			scheduletitle = "Peewee B";
+		}
+		if (agegroup.equals("bantam") && skillgroup.equals("AA")){
+			scheduleidformobile=416;
+			scheduletitle = "Bantam AA";
+		}
+		if (agegroup.equals("bantam") && skillgroup.equals("A")){
+			scheduleidformobile=406;
+			scheduletitle = "Bantam A";
+		}
+		if (agegroup.equals("bantam") && skillgroup.equals("B")){
+			scheduleidformobile=405;
+			scheduletitle = "Bantam B";
+		}
+		if (agegroup.equals("midget16") && skillgroup.equals("AA")){
+			scheduleidformobile=417;
+			scheduletitle = "16U AA";
+		}
+		if (agegroup.equals("midget18") && skillgroup.equals("AA")){
+			scheduleidformobile=418;
+			scheduletitle = "18U AA";
+		}
+		
+		//need to perfrom role check here for displaying schedule
+		this.setLivegamelist(scaha.getScahaLiveGameList().NewList(scaha.getDefaultProfile(),scheduleidformobile));
 		
 	}
 }

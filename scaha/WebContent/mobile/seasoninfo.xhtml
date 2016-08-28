@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="/WEB-INF/templates/layout.xhtml"
+<ui:composition template="/WEB-INF/templates/mobilelayout.xhtml"
      xmlns="http://www.w3.org/1999/xhtml"
      xmlns:f="http://java.sun.com/jsf/core"
      xmlns:h="http://java.sun.com/jsf/html"
@@ -10,30 +10,33 @@
 >
 <ui:define name="content">
 <h:body>
-<table border="0">
+<table border="0" width="100%">
 		<tr>
-			<td valign="top">
-				<div id="page-div">
-					<p:panel header="[year] Season Info" > 
-					  	<f:facet name="footer">
-					        Copyright 2016.  Website maintained by <a href="mailto:lahockeyfan2@yahoo.com?subject=SCAHA Website">Rob Foster</a>
-					    </f:facet>
-					  
-					
-				  	  	<h:form id="form">
-				   			<p:commandButton value="Schedule/Standings" id="schedulestandings" ajax="false" onclick="window.location.href='scoreboard.xhtml'; return false;" />
+			<td valign="top" width="100%">
+				<div id="page-div" width="100%">
+					  	<h:form id="form">
+				   			<div align="center" draggable="false" >
+								<p:commandButton value="Schedule/Standings" id="schedulestandings" ajax="false" onclick="window.location.href='scoreboard.xhtml'; return false;" style="width: 90%;font-size: 24px;"/>
+							</div>
 							<p:spacer height="10" width="10" />
-							<p:commandButton value="Rosters" id="leagueinfo" ajax="false" onclick="window.location.href='???.xhtml'; return false;" />
+							<div align="center" draggable="false" >
+								<p:commandButton value="Rosters" id="leagueinfo" ajax="false" onclick="window.location.href='roster.xhtml'; return false;" style="width: 90%;font-size: 24px;"/>
+							</div>
 							<p:spacer height="10" width="10" />
-							<p:commandButton value="Suspensions" id="clubinfo" ajax="false" onclick="window.location.href='???.xhtml'; return false;" />
+							<div align="center" draggable="false" >
+								<p:commandButton value="Suspensions" id="clubinfo" ajax="false" onclick="window.location.href='???.xhtml'; return false;" style="width: 90%;font-size: 24px;"/>
+							</div>
 							<p:spacer height="10" width="10" />
-							<p:commandButton value="Playoffs" id="clubinfo" ajax="false" onclick="window.location.href='???.xhtml'; return false;" />
+							<div align="center" draggable="false" >
+								<p:commandButton value="Playoffs" id="playoffs" ajax="false" onclick="window.location.href='???.xhtml'; return false;" style="width: 90%;font-size: 24px;"/>
+							</div>
 							<p:spacer height="10" width="10" />
-							<p:commandButton value="Select Camp" id="clubinfo" ajax="false" onclick="window.location.href='???.xhtml'; return false;" />
+							<div align="center" draggable="false" >
+								<p:commandButton value="Select Camp" id="selectcamp" ajax="false" onclick="window.location.href='???.xhtml'; return false;" style="width: 90%;font-size: 24px;"/>
+							</div>
 							<p:spacer height="10" width="10" />
 						  </h:form>
-						</p:panel>
-					</p:panel>
+					
 				</div>
 			</td>
 		</tr>

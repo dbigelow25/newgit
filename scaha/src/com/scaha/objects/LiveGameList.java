@@ -308,6 +308,31 @@ public class LiveGameList extends ListDataModel<LiveGame> implements Serializabl
 		return  _sch.getLivegamelist();
 	}
 
+	//use this for the mobile version
+	public LiveGameList NewList (Profile _pro, Integer _sch) {
+
+		List<LiveGame> data = new ArrayList<LiveGame>();
+		HashMap<String, LiveGame> hm = new HashMap<String,LiveGame>();
+		LOGGER.info("NewList is looking for LiveGames that match " + _sch);
+			
+		for (LiveGame live : this) {
+			try {
+				LOGGER.info("livegame scheduled id being compared:" + live);
+				if (live.getSched().ID == _sch) {
+					data.add(live);
+					//LOGGER.info("Found a match " + live);
+					hm.put(live.ID+"", live);
+				}
+			
+			} catch (IndexOutOfBoundsException e) {
+			    System.err.println("IndexOutOfBoundsException: " + e.getMessage());
+			} catch (Exception e) {
+			    System.err.println("Caught IOException: " + e.getMessage());
+			}
+		}
+		LOGGER.info("NewList completed for LiveGames for a schedule.." + data.size());
+		return  new LiveGameList(data,hm);
+	}
 	
 	@SuppressWarnings("unchecked")
 	public ArrayList<Participant> getParticipantArray() {

@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:metadata>
+<f:event type="preRenderView" listener="#{profileBean.verifyUserLogin()}" />
+</f:metadata>
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="content">
+	
+	<p:notificationBar position="top" effect="slide" widgetVar="bar" styleClass="top">  
+    	<h:outputText value="SCAHA" style="color:#FFCC00;font-size:36px;" />  
+	</p:notificationBar>  
+  	<h:form id="mess">
+    
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />    
+	
+		</h:form>
+	<h:form>
+			<p:panel id ="panel" header="Loi's: Needing Birth Certificate">
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:column><b>Enter Name (First or Last Only):</b></h:column>
+					<h:column>
+						<p:inputText id="searchforplayer" style="width:150px;" value="#{coachbcloiBean.searchcriteria}" required="false" requiredMessage="Enter a minimum of 5 characters to execute search."/>	
+					</h:column>
+					<h:column>
+						<p:commandButton id="updatedisplay" value="Load Loi's" actionListener="#{coachbcloiBean.coachesDisplay()}" ajax="true" update="listofcoaches"/>
+					</h:column>
+					<h:column>
+						This is your LOI FIX ALL page.  Put in either a first or last name or partial name and the system will find all of the loi's containing that
+						value you entered.  The page will load any loi whether confirmed or not.  It will NOT load voided loi's.
+						You should be able to update coaching credentials, notes, create notes, and confirm from this page.
+					</h:column>
+				</h:panelGrid>
+				<br></br>
+				<p:dataTable id="listofcoaches" var="coach" rowKey="#{coach.IDcoach}" value="#{coachbcloiBean.getCoachdatamodel()}" selection="#{coachbcloiBean.selectedcoach}"  autoupdate="false">
+                	<!--  <p:column headerText="Player ID">  
+			            <h:outputText value="#{player.getIdplayer()}" />  
+			        </p:column>-->  
+			        <p:column sortBy="firstname" filterBy="firstname" filterMatchMode="contains" filterStyle="width:50px" headerText="First Name">  
+			            <h:outputText value="#{coach.getFirstname()}" />  
+			        </p:column>  
+			        <p:column sortBy="lasstname" filterBy="lastname" filterMatchMode="contains" filterStyle="width:50px" headerText="Last Name">  
+			            <h:outputText value="#{coach.getLastname()}" />  
+			        </p:column>  
+			        <p:column sortBy="teamname" headerText="2015 Team" filterBy="lastname" filterMatchMode="contains" filterStyle="width:50px">  
+			            <h:outputText value="#{coach.getTeamname()}" />  
+			        </p:column>
+			        <p:column headerText="LOI Date">  
+			            <h:outputText value="#{coach.getLoidate()}" />  
+			        </p:column>
+			        <p:column sortBy="safesport" headerText="Safesport">  
+			            <h:outputText value="#{coach.getSafesport()}" />  
+			        </p:column>
+			        <p:column headerText="Screening Expires">  
+			            <h:outputText value="#{coach.getScreeningexpires()}" />  
+			        </p:column>
+			        <p:column headerText="CEP Number">  
+			            <h:outputText value="#{coach.getCepnumber()}" />  
+			        </p:column>
+			        <p:column headerText="CEP Level">  
+			            <h:outputText value="#{coach.getCeplevel()}" />  
+			        </p:column>
+			        <p:column headerText="CEP Expires">  
+			            <h:outputText value="#{coach.getCepexpires()}" />  
+			        </p:column>
+			        <p:column headerText="8U">  
+			            <h:outputText value="#{coach.getU8()}" />  
+			        </p:column>
+			        <p:column headerText="10U">  
+			            <h:outputText value="#{coach.getU10()}" />  
+			        </p:column>
+			        <p:column headerText="12U">  
+			            <h:outputText value="#{coach.getU12()}" />  
+			        </p:column>
+			        <p:column headerText="14U">  
+			            <h:outputText value="#{coach.getU14()}" />  
+			        </p:column>
+			        <p:column headerText="18U">  
+			            <h:outputText value="#{coach.getU18()}" />  
+			        </p:column>
+			        <p:column headerText="Girls">  
+			            <h:outputText value="#{coach.getGirls()}" />  
+			        </p:column>
+			        <p:column sortBy="confirmed" headerText="Confirmed">  
+			            <h:outputText value="#{coach.getConfirmed()}" />  
+			        </p:column>
+			        <p:column headerText="Notes">  
+			            <h:outputText value="#{coach.getNotes()}" />  
+			        </p:column>
+			        <p:column headerText="Option" >  
+			             <p:splitButton id="wwtransfer" value="Work with "  >
+					        <p:menuitem value="Confirm LOI" action="#{coachbcloiBean.confirmLoi(coach)}" update="@form" rendered="#{coach.getConfirmed()=='No'}"/>
+					        <p:menuitem value="Coach Details" action="#{coachbcloiBean.addCoachdetails(coach)}" />
+					        <p:menuitem value="View LOI" action="#{coachbcloiBean.viewLoi(coach)}"/>
+					        <p:menuitem value="Void LOI" action="#{coachbcloiBean.voidLoi(coach)}" update="@form"/>
+					    </p:splitButton>
+					</p:column>
+			    </p:dataTable>
+				<!-- <p:dataTable id="listofplayers" var="player" rowKey="#{player.IDplayer}" value="#{bcloiBean.getPlayerdatamodel()}" selection="#{bcloiBean.selectedplayer}"  autoupdate="false">
+                	<p:column sortBy="firstname" headerText="First Name">  
+			            <h:outputText value="#{player.getFirstname()}" />  
+			        </p:column>  
+			        <p:column sortBy="lastname" headerText="Last Name">  
+			            <h:outputText value="#{player.getLastname()}" />  
+			        </p:column>  
+			        <p:column sortBy="currentteam" headerText="2016 Team">  
+			            <h:outputText value="#{player.getCurrentteam()}" />  
+			        </p:column>
+			        <p:column headerText="2015 Team">  
+			            <h:outputText value="#{player.getPreviousteam()}" />  
+			        </p:column>
+			        <p:column headerText="DOB">  
+			            <h:outputText value="#{player.getDob()}" />  
+			        </p:column>
+			        <p:column headerText="Player Up" sortBy="playerup">  
+			            <h:outputText value="#{player.getPlayerup()}" />  
+			        </p:column>
+			        <p:column headerText="LOI Date" sortBy="loidate">  
+			            <h:outputText value="#{player.getLoidate()}" />  
+			        </p:column>
+			        <p:column headerText="Citizenship" sortBy="ctverified">  
+			            <h:outputText value="#{player.citizenshiplabel}" rendered="#{player.ctverified}" />  
+			        </p:column>
+			        <p:column headerText="Birth Cert." sortBy="birthcertificate">  
+			            <h:outputText value="#{player.birthcertificate}" />  
+			        </p:column>
+			        <p:column headerText="Confirmed" sortBy="confirmed">  
+			            <h:outputText value="#{player.confirmed}" />  
+			        </p:column>
+			        <p:column headerText="Notes" >  
+			            <h:outputText value="#{player.notes}" />  
+			        </p:column>
+			        
+			        <p:column headerText="Option" >  
+			             <p:splitButton id="wwtransfer" value="Work with "  >
+					        <p:menuitem value="Confirm LOI" action="#{bcloiBean.confirmLoi(player)}" update="@form" rendered="#{player.getConfirmed()=='No'}"/>
+					        <p:menuitem value="Birth Certificate/Transfer/Citizenship" action="#{bcloiBean.addTransferCitizenship(player)}" />
+					        <p:menuitem value="View LOI" action="#{bcloiBean.viewLoi(player)}" />
+					        <p:menuitem value="Void LOI" action="#{bcloiBean.voidLoi(player)}" update="listofplayers"/>
+					    </p:splitButton>
+					</p:column>
+			    </p:dataTable> -->
+			</p:panel>
+			
+			<p:separator id="customSeparator" style="width:800px;height:2px" />    
+	</h:form>
+	<h:form>
+			<div align="center"><p:commandButton id="closeaddteams" value="Close" ajax="false" actionListener="#{coachbcloiBean.closePage()}"/></div>
+	</h:form>
+	</ui:define>
+</ui:composition>
+</html>
