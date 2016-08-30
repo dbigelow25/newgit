@@ -102,7 +102,13 @@
   		          <p:column  styleClass="mtrxColumn" width="7%" headerText="Game #" style="font-size: 10px;">
    	    	         <h:outputText style="font-size: 10px;" value="#{game.getGameId()}" />
          	   	  </p:column >
-   				 <p:column  width="7%" headerText="Type " style="font-size: 10px;">
+   				 <p:column  headerText="Start Date" style="font-size: 10px;">
+   	    	         <h:outputText style="font-size: 10px;" value="#{game.getStartdate()} " />
+	         	   </p:column >
+    	          <p:column  headerText="Start Time" style="font-size: 10px;">
+   	    	         <h:outputText style="font-size: 10px;" value="#{game.getStarttime()} " />
+	         	   </p:column >
+	         	   <p:column  width="7%" headerText="Type " style="font-size: 10px;">
    	    	         <h:outputText style="font-size: 10px;" value="#{game.getTypetag()}" />
          	   	  </p:column >
   		          <p:column  width="7%" headerText="Status " style="font-size: 10px;">
@@ -126,12 +132,7 @@
     	          <p:column  headerText="Rink" style="font-size: 10px;">
    	    	         <h:outputText style="font-size: 10px;" value="#{game.getSheetname()} " />
 	         	   </p:column >
-    	          <p:column  headerText="Start Date" style="font-size: 10px;">
-   	    	         <h:outputText style="font-size: 10px;" value="#{game.getStartdate()} " />
-	         	   </p:column >
-    	          <p:column  headerText="Start Time" style="font-size: 10px;">
-   	    	         <h:outputText style="font-size: 10px;" value="#{game.getStarttime()} " />
-	         	   </p:column >
+    	          
   		      </p:dataTable>
  				 </p:outputPanel>
         		</p:outputPanel>
