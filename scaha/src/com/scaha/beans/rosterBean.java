@@ -48,19 +48,42 @@ public class rosterBean implements Serializable{
 	private String agegroup = null;
 	private String skillgroup = null;
 	private String scheduletitle = null;
-		
+
+	//these are needed for showing/hiding buttons since .hide/.show functions don't work with oneselectbuttons
+	private Boolean displayloadteams = false;
+	private Boolean displayloadroster = false;
+	
 	@PostConstruct
     public void init() {
-	    
+	    //this.agegroup="peewee";
+	    //this.skillgroup="A";
+	    //this.loadTeams();
+		
     	//Load season list
         loadSeason();
-        
-        
+        displayloadteams=true;
+        displayloadroster=true;
     }
 	
     public rosterBean() {  
         
     }  
+    
+    public Boolean getDisplayloadteams(){
+    	return displayloadteams;
+    }
+    
+    public void setDisplayloadteams(Boolean tdate){
+    	displayloadteams=tdate;
+    }
+    
+    public Boolean getDisplayloadroster(){
+    	return displayloadroster;
+    }
+    
+    public void setDisplayloadroster(Boolean tdate){
+    	displayloadroster=tdate;
+    }
     
     public String getScheduletitle(){
     	return scheduletitle;
@@ -84,7 +107,6 @@ public class rosterBean implements Serializable{
     
     public void setSkillgroup(String tdate){
     	skillgroup=tdate;
-    	loadTeams();
     }
 	
     
@@ -220,7 +242,7 @@ public class rosterBean implements Serializable{
 		ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
     	
     	try{
-    		//first get team name
+    		//first get team name'
     		CallableStatement cs = db.prepareCall("CALL scaha.getTeamByDivisionSeason(?,?)");
     		cs.setString("seasontag", this.getSelectedseason());
     		cs.setString("iddivision", this.getSelecteddivision());
@@ -412,61 +434,75 @@ public class rosterBean implements Serializable{
 	}
 	
 	public void loadTeams(){
-		
+		//need to clear out objects in case user selects different division to load teams.
+		setPlayers(null);
+    	setCoaches(null);
+    	setTeams(null);
+    	this.teamname="";
+    	
 		this.setSelectedseason("SCAHA-1617");
 		//need to find out the age group and skill group selected and then refresh the live game list
 		if (agegroup.equals("squirt") && skillgroup.equals("A")){
-			this.setSelecteddivision(":10UAP:10UAR");
+			this.setSelecteddivision(":10UAP:10UAR:");
 			scheduletitle = "Squirt A";
 		}
 		if (agegroup.equals("squirt") && skillgroup.equals("BB")){
-			this.setSelecteddivision(":10UBBP:10UBBR");
+			this.setSelecteddivision(":10UBBP:10UBBR:");
 			scheduletitle = "Squirt BB";
 		}
 		if (agegroup.equals("squirt") && skillgroup.equals("B")){
-			this.setSelecteddivision(":10UBP:10UBR");
+			this.setSelecteddivision(":10UBP:10UBR:");
 			scheduletitle = "Squirt B";
 		}
 		if (agegroup.equals("peewee") && skillgroup.equals("AA")){
-			this.setSelecteddivision(":12UAAP:12UAAR");
+			this.setSelecteddivision(":12UAAP:12UAAR:");
 			scheduletitle = "Peewee AA";
 		}
 		if (agegroup.equals("peewee") && skillgroup.equals("A")){
-			this.setSelecteddivision(":12UAP:12UAR");
+			this.setSelecteddivision(":12UAP:12UAR:");
 			scheduletitle = "Peewee A";
 		}
 		if (agegroup.equals("peewee") && skillgroup.equals("BB")){
-			this.setSelecteddivision(":12UBBP:12UBBR");
+			this.setSelecteddivision(":12UBBP:12UBBR:");
 			scheduletitle = "Peewee BB";
 		}
 		if (agegroup.equals("peewee") && skillgroup.equals("B")){
-			this.setSelecteddivision(":12UBP:12UB");
+			this.setSelecteddivision(":12UBP:12UBR:");
 			scheduletitle = "Peewee B";
 		}
 		if (agegroup.equals("bantam") && skillgroup.equals("AA")){
-			this.setSelecteddivision(":14UAAP:14UAAR");
+			this.setSelecteddivision(":14UAAP:14UAAR:");
 			scheduletitle = "Bantam AA";
 		}
 		if (agegroup.equals("bantam") && skillgroup.equals("A")){
-			this.setSelecteddivision(":14UAP:14UAR");
+			this.setSelecteddivision(":14UAP:14UAR:");
 			scheduletitle = "Bantam A";
 		}
 		if (agegroup.equals("bantam") && skillgroup.equals("B")){
-			this.setSelecteddivision(":14UBP:14UBR");
+			this.setSelecteddivision(":14UBP:14UBR:");
 			scheduletitle = "Bantam B";
 		}
 		if (agegroup.equals("midget16") && skillgroup.equals("AA")){
-			this.setSelecteddivision(":16UAAP:16UAAR");
+			this.setSelecteddivision(":16UAAP:16UAAR:");
 			scheduletitle = "16U AA";
 		}
 		if (agegroup.equals("midget18") && skillgroup.equals("AA")){
-			this.setSelecteddivision(":16UAAP:16UAAR");
+			this.setSelecteddivision(":16UAAP:16UAAR:");
 			scheduletitle = "18U AA";
 		}
 		
 		//now to load the teams
 		this.onDivisionChange();
-
+		
+	}
+	
+	public void loadTeam(Integer teamid){
+		setPlayers(null);
+    	setCoaches(null);
+    	this.teamname="";
+    	
+		this.selectedteam = teamid;
+		onTeamChange();
 	}
 }
 
