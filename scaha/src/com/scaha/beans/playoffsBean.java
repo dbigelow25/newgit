@@ -70,7 +70,11 @@ public class playoffsBean implements Serializable{
     private String Champion = null;
     private String Runnerup = null;
     
-   
+    //some variables for the mobile version
+  	private String agegroup = null;
+  	private String skillgroup = null;
+  	private String scheduletitle = null;
+
 	@PostConstruct
     public void init() {
 		games = new ArrayList<TempGame>();  
@@ -88,6 +92,31 @@ public class playoffsBean implements Serializable{
     public playoffsBean() {  
         
     }  
+    
+    public String getScheduletitle(){
+    	return scheduletitle;
+    }
+    
+    public void setScheduletitle(String tdate){
+    	scheduletitle=tdate;
+    }
+    
+	public String getAgegroup(){
+    	return agegroup;
+    }
+    
+    public void setAgegroup(String tdate){
+    	agegroup=tdate;
+    }
+    
+    public String getSkillgroup(){
+    	return skillgroup;
+    }
+    
+    public void setSkillgroup(String tdate){
+    	skillgroup=tdate;
+    }
+	
     
     public String getChampion() {
 		return Champion;
@@ -717,5 +746,62 @@ public class playoffsBean implements Serializable{
     	this.setPlayoffbrackets2(tempresult2);
     	
     }
+	
+	public void setPlayoffs(){
+		Integer scheduleidformobile = 0;
+		
+		//need to find out the age group and skill group selected and then refresh the live game list
+		if (agegroup.equals("squirt") && skillgroup.equals("A")){
+			scheduleidformobile=401;
+			scheduletitle = "Squirt A";
+		}
+		if (agegroup.equals("squirt") && skillgroup.equals("BB")){
+			scheduleidformobile=400;
+			scheduletitle = "Squirt BB";
+		}
+		if (agegroup.equals("squirt") && skillgroup.equals("B")){
+			scheduleidformobile=399;
+			scheduletitle = "Squirt B";
+		}
+		if (agegroup.equals("peewee") && skillgroup.equals("AA")){
+			scheduleidformobile=415;
+			scheduletitle = "Peewee AA";
+		}
+		if (agegroup.equals("peewee") && skillgroup.equals("A")){
+			scheduleidformobile=404;
+			scheduletitle = "Peewee A";
+		}
+		if (agegroup.equals("peewee") && skillgroup.equals("BB")){
+			scheduleidformobile=403;
+			scheduletitle = "Peewee BB";
+		}
+		if (agegroup.equals("peewee") && skillgroup.equals("B")){
+			scheduleidformobile=402;
+			scheduletitle = "Peewee B";
+		}
+		if (agegroup.equals("bantam") && skillgroup.equals("AA")){
+			scheduleidformobile=416;
+			scheduletitle = "Bantam AA";
+		}
+		if (agegroup.equals("bantam") && skillgroup.equals("A")){
+			scheduleidformobile=406;
+			scheduletitle = "Bantam A";
+		}
+		if (agegroup.equals("bantam") && skillgroup.equals("B")){
+			scheduleidformobile=405;
+			scheduletitle = "Bantam B";
+		}
+		if (agegroup.equals("midget16") && skillgroup.equals("AA")){
+			scheduleidformobile=417;
+			scheduletitle = "16U AA";
+		}
+		if (agegroup.equals("midget18") && skillgroup.equals("AA")){
+			scheduleidformobile=418;
+			scheduletitle = "18U AA";
+		}
+		
+		this.setSelectedschedule(397);
+		onScheduleChange();
+	}
 }
 
