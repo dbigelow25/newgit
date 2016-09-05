@@ -52,30 +52,33 @@
 			</Td>
 		</tr>
 		<tr>
-			<Td><h:outputText value="#{scoreboardBean.scheduletitle} " style="font-size: 14px; font-weight: bold;"/>:
+			<Td><h:outputText value="#{scoreboardBean.scheduletitle}: " style="font-size: 14px; font-weight: bold;"/>
 			</Td>
 		</tr>
 		<tr>
 			<td valign="top" width="100%">
 				<ui:repeat id="mobileschedule" value="#{scoreboardBean.getLivegamelist()}" var="game" >
 			        
-			        <table border="1" cellpadding="0" cellspacing="0" width="95%" style="background-color: ;border-color: LightBlue;">
+			        <table border="1" cellpadding="0" cellspacing="0" width="95%" style="border-color: #fafafa;">
 			        	<tr>
 			        		<td>
 			        			<table border="0" width="100%">
 			        				<tr>
 			        					<td colspan="3" align="left" style="white-space: nowrap;">
-			        					<h:outputText value="#{game.getStartdate()} " style="font-size: 14px; "/>
+			        					<h:outputText value="#{game.getStartdate()} " style="font-size: 14px; font-weight: bold;"/>
 			        					<p:spacer height="3" width="1" />
-			        					<h:outputText value="#{game.getStarttime()} " style="font-size: 14px; "/></td>
-			        					<td colspan="2" align="right" style="white-space: nowrap;"><h:outputText style="font-size: 14px;" value="#{game.getVenueshortname()} " /></td>
+			        					<h:outputText value="#{game.getStarttime()} " style="font-size: 14px; font-weight: bold;"/></td>
+			        					<td colspan="2" align="right" style="white-space: nowrap;"><h:outputText style="font-size: 14px; font-weight: bold;" value="#{game.getVenueshortname()} " /></td>
 			        				</tr>
 			        				<tr>
-			        					<td align="left" width="44%"><h:outputText value="#{game.getAwayteam().getTeamname()}" style="font-size: 14px; "/></td>
-			        					<td align="center" width="5%"><h:outputText value="#{ (game.statetag == 'Scheduled' ? '--' : game.getAwayscore()) } " style="font-size: 14px; "/></td>
+			        					<td colspan="5"><p:separator style="border-color:#fafafa;height:0px;" /></td>
+			        				</tr>
+			        				<tr>
+			        					<td align="left" width="44%"><h:outputText value="#{game.getAwayteam().getTeamname()}" style="font-size: 14px;  "/></td>
+			        					<td align="center" width="5%"><h:outputText value="#{ (game.statetag == 'Scheduled' ? '--' : game.getAwayscore()) } " style="font-size: 14px;"/></td>
 			        					<td align="center" width="2%">vs.</td>
-			        					<td align="center" width="5%"><h:outputText value="#{ (game.statetag == 'Scheduled' ? '--' : game.getHomescore()) }" style="font-size: 14px; "/></td>
-			        					<td align="right" width="44%"><h:outputText value="#{game.getHometeam().getTeamname()}" style="font-size: 14px; "/></td>
+			        					<td align="center" width="5%"><h:outputText value="#{ (game.statetag == 'Scheduled' ? '--' : game.getHomescore()) }" style="font-size: 14px;  "/></td>
+			        					<td align="right" width="44%"><h:outputText value="#{game.getHometeam().getTeamname()}" style="font-size: 14px;  "/></td>
 			        					
 			        				</tr>
 			        			</table>

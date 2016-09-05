@@ -800,7 +800,7 @@ public class playoffsBean implements Serializable{
 			scheduletitle = "18U AA";
 		}
 		
-		this.setSelectedschedule(397);
+		this.setSelectedschedule(scheduleidformobile);
 		onScheduleChange();
 	}
 }
