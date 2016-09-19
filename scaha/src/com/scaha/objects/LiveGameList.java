@@ -73,6 +73,8 @@ public class LiveGameList extends ListDataModel<LiveGame> implements Serializabl
 			live.setGamenotes(rs.getString(i++));
 			live.setVenueshortname(rs.getString(i++));
 			live.setSched(_schl.getRowData(live.getScheduleidstub()+""));
+			live.setHomeclubid(live.getHometeam().getTeamClub().ID);
+			live.setAwayclubid(live.getAwayteam().getTeamClub().ID);
 			data.add(live);
 			hm.put(live.ID+"", live);
 		}

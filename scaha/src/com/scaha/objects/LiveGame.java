@@ -33,6 +33,8 @@ public class LiveGame extends ScahaObject implements Serializable {
 	private String gamenotes = null;
 	private String venueshortname = null;
 	private int scheduleidstub = 0;
+	private int homeclubid = 0;
+	private int awayclubid = 0;
 	
 	public LiveGame(int _id, Profile _pro, Schedule _sc) {
 		ID = _id;	
@@ -56,6 +58,22 @@ public class LiveGame extends ScahaObject implements Serializable {
 	 */
 	public Schedule getSched() {
 		return sched;
+	}
+	
+	public int getHomeclubid() {
+		return homeclubid;
+	}
+	
+	public void setHomeclubid(int value) {
+		homeclubid=value;
+	}
+	
+	public int getAwayclubid() {
+		return awayclubid;
+	}
+	
+	public void setAwayclubid(int value) {
+		awayclubid=value;
 	}
 	
 	public int getGameId() {

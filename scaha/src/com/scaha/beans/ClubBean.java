@@ -1,10 +1,5 @@
 package com.scaha.beans;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -18,7 +13,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
-import javax.imageio.ImageIO;
 import javax.mail.internet.InternetAddress;
 
 import org.primefaces.event.FileUploadEvent;
@@ -32,6 +26,7 @@ import com.scaha.objects.ClubAdmin;
 import com.scaha.objects.ClubAdminList;
 import com.scaha.objects.Game;
 import com.scaha.objects.GeneralSeason;
+import com.scaha.objects.LiveGame;
 import com.scaha.objects.MailableObject;
 import com.scaha.objects.Person;
 import com.scaha.objects.PersonList;
@@ -264,6 +259,35 @@ public class ClubBean implements Serializable,  MailableObject {
 		return getClubLogo(myclub);
 	}
 
+	//needs to be used to support passing in game
+	public StreamedContent getClubLogoByLiveGameObject(LiveGame game, String homeaway) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		String get = context.getExternalContext().getRequestParameterMap().get("targethome");
+		/*if (homeaway.equals("Away")){
+			get = context.getExternalContext().getRequestParameterMap().get("targetaway"+game.getIdlivegame().toString());;
+		}else{
+			get = context.getExternalContext().getRequestParameterMap().get("targethome"+game.getIdlivegame().toString());;
+		}*/
+		
+		if (get == null) {
+    		//return new DefaultStreamedContent();
+			return scaha.getNoimage().getStreamedContent();
+	    } else if (get.length() == 0) {
+    		//return new DefaultStreamedContent();
+	    	return scaha.getNoimage().getStreamedContent();
+	    }
+    	int id = Integer.parseInt(get);
+	    Club myclub  = scaha.findClubByID(id);
+	    if (myclub == null) {
+			LOGGER.info("*** Could not find club... for id LOGO ID IS (" + get + ") ");
+    		//return new DefaultStreamedContent();
+			return scaha.getNoimage().getStreamedContent();
+	    }
+	    
+	    LOGGER.info("*** club is...("+ myclub + ") for id LOGO ID IS (" + get + ") ");
+		return getClubLogo(myclub);
+	}
+	
 	/**
 	 * This sets the call..
 	 * @param _id
