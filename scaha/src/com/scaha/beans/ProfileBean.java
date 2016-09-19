@@ -209,6 +209,66 @@ public class ProfileBean implements Serializable,  MailableObject  {
  
     }
     
+    public void loginformobile() {
+
+    	
+    	pro = Profile.verify(name, live_password);
+		origin = "/scaha/manageprofile.xhtml";
+    	// pull profile into the Login Bean..
+    	try {
+	    	if (pro != null) {
+	    		
+	    		//
+	    		// Here we want to default some session stuff right here.
+	    		// What is the current USAHockey Season..
+	    		//
+	    		ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase",pro);
+	    		try{
+	    		
+	    			if (db.getData("call scaha.getActiveMemberShipByType('USAH')")) {
+	    				while (db.getResultSet().next()) {
+	    					this.setCurrentUSAHockeySeason(db.getResultSet().getString(2));
+	    				}
+	    			}
+
+	    			if (db.getData("call scaha.getActiveMemberShipByType('SCAHA')")) {
+	    				while (db.getResultSet().next()) {
+	    					this.setCurrentSCAHAHockeySeason(db.getResultSet().getString(2));
+	    				}
+	    			}
+  			
+	    			
+	    			db.free();
+	    		} catch (SQLException ex) {
+	    			ex.printStackTrace();
+	    			db.free();
+	    		}
+	    		
+	    		if (pro.getScahamanager().getIsmanager()){
+	    			FacesContext context = FacesContext.getCurrentInstance();
+	    			//this.origin = ((HttpServletRequest)context.getExternalContext().getRequest()).getRequestURL().toString();
+					context.getExternalContext().redirect("/scaha/managerportal.xhtml");
+	    		} else if(origin != null) {
+        			FacesContext.getCurrentInstance().getExternalContext().redirect(origin);
+    			}
+    			
+    		} else {
+    			FacesContext.getCurrentInstance().addMessage(
+                        null,
+                        new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Invalid Login!",
+                        "Please Try Again!"));
+
+    			// blank out the password
+    			live_password = null;
+    			
+	    					
+    		}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+ 
+    }
     
     public void verifyUserLogin(){
 		FacesContext context = FacesContext.getCurrentInstance();
