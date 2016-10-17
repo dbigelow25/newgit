@@ -826,51 +826,51 @@ public class ScoreboardBean implements Serializable,  MailableObject {
 		
 		//need to find out the age group and skill group selected and then refresh the live game list
 		if (agegroup.equals("squirt") && skillgroup.equals("A")){
-			scheduleidformobile=401;
+			scheduleidformobile=409;
 			scheduletitle = "Squirt A";
 		}
 		if (agegroup.equals("squirt") && skillgroup.equals("BB")){
-			scheduleidformobile=400;
+			scheduleidformobile=408;
 			scheduletitle = "Squirt BB";
 		}
 		if (agegroup.equals("squirt") && skillgroup.equals("B")){
-			scheduleidformobile=399;
+			scheduleidformobile=407;
 			scheduletitle = "Squirt B";
 		}
 		if (agegroup.equals("peewee") && skillgroup.equals("AA")){
-			scheduleidformobile=415;
+			scheduleidformobile=419;
 			scheduletitle = "Peewee AA";
 		}
 		if (agegroup.equals("peewee") && skillgroup.equals("A")){
-			scheduleidformobile=404;
+			scheduleidformobile=412;
 			scheduletitle = "Peewee A";
 		}
 		if (agegroup.equals("peewee") && skillgroup.equals("BB")){
-			scheduleidformobile=403;
+			scheduleidformobile=411;
 			scheduletitle = "Peewee BB";
 		}
 		if (agegroup.equals("peewee") && skillgroup.equals("B")){
-			scheduleidformobile=402;
+			scheduleidformobile=410;
 			scheduletitle = "Peewee B";
 		}
 		if (agegroup.equals("bantam") && skillgroup.equals("AA")){
-			scheduleidformobile=416;
+			scheduleidformobile=420;
 			scheduletitle = "Bantam AA";
 		}
 		if (agegroup.equals("bantam") && skillgroup.equals("A")){
-			scheduleidformobile=406;
+			scheduleidformobile=414;
 			scheduletitle = "Bantam A";
 		}
 		if (agegroup.equals("bantam") && skillgroup.equals("B")){
-			scheduleidformobile=405;
+			scheduleidformobile=413;
 			scheduletitle = "Bantam B";
 		}
 		if (agegroup.equals("midget16") && skillgroup.equals("AA")){
-			scheduleidformobile=417;
+			scheduleidformobile=421;
 			scheduletitle = "16U AA";
 		}
 		if (agegroup.equals("midget18") && skillgroup.equals("AA")){
-			scheduleidformobile=418;
+			scheduleidformobile=422;
 			scheduletitle = "18U AA";
 		}
 		
