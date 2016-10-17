@@ -64,6 +64,8 @@ public class TeamList extends ListDataModel<ScahaTeam> implements Serializable, 
 		pst.setString(2, _gs.getTag());
 		ResultSet rs = pst.executeQuery();
 		while (rs.next()) {
+			
+			
 			int i = 1;
 			ScahaTeam tm = new ScahaTeam(_pro,rs.getInt(i++));
 			tm.setSname(rs.getString(i++));

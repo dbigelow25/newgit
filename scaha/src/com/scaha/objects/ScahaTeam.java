@@ -77,7 +77,7 @@ public class ScahaTeam extends ScahaObject implements Serializable {
 	public ScahaManager getManager() {
 		if (this.Managers == null) return null;
 		for (ScahaManager hc : Managers) {
-			if (hc.getGenatt().get("ROSTERTYPE").equals("Manager")) return hc;
+			if (hc.getGenatt().get("ROSTERTYPE").equals("Manager") || hc.getGenatt().get("ROSTERTYPE").equals("Assistant Coach/Manager")) return hc;
 		}
 		return  null;
 	}
