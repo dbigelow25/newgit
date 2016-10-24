@@ -13,10 +13,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.mail.internet.InternetAddress;
+import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.event.RowEditEvent;
 
@@ -25,8 +25,11 @@ import com.gbli.connectors.ScahaDatabase;
 import com.gbli.context.ContextManager;
 import com.scaha.objects.Club;
 import com.scaha.objects.Division;
+import com.scaha.objects.Game;
 import com.scaha.objects.GeneralSeason;
 import com.scaha.objects.MailableObject;
+import com.scaha.objects.Release;
+import com.scaha.objects.ReleaseDataModel;
 import com.scaha.objects.ScahaTeam;
 import com.scaha.objects.SkillLevel;
 import com.scaha.objects.TeamList;
@@ -45,6 +48,7 @@ public class TeamBean implements Serializable, MailableObject {
 	@ManagedProperty(value="#{profileBean}")
 	private ProfileBean pb;
 
+	transient private ResultSet rs = null;
     private List<Division> divisions= null;
     private String[] sdivisions = null;
     private List<SkillLevel> skilllevels= null;
@@ -59,6 +63,8 @@ public class TeamBean implements Serializable, MailableObject {
 	private Boolean ishighschool = null;
 	private String TargetTeamID = null;
 	private TeamList MyTeamList = null;
+	private List<Game> games = null;
+	private Integer teamid = null;
 	
 	@PostConstruct
     public void init() {
@@ -67,14 +73,45 @@ public class TeamBean implements Serializable, MailableObject {
         getClubID();
         isClubHighSchool();
         populateTableTitle(idclub);
-        getTeamsForClub(idclub); 
+        if (idclub!=9){
+        	getTeamsForClub(idclub);
+        }
+         
         getListofDivisions();
         this.getListofSkillLevels();
+        
+        //need to include logic for retrieving team id from url and loading team name and games object
+        HttpServletRequest hsr = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    	
+    	if(hsr.getParameter("teamid") != null)
+        {
+    		this.teamid = Integer.parseInt(hsr.getParameter("teamid").toString());
+    		getGamesforTeam(teamid);
+        }
+    	
 	}
 	
     public TeamBean() {  
         
     }  
+    
+    public Integer getTeamid(){
+    	return teamid;
+    }
+    
+    public void setTeamid(Integer value){
+    	teamid = value;
+    }
+    
+    
+    public List<Game> getGames(){
+    	return games;
+    }
+    
+    public void setGames(List<Game> value){
+    	games = value;
+    }
+    
     
     public Boolean getIshighschool(){
     	return ishighschool;
@@ -702,6 +739,66 @@ public class TeamBean implements Serializable, MailableObject {
 		//
     	Club c = scaha.findClubByID(_idclub);
 		c.setScahaTeams(TeamList.NewTeamListFactory(pb.getProfile(), _db, c, scaha.getScahaSeasonList().getCurrentSeason(), true, false));
+	}
+	
+	public void getGamesforTeam(Integer teamid){
+		ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
+    	List<Game> tempresult = new ArrayList<Game>();
+    	
+    	try{
+
+    		if (db.setAutoCommit(false)) {
+    			
+				CallableStatement cs = db.prepareCall("CALL scaha.getTeamsScoresheet(?)");
+				cs.setInt("teamid", teamid);
+    			rs = cs.executeQuery();
+    			
+    			if (rs != null){
+    				
+    				while (rs.next()) {
+    					String tempteamname = rs.getString("teamname");
+    					String gamedate = rs.getString("gamedate");
+        				String gametype = rs.getString("gametype");
+        				String opponent = rs.getString("opponent");
+        				String scoresheeturlpath = rs.getString("scoresheeturlpath");
+        				String status = rs.getString("status");
+        				
+        				Game ogame = new Game();
+        				ogame.setGametime(gamedate);
+        				ogame.setTypetag(gametype);
+        				ogame.setAwayteam(opponent);
+        				ogame.setScoresheeturl(scoresheeturlpath);
+        				ogame.setStatus(status);
+        				tempresult.add(ogame);
+        				
+        				//set the teamname value
+        				this.teamname = tempteamname;
+    				}
+    				
+    				LOGGER.info("We have results for scoresheet list");
+    				
+    			}
+    				
+    			db.cleanup();
+    		} else {
+
+    		}
+    		
+    	} catch (SQLException e) {
+    		// TODO Auto-generated catch block
+    		LOGGER.info("ERROR IN Searching FOR scoresheets for a team");
+    		e.printStackTrace();
+    		db.rollback();
+    	} finally {
+    		//
+    		// always clean up after yourself..
+    		//
+    		db.free();
+    	}
+    	
+    	
+    	setGames(tempresult);
+    	
 	}
 }
 

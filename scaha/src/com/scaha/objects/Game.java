@@ -16,7 +16,7 @@ public class Game extends ScahaObject {
 	private Integer homeclubid = null;
 	private Integer awayclubid = null;
 	private Boolean renderboxscore = null;
-		
+	private String scoresheeturl = null;	
 	
 	/**
 	 * @param args
@@ -26,6 +26,14 @@ public class Game extends ScahaObject {
 
 	}
 
+	public void setScoresheeturl(String value){
+		scoresheeturl=value;
+	}
+	
+	public String getScoresheeturl(){
+		return scoresheeturl;
+	}
+	
 	public void setRenderboxscore(Boolean value){
 		renderboxscore=value;
 	}
@@ -33,6 +41,7 @@ public class Game extends ScahaObject {
 	public Boolean getRenderboxscore(){
 		return renderboxscore;
 	}
+	
 	public void setIdlivegame(Integer value){
 		idlivegame = value;
 	}

@@ -19,7 +19,7 @@
     <pe:masterDetailLevel level="1" levelLabel="SCAHA Clubs" showAllBreadcrumbItems="true">  
 
   		<p:dataTable id="listofclubs" var="club" value="#{scahaBean.getScahaClubList()}" >
-			<p:subTable var="peep" value="#{club.getCal()}" tableStyle="width:auto">
+			<p:subTable var="peep" value="#{club.getCal()}" tableStyle="width:auto" rendered="#{club.getClubID() ne 40}">
 	            <f:facet name="header">
 	            	<div style="float:left;vertical-align:middle;width:75px;font-size: 12px;">
 	            	<p:graphicImage id="logoimage1" value="#{clubBean.getClubLogoByParmId()}"  width="45" >

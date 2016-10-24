@@ -25,7 +25,10 @@
     	<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />    
 	</h:form>
 	<h:form id="rosterlists">
-	<p:panel id ="panel" style="font-size: 14px;align: center;" header="#{editrosterBean.teamname} Roster for 2014 Season">
+	<p:panel id ="panel" style="font-size: 14px;align: center;" header="">
+		<f:facet name="header">
+			<div align="left">#{editrosterBean.teamname} Roster for 2016 Season</div><div align="right"><p:commandButton value="View Scoresheets" id="viewscoresheet" ajax="true" action="#{editrosterBean.viewScoresheets()}" /></div>				
+		</f:facet>
 		<p:dataTable id="listofplayers" var="player" value="#{editrosterBean.getPlayers()}" >
 			<p:column style="font-size: 12px;align: center;" headerText="#">
             	#{player.getJerseynumber()}
@@ -103,8 +106,10 @@
     <p:fieldset id="fs8" toggleable="false" toggleSpeed="500">
 		<h:form id="updateentireroster">
 			<div align="center"><b>Apply this roster date to entire team:</b>&nbsp;&nbsp;<p:inputText id="city" style="width:130px;" value="#{editrosterBean.enteredrosterdate}"  /> (MM/DD/YYYY)
-			<br></br><br></br>
-			<p:commandButton update=":rosterlists:listofplayers,:rosterlists:listofcoaches" value="Update Roster Date for Entire Team" id="updaterosterdate" ajax="true" action="#{editrosterBean.updateTeamRostereffectivedate()}" /></div>
+				<br></br><br></br>
+				<p:commandButton update=":rosterlists:listofplayers,:rosterlists:listofcoaches" value="Update Roster Date for Entire Team" id="updaterosterdate" ajax="true" action="#{editrosterBean.updateTeamRostereffectivedate()}" />
+				
+			</div>
 		</h:form>
 	</p:fieldset>
     <p:spacer width="10" height="10" />

@@ -2023,6 +2023,17 @@ public SogList refreshHomeSog() {
 			
 			//need to update stats table as game is being finalized.
 			//pass in team id and livegame id
+			PreparedStatement ps = db.prepareCall("call scaha.updatestatsforLiveGame(?,?)");
+			ps.setInt(1,this.livegame.ID);
+			ps.setInt(2,this.livegame.getAwayteam().ID);
+			
+			ps.executeQuery();
+			
+			ps.setInt(1,this.livegame.ID);
+			ps.setInt(2,this.livegame.getHometeam().ID);
+			
+			ps.executeQuery();
+			ps.close();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

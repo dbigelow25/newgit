@@ -385,5 +385,15 @@ public class editrosterBean implements Serializable {
     	setCoaches(tempcoachlist);
 	
 	}
+	
+	public void viewScoresheets(){
+		FacesContext context = FacesContext.getCurrentInstance();
+		try{
+			context.getExternalContext().redirect("reviewscoresheetsforateam.xhtml?teamid=" + this.teamid);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
 
