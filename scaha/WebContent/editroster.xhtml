@@ -27,8 +27,11 @@
 	<h:form id="rosterlists">
 	<p:panel id ="panel" style="font-size: 14px;align: center;" header="">
 		<f:facet name="header">
-			<div align="left">#{editrosterBean.teamname} Roster for 2016 Season</div><div align="right"><p:commandButton value="View Scoresheets" id="viewscoresheet" ajax="true" action="#{editrosterBean.viewScoresheets()}" /></div>				
+			<div align="left">#{editrosterBean.teamname} Roster for 2016 Season</div>
+							
 		</f:facet>
+		<div align="right"><p:commandButton value="View Scoresheets" id="viewscoresheet" ajax="true" action="#{editrosterBean.viewScoresheets()}" /></div>
+		<br></br>
 		<p:dataTable id="listofplayers" var="player" value="#{editrosterBean.getPlayers()}" >
 			<p:column style="font-size: 12px;align: center;" headerText="#">
             	#{player.getJerseynumber()}

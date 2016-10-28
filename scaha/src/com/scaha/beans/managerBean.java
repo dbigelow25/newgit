@@ -103,6 +103,7 @@ public class managerBean implements Serializable, MailableObject {
 	private String location;
 	private String website;
 	private String levelplayed;
+	private String status;
 	
 	//properties for adding tournament/exhibition games
 	private String gamedate=null;
@@ -175,6 +176,15 @@ public class managerBean implements Serializable, MailableObject {
     public managerBean() {  
         
     }  
+    
+    public void setStatus(String value){
+    	this.status = value;
+    }
+    
+    public String getStatus(){
+    	return this.status;
+    }
+    
     
     public void setDisplaymessage(Boolean value){
     	this.displaymessage = value;
@@ -275,7 +285,7 @@ public class managerBean implements Serializable, MailableObject {
 			myTokens.add("SANCTION: " + this.sanction);
 			myTokens.add("LOCATION: " + this.location);
 			myTokens.add("WEBSITE: " + this.website);
-			myTokens.add("STATUS: " + "Pending");
+			myTokens.add("STATUS: " + this.status);
 			
 			result = Utils.mergeTokens(managerBean.mail_tournament_body,myTokens);
 		}
@@ -924,6 +934,8 @@ public class managerBean implements Serializable, MailableObject {
     		
 			getTournament();
 			
+			
+			
 			//need to add email to manager and scaha statistician
 			to = "";
 			cs = db.prepareCall("CALL scaha.getManagersforTeam(?)");
@@ -951,6 +963,16 @@ public class managerBean implements Serializable, MailableObject {
   				}
   			}
   		    rs.close();
+  		    
+  		    cs = db.prepareCall("CALL scaha.getTournamentStatusByDate(?)");
+  		    cs.setString("startdate", this.startdate);
+		    rs = cs.executeQuery();
+		    if (rs != null){
+				while (rs.next()) {
+					this.status = rs.getString("status");
+				}
+			}
+		    
   		    db.cleanup();
   		    
 			//to = "lahockeyfan2@yahoo.com";
