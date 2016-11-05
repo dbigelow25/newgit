@@ -178,10 +178,11 @@ public class ScoreboardBean implements Serializable,  MailableObject {
 		this.partlist = null;
 		if (this.selectedschedule != null) {
 			
+			ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
 			
 			//if historical season lets look up the games and standings for the season.
 			if(this.selectedseason!=scaha.getScahaSeasonList().getCurrentSeason()){
-				ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
+				
 				try {
 					//generating historical standings and adding them to the partlist.
 					this.partlist = ParticipantList.NewListFactory(db, selectedscheduleid);
@@ -197,8 +198,20 @@ public class ScoreboardBean implements Serializable,  MailableObject {
 				}
 				
 			}else {
+				
 				this.partlist = this.selectedschedule.getPartlist();
-				this.partpicklist = this.getParticipantpicklist();
+				
+				//this.partpicklist = this.getParticipantpicklist();
+				
+				try {
+					//generating historical standings and adding them to the partlist.
+					this.partpicklist = ParticipantList.getHistoricalParticipantList(db, selectedscheduleid);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally{
+					db.free();
+				}
 				//need to perfrom role check here for displaying schedule
 				this.setLivegamelist(scaha.getScahaLiveGameList().NewList(scaha.getDefaultProfile(),selectedschedule));
 				
