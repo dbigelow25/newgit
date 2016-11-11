@@ -206,6 +206,9 @@ public class ScoreboardBean implements Serializable,  MailableObject {
 				try {
 					//generating historical standings and adding them to the partlist.
 					this.partpicklist = ParticipantList.getHistoricalParticipantList(db, selectedscheduleid);
+					
+					//this is hear for testing purposes only
+					//this.partpicklist = this.getParticipantpicklist();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -248,7 +251,14 @@ public class ScoreboardBean implements Serializable,  MailableObject {
 						this.setLivegamelist(this.selectedschedule.getLivegamelist().NewList(scaha.getDefaultProfile(), selectedschedule, selectedpart.getTeam()));
 					
 				} else {
-					this.setLivegamelist(this.selectedschedule.getLivegamelist());
+					if (this.selectedpartid > 0){
+						this.setLivegamelist(this.selectedschedule.getLivegamelist().NewList(scaha.getDefaultProfile(), selectedschedule, this.selectedpartid));
+					}
+					else {
+						this.setLivegamelist(this.selectedschedule.getLivegamelist());
+					}
+					
+					
 				}
 			
 		}

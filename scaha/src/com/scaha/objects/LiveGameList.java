@@ -278,6 +278,24 @@ public class LiveGameList extends ListDataModel<LiveGame> implements Serializabl
 		return new LiveGameList(data,hm);
 	}
 	
+public LiveGameList NewList (Profile _pro, Schedule _sch, Integer _tm) {
+		
+		LOGGER.info("NewList is looking for LiveGames that match " + _sch + ", tm=" + _tm);
+		List<LiveGame> data = new ArrayList<LiveGame>();
+		HashMap<String, LiveGame> hm = new HashMap<String,LiveGame>();
+		@SuppressWarnings("unchecked")
+		List<LiveGame> results = (List<LiveGame>) getWrappedData();
+		for (LiveGame live : results) {
+			if ((live.getHometeam().ID == _tm ||
+				live.getAwayteam().ID == _tm) && live.getSched().ID == _sch.ID) {
+		//		LOGGER.info("Found a match " + live);
+				data.add(live);
+				hm.put(live.ID+"", live);
+			}
+		}
+		LOGGER.info("NewList completed for LiveGames.." + data.size());
+		return new LiveGameList(data,hm);
+	}
 	/** 
 	 * Here we get all the games for a particular Season and team...
 	 * @param _pro
