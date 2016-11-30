@@ -26,7 +26,7 @@ import com.scaha.objects.Stat;
 
 @ManagedBean
 @ViewScoped
-public class statsBean implements Serializable{
+public class statsdetailBean implements Serializable{
 
 	private static final long serialVersionUID = 2L;
 	private static final Logger LOGGER = Logger.getLogger(ContextManager.getLoggerContext());
@@ -53,7 +53,13 @@ public class statsBean implements Serializable{
 	private String selectedyear = null;
 	private String selectedgametype = null;
 	private String selectedcount = null;
+	private String selectedsortby = null;
 	private String displaycompletetitle = null;
+	private String stattype = null;
+	
+	//used to display player or goalie grid
+	private Boolean displayPlayer = null;
+	private Boolean displayGoalie = null;
 	
     @PostConstruct
     public void init() {
@@ -73,24 +79,74 @@ public class statsBean implements Serializable{
         {
     		this.selectedyear = hsr.getParameter("year").toString();
         }
+        if(hsr.getParameter("sortby") != null)
+        {
+    		this.selectedsortby = hsr.getParameter("sortby").toString();
+        }
         if(hsr.getParameter("gtype") != null)
         {
     		this.selectedgametype = hsr.getParameter("gtype").toString();
         }
+        if(hsr.getParameter("b") != null)
+        {
+    		this.stattype = hsr.getParameter("b").toString();
+        }		
+    	
+    	//load stats
+        if (this.stattype.equals("p")){
+        	loadCompletePlayerStats(this.selectedsortby);
+        	this.displayPlayer=true;
+        	this.displayGoalie=false;
+        } else {
+        	loadCompleteGoalieStats(this.selectedsortby);
+        	this.displayPlayer=false;
+        	this.displayGoalie=true;
+        }
         
     	
-    	//load divisions to select from
-    	getListofDivisions();
-    	
         //Load leaders
-        loadLeaders();
+        //loadLeaders();
         
         
 	}
 	
-    public statsBean() {  
+    public statsdetailBean() {  
         
     }  
+    
+    public Boolean getDisplaygoalie(){
+    	return displayGoalie;
+    }
+    
+    public void setDisplaygoalie(Boolean value){
+    	displayGoalie=value;
+    }
+    
+    
+    public Boolean getDisplayplayer(){
+    	return displayPlayer;
+    }
+    
+    public void setDisplayplayer(Boolean value){
+    	displayPlayer=value;
+    }
+    
+    public String getStattype(){
+    	return stattype;
+    }
+    
+    public void setStattype(String value){
+    	stattype=value;
+    }
+    
+    public String getSelectedsortby(){
+    	return selectedsortby;
+    }
+    
+    public void setSelectedsortby(String value){
+    	selectedsortby=value;
+    }
+    
     
     public String getDisplaycompletetitle(){
     	return displaycompletetitle;
@@ -530,7 +586,7 @@ public class statsBean implements Serializable{
     		cs.setInt("inyear", Integer.parseInt(this.selectedyear));
     		cs.setString("sorting", sortby);
     		cs.setInt("ingametype", Integer.parseInt(this.selectedgametype));
-    		cs.setInt("count", Integer.parseInt(this.selectedcount));
+    		cs.setInt("count", 1000);
 			
     		rs = cs.executeQuery();
 			Integer count = 1;
@@ -606,21 +662,11 @@ public class statsBean implements Serializable{
 		
     }
 	
-	public void gotoStatsDetail(String sortby){
+	public void gotoLeaderStats(){
 		
 		FacesContext context = FacesContext.getCurrentInstance();
     	try{
-    		context.getExternalContext().redirect("statsdetail.xhtml?div=" + this.selecteddivision + "&year=" + this.selectedyear + "&sortby=" + sortby + "&gtype=" + this.selectedgametype + "&b=p");
-    	} catch (Exception e){
-			e.printStackTrace();
-		}
-	}
-	
-	public void gotoGoalieStatsDetail(String sortby){
-		
-		FacesContext context = FacesContext.getCurrentInstance();
-    	try{
-    		context.getExternalContext().redirect("statsdetail.xhtml?div=" + this.selecteddivision + "&year=" + this.selectedyear + "&sortby=" + sortby + "&gtype=" + this.selectedgametype + "&b=g");
+    		context.getExternalContext().redirect("statscentral.xhtml?div=" + this.selecteddivision + "&year=" + this.selectedyear + "&sortby=" + this.selectedsortby + "&gtype=" + this.selectedgametype + "&b=g");
     	} catch (Exception e){
 			e.printStackTrace();
 		}

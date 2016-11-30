@@ -59,7 +59,8 @@
 		        </p:column>
 		        <f:facet name="footer">
 			        <p:commandLink style="font-size: 12px;" value="View Complete Leaders" >  
-    	            	 <p:ajax process="@this" listener="#{statsBean.loadCompletePlayerStats('Points')}" event="click" update=":form" oncomplete="PF('peepdlg').show()"  />
+    	            	 <!-- <p:ajax process="@this" listener="#{statsBean.loadCompletePlayerStats('Points')}" event="click" update=":form" oncomplete="PF('peepdlg').show()"  /> -->
+    	            	 <p:ajax process="@this" listener="#{statsBean.gotoStatsDetail('Points')}" event="click" />
    		            </p:commandLink>
    		        </f:facet>
                 
@@ -84,7 +85,7 @@
 		        </p:column>
 		        <f:facet name="footer">
 			        <p:commandLink style="font-size: 12px;" value="View Complete Leaders" >  
-    	            	 <p:ajax process="@this" listener="#{statsBean.loadCompletePlayerStats('Goals')}" event="click" update=":form" oncomplete="PF('peepdlg').show()"  />
+    	            	 <p:ajax process="@this" listener="#{statsBean.gotoStatsDetail('Goals')}" />
    		            </p:commandLink>
    		        </f:facet>
                 
@@ -109,7 +110,7 @@
 		        </p:column>
 		        <f:facet name="footer">
 			        <p:commandLink style="font-size: 12px;" value="View Complete Leaders" >  
-    	            	 <p:ajax process="@this" listener="#{statsBean.loadCompletePlayerStats('Assists')}" event="click" update=":form" oncomplete="PF('peepdlg').show()"  />
+    	            	 <p:ajax process="@this" listener="#{statsBean.gotoStatsDetail('Assists')}" />
    		            </p:commandLink>
    		        </f:facet>
                 
@@ -137,7 +138,7 @@
 		        </p:column>
 		        <f:facet name="footer">
 			        <p:commandLink style="font-size: 12px;" value="View Complete Leaders" >  
-    	            	 <p:ajax process="@this" listener="#{statsBean.loadCompleteGoalieStats('GAA')}" event="click" update=":form" oncomplete="PF('goaliepeepdlg').show()"  />
+    	            	 <p:ajax process="@this" listener="#{statsBean.gotoGoalieStatsDetail('GAA')}" event="click"  />
    		            </p:commandLink>
    		        </f:facet>
                 
@@ -162,7 +163,7 @@
 		        </p:column>
 		        <f:facet name="footer">
 			        <p:commandLink style="font-size: 12px;" value="View Complete Leaders" >  
-    	            	 <p:ajax process="@this" listener="#{statsBean.loadCompleteGoalieStats('Percentage')}" event="click" update=":form" oncomplete="PF('goaliepeepdlg').show()"  />
+    	            	 <p:ajax process="@this" listener="#{statsBean.gotoGoalieStatsDetail('Percentage')}" event="click"  />
    		            </p:commandLink>
    		        </f:facet>
                 
