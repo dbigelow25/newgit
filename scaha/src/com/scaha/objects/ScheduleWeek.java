@@ -294,10 +294,10 @@ public class ScheduleWeek extends ScahaObject implements Serializable {
 		// if bump list grew.. then we have a case where we need to put this at the top top.. blow everything away
 		//
 		if (pBump.getRowCount() > 1) {
-			LOGGER.info("  Initiate Hard Bump Reset...");
+			//LOGGER.info("  Initiate Hard Bump Reset...");
 			//_db.backoutSchedule(_se, this, true);
 		} else {
-			LOGGER.info("  Initiate Soft Bump Reset...");
+			//LOGGER.info("  Initiate Soft Bump Reset...");
 			//_db.backoutSchedule(_se, this, false);
 		}
 		
@@ -314,10 +314,10 @@ public class ScheduleWeek extends ScahaObject implements Serializable {
 		// if bump list grew.. then we have a case where we need to put this at the top top.. blow everything away
 		//
 		if (pBump.getRowCount() > 1) {
-			LOGGER.info("  Initiate Hard Bump Reset...");
+			//LOGGER.info("  Initiate Hard Bump Reset...");
 		//	_db.backoutSchedule(_se, this, true);
 		} else {
-			LOGGER.info("  Initiate Soft Bump Reset...");
+			//LOGGER.info("  Initiate Soft Bump Reset...");
 		//	_db.backoutSchedule(_se, this, true);
 		}
 		this.resetProcessList();
@@ -341,7 +341,7 @@ public class ScheduleWeek extends ScahaObject implements Serializable {
 		//	pMatch.getTeam().getTeamGameInfo().refreshInfo(_db,schedule);
 		//	if (pMatch.getTeam().getTotalGames() > schedule.getGameCount()) {
 		// TODO		am.add(match);
-				LOGGER.info("schedule:Removing team from matchup.. too many games:" + pMatch);
+				//LOGGER.info("schedule:Removing team from matchup.. too many games:" + pMatch);
 		//	}
 
 		}

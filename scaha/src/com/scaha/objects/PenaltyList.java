@@ -86,14 +86,14 @@ public class PenaltyList extends ListDataModel<Penalty> implements Serializable,
 	@SuppressWarnings("unchecked")
 	public void reset() {
 		// TODO Auto-generated method stub
-		LOGGER.info("resetting Participant List..");
+		//LOGGER.info("resetting Participant List..");
 		((ArrayList<Penalty>)this.getWrappedData()).clear();
 		hm.clear();
 	}  
 	
 	@SuppressWarnings("unchecked")
 	public void add(Penalty _p) {
-		LOGGER.info("Adding Penalty to List:" + _p);
+		//LOGGER.info("Adding Penalty to List:" + _p);
 		((ArrayList<Penalty>)this.getWrappedData()).add(_p);
 		hm.put(_p.ID+"", _p);
 	}

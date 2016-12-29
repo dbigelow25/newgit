@@ -22,7 +22,7 @@ public class PersonConverter implements Converter {
 	@Override
 	public Object getAsObject(FacesContext arg0, UIComponent arg1, String submittedValue) throws ConverterException {
 		
-		LOGGER.info("PersonConverter.. String is:" + submittedValue);
+		//LOGGER.info("PersonConverter.. String is:" + submittedValue);
 		if (submittedValue.trim().equals("")) {  
 			return null;  
 		} else {

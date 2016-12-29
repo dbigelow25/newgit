@@ -365,7 +365,7 @@ public class viewreleaseBean implements Serializable, MailableObject {
         				
         				templist.add(status);
     				}
-    				LOGGER.info("We have results for status list");
+    				//LOGGER.info("We have results for status list");
     			}
     			rs.close();
     			db.cleanup();
@@ -443,7 +443,7 @@ public class viewreleaseBean implements Serializable, MailableObject {
         				}
         			}
     				rs.close();
-    				LOGGER.info("We have results for player details by player id");
+    				//LOGGER.info("We have results for player details by player id");
     			}
     			db.cleanup();
     		
@@ -522,7 +522,7 @@ public class viewreleaseBean implements Serializable, MailableObject {
     			
     			//need to send email to club registrars, family, and scaha registrar
     			//first releasing and accepting club registrar
-    			LOGGER.info("Sending email to club registrar, family, and scaha registrar");
+    			//LOGGER.info("Sending email to club registrar, family, and scaha registrar");
     			cs = db.prepareCall("CALL scaha.getClubRegistrarEmailsForRelease(?)");
     		    cs.setInt("releaseid", this.releaseid);
     		    rs = cs.executeQuery();
@@ -564,7 +564,7 @@ public class viewreleaseBean implements Serializable, MailableObject {
     		    this.setSubject(this.firstname + " " + this.lastname + " Release Status from SCAHA");
     		    
     		    SendMailSSL mail = new SendMailSSL(this);
-				LOGGER.info("Finished creating mail object for Release Status");
+				//LOGGER.info("Finished creating mail object for Release Status");
 				mail.sendMail();
 				
     		    

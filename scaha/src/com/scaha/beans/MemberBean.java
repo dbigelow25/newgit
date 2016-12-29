@@ -152,7 +152,7 @@ public class MemberBean implements Serializable, MailableObject {
 			this.usar = USAHRegClient.pullRegistartionRecord(this.getRegnumber());
 			
 			if (this.usar == null) {
-				LOGGER.info("usaHockeyBean:Did NOT Get any USAH Number info Back!! BAD SERVICE CALL");
+				//LOGGER.info("usaHockeyBean:Did NOT Get any USAH Number info Back!! BAD SERVICE CALL");
 				FacesContext.getCurrentInstance().addMessage(
 						mcomponent.getClientId(),
 	                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Connection ISSUES",
@@ -168,7 +168,7 @@ public class MemberBean implements Serializable, MailableObject {
 			//
 			if (usar.getFirstName().trim().length()== 0) {
 				
-				LOGGER.info(mcomponent.getClientId());
+				//LOGGER.info(mcomponent.getClientId());
 				context.addMessage(
 						mcomponent.getClientId(),
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "USA Hockey Info Not Found",
@@ -187,7 +187,7 @@ public class MemberBean implements Serializable, MailableObject {
 				this.membertype.add("Manager");
 			}
 		}
-		LOGGER.info("fetchUSAHockey made it back alive.");		
+		//LOGGER.info("fetchUSAHockey made it back alive.");		
 		//
 		// We are not going anywhere.. so simply pass true vs routing..
 		//
@@ -250,7 +250,7 @@ public class MemberBean implements Serializable, MailableObject {
 		Profile tpro = pb.getProfile();
 		Person tper = tpro.getPerson();
 		
-		LOGGER.info("SendMail To:" + tpro.getUserName() + (tper.getsEmail() != null ? "," + tper.getsEmail() : ""));
+		//LOGGER.info("SendMail To:" + tpro.getUserName() + (tper.getsEmail() != null ? "," + tper.getsEmail() : ""));
 		
 		return tpro.getUserName() + (tper.getsEmail() != null ? "," + tper.getsEmail() : "")  + 
 				"";
@@ -356,9 +356,9 @@ public class MemberBean implements Serializable, MailableObject {
 		boolean newpeep = false;
 		if (per.ID < 1) {
 			newpeep = true;
-			LOGGER.info("THIS IS A NEW PERSON");
+			//LOGGER.info("THIS IS A NEW PERSON");
 		} else {
-			LOGGER.info("THIS IS AN EXISTING PERSON");
+			//LOGGER.info("THIS IS AN EXISTING PERSON");
 		}
 		//
 		// Lets start off with the basics person is always implied in the extended object.
@@ -418,11 +418,11 @@ public class MemberBean implements Serializable, MailableObject {
 			usar.update(db, per);
 			ScahaMember mem = new ScahaMember(pro,per);
 			mem.setSCAHAYear(this.usar.getMemberShipYear());
-			LOGGER.info("Time to Create the Membership.. ");
+			//LOGGER.info("Time to Create the Membership.. ");
 			mem.generateMembership(db);
 			mem.setTopPerson(tper);
 				
-			LOGGER.info("Member Type is" + membertype.toString());
+			//LOGGER.info("Member Type is" + membertype.toString());
 				
 			//
 			// ok.. lets update the trifecta and see if it sticks!!
@@ -453,7 +453,7 @@ public class MemberBean implements Serializable, MailableObject {
 			//
 			// no matter how many types of people we have.. they all point to the same person...
 			
-			LOGGER.info("STEAL ME is:" + this.stealme);
+			//LOGGER.info("STEAL ME is:" + this.stealme);
 			if (newpeep || (!newpeep && this.stealme && per.ID != tper.ID)) {
 				FamilyMember fm = new FamilyMember(pro, tfam, per);
 				fm.setRelationship(this.getRelationship());
@@ -497,7 +497,7 @@ public class MemberBean implements Serializable, MailableObject {
 
 
 	public void reset() {
-		LOGGER.info("usaHockeyBean:reseting member variables...");
+		//LOGGER.info("usaHockeyBean:reseting member variables...");
 		usar = null;
 		regnumber = null;
 		membertype.clear();
@@ -525,10 +525,10 @@ public class MemberBean implements Serializable, MailableObject {
 	 */
 	private PersonList genPersonsList() {
 		
-  	    LOGGER.entering(MemberBean.class.getName(),"genPersonsList:");  
+  	    //LOGGER.entering(MemberBean.class.getName(),"genPersonsList:");  
 		ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase", pb.getProfile());
 
-		LOGGER.info("Is PB.getProfile().. null?:" + pb.getProfile()); 
+		//LOGGER.info("Is PB.getProfile().. null?:" + pb.getProfile()); 
 
 		PersonList pers = null;
 		try {
@@ -552,8 +552,8 @@ public class MemberBean implements Serializable, MailableObject {
 	
 	public String onFlowProcess(FlowEvent event) {  
 
-        LOGGER.info("Current wizard step:" + event.getOldStep());  
-        LOGGER.info("Next step:" + event.getNewStep());  
+        //LOGGER.info("Current wizard step:" + event.getOldStep());  
+        //LOGGER.info("Next step:" + event.getNewStep());  
 
         if (this.fastforward && !event.getOldStep().equals("concussion")) {
         	this.fastforward = false;
@@ -685,7 +685,7 @@ public class MemberBean implements Serializable, MailableObject {
 	 * @param selectedPerson the selectedPerson to set
 	 */
 	public void setSelectedPerson(Person selectedperson) {
-		 LOGGER.info("Setting selected person to..." + selectedperson.toString());
+		 //LOGGER.info("Setting selected person to..." + selectedperson.toString());
 		this.selectedPerson = selectedperson;
 	}
 	

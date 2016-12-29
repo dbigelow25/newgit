@@ -89,14 +89,14 @@ public class SogList extends ListDataModel<Sog> implements Serializable, Selecta
 	@SuppressWarnings("unchecked")
 	public void reset() {
 		// TODO Auto-generated method stub
-		LOGGER.info("resetting Participant List..");
+		//LOGGER.info("resetting Participant List..");
 		((ArrayList<Sog>)this.getWrappedData()).clear();
 		hm.clear();
 	}  
 	
 	@SuppressWarnings("unchecked")
 	public void add(Sog _p) {
-		LOGGER.info("Adding Penalty to List:" + _p);
+		//LOGGER.info("Adding Penalty to List:" + _p);
 		((ArrayList<Sog>)this.getWrappedData()).add(_p);
 		hm.put(_p.ID+"", _p);
 	}

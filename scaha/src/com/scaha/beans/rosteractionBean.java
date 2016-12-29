@@ -244,7 +244,7 @@ public class rosteractionBean implements Serializable {
         				
         			}
     				rs.close();
-    				LOGGER.info("We have results for player details by player id");
+    				//LOGGER.info("We have results for player details by player id");
     			}
     			db.cleanup();
     		} else {
@@ -273,7 +273,7 @@ public class rosteractionBean implements Serializable {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("verify loi code provided");
+ 				//LOGGER.info("verify loi code provided");
  				CallableStatement cs = db.prepareCall("CALL scaha.saveTransfer(?,?,?,?,?,?)");
     		    cs.setInt("transferid", this.transferid);
     		    cs.setInt("playerid", Integer.parseInt(this.selectedplayer));
@@ -291,7 +291,7 @@ public class rosteractionBean implements Serializable {
     			db.cleanup();
  				
     		    //logging 
-    			LOGGER.info("We are updating transfer info for player id:" + this.selectedplayer);
+    			//LOGGER.info("We are updating transfer info for player id:" + this.selectedplayer);
     		    
     			FacesContext context = FacesContext.getCurrentInstance();  
                 context.addMessage(null, new FacesMessage("Successful", "You ave updated the Transfer"));
@@ -322,7 +322,7 @@ public class rosteractionBean implements Serializable {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("verify loi code provided");
+ 				//LOGGER.info("verify loi code provided");
  				CallableStatement cs = db.prepareCall("CALL scaha.saveCertificateandDOB(?,?,?,?,?)");
     		    cs.setInt("playerid", Integer.parseInt(this.selectedplayer));
     		    cs.setInt("certificate", this.birthcertificate);
@@ -335,7 +335,7 @@ public class rosteractionBean implements Serializable {
     			db.cleanup();
  				
     		    //logging 
-    			LOGGER.info("We are updating birth certificate for player id:" + this.selectedplayer);
+    			//LOGGER.info("We are updating birth certificate for player id:" + this.selectedplayer);
     		    
     			FacesContext context = FacesContext.getCurrentInstance();  
                 context.addMessage(null, new FacesMessage("Successful", "You ave updated the Birth Certificate"));

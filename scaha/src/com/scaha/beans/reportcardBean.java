@@ -250,7 +250,7 @@ public class reportcardBean implements Serializable {
 				this.idclub = rs.getInt("idclub");
 			}
 			rs.close();
-			LOGGER.info("We have results for club for a profile");
+			//LOGGER.info("We have results for club for a profile");
     	} catch (SQLException e) {
     		// TODO Auto-generated catch block
     		LOGGER.info("ERROR IN loading club by profile");
@@ -308,7 +308,7 @@ public class reportcardBean implements Serializable {
 				if (db.setAutoCommit(false)) {
 				
 					//Need to provide info to the stored procedure to save the scoresheet filename, game type and game id
-	 				LOGGER.info("add report card");
+	 				//LOGGER.info("add report card");
 	 				CallableStatement cs = db.prepareCall("CALL scaha.addReportCardForPerson(?,?,?)");
 	    		    cs.setInt("personid", this.idperson);
 	    		    cs.setString("infilename", reportcard.getFilename());
@@ -318,7 +318,7 @@ public class reportcardBean implements Serializable {
 	    		    db.commit();
 	    			db.cleanup();
 	 				
-	    			LOGGER.info("You have added the report card:" + reportcard.getFilename() + " perosnid:" + this.idperson.toString());
+	    			//LOGGER.info("You have added the report card:" + reportcard.getFilename() + " perosnid:" + this.idperson.toString());
 	    		    //now to reload the scoresheet collection for datatable update
 	    			getPersonReportCards();
 				} else {
@@ -353,14 +353,14 @@ public class reportcardBean implements Serializable {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to delete the scoresheet
- 				LOGGER.info("remove report card from list for the person");
+ 				//LOGGER.info("remove report card from list for the person");
  				CallableStatement cs = db.prepareCall("CALL scaha.deleteReportcard(?)");
     		    cs.setInt("reportcardid", idreportcard);
     		    cs.executeQuery();
     		    db.commit();
     			db.cleanup();
  				
-    			LOGGER.info("You have deleted the scoresheet :" + idreportcard);
+    			//LOGGER.info("You have deleted the scoresheet :" + idreportcard);
     		    //now to reload the reportcards collection for datatable update to display
     			getPersonReportCards();
 			} else {
@@ -409,7 +409,7 @@ public class reportcardBean implements Serializable {
 	    				reportcard.setFiledisplayname(displayname);
 	    				templist.add(reportcard);
 					}
-					LOGGER.info("We have results for Report card for person:" + this.idperson);
+					//LOGGER.info("We have results for Report card for person:" + this.idperson);
 				}
 				
 				
@@ -460,7 +460,7 @@ public class reportcardBean implements Serializable {
     		CallableStatement cs = db.prepareCall("CALL scaha.addPersontoScholarAthlete(?)");
 			cs.setInt("personid", this.idperson);
 			rs = cs.executeQuery();
-			LOGGER.info("We have added " + this.idperson.toString() + " to scholar athletes");
+			//LOGGER.info("We have added " + this.idperson.toString() + " to scholar athletes");
     		rs.close();
     		db.cleanup();
     		

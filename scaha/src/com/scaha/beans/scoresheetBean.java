@@ -254,7 +254,7 @@ public class scoresheetBean implements Serializable {
 				this.idclub = rs.getInt("idclub");
 			}
 			rs.close();
-			LOGGER.info("We have results for club for a profile");
+			//LOGGER.info("We have results for club for a profile");
     	} catch (SQLException e) {
     		// TODO Auto-generated catch block
     		LOGGER.info("ERROR IN loading club by profile");
@@ -313,7 +313,7 @@ public class scoresheetBean implements Serializable {
 				if (db.setAutoCommit(false)) {
 				
 					//Need to provide info to the stored procedure to save the scoresheet filename, game type and game id
-	 				LOGGER.info("remove tournament game from list");
+	 				//LOGGER.info("remove tournament game from list");
 	 				CallableStatement cs = db.prepareCall("CALL scaha.addScoresheetForGame(?,?,?,?)");
 	    		    cs.setInt("gameid", this.idgame);
 	    		    cs.setString("infilename", scoresheet.getFilename());
@@ -323,7 +323,7 @@ public class scoresheetBean implements Serializable {
 	    		    db.commit();
 	    			db.cleanup();
 	 				
-	    			LOGGER.info("You have added the scoresheet :" + scoresheet.getFilename() + " gameid:" + this.idgame.toString());
+	    			//LOGGER.info("You have added the scoresheet :" + scoresheet.getFilename() + " gameid:" + this.idgame.toString());
 	    		    //now to reload the scoresheet collection for datatable update
 	    			getGameScoresheets();
 				} else {
@@ -358,14 +358,14 @@ public class scoresheetBean implements Serializable {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to delete the scoresheet
- 				LOGGER.info("remove scoresheet from list for the game");
+ 				//LOGGER.info("remove scoresheet from list for the game");
  				CallableStatement cs = db.prepareCall("CALL scaha.deleteScoresheet(?)");
     		    cs.setInt("scoresheetid", idscoresheet);
     		    cs.executeQuery();
     		    db.commit();
     			db.cleanup();
  				
-    			LOGGER.info("You have deleted the scoresheet :" + idscoresheet);
+    			//LOGGER.info("You have deleted the scoresheet :" + idscoresheet);
     		    //now to reload the scoresheet collection for datatable update to display without hte scoresheet
     			getGameScoresheets();
 			} else {
@@ -416,7 +416,7 @@ public class scoresheetBean implements Serializable {
 	    				scoresheet.setFiledisplayname(displayname);
 	    				templist.add(scoresheet);
 					}
-					LOGGER.info("We have results for scoresheets for game:" + this.idgame);
+					//LOGGER.info("We have results for scoresheets for game:" + this.idgame);
 				}
 				
 				
@@ -462,13 +462,13 @@ public class scoresheetBean implements Serializable {
     				this.gametype = rs.getString("gametype");
     				
     			}
-				LOGGER.info("We have results for tourney game by team:" + this.idgame);
+				//LOGGER.info("We have results for tourney game by team:" + this.idgame);
 			}
 			
 			rs.close();
 			db.cleanup();
     		
-			LOGGER.info("loaded detail for non scaha game:" + this.idgame);
+			//LOGGER.info("loaded detail for non scaha game:" + this.idgame);
     		
     	} catch (SQLException e) {
     		// TODO Auto-generated catch block
@@ -503,13 +503,13 @@ public class scoresheetBean implements Serializable {
     				this.gametype = rs.getString("gametype");
     				
     			}
-				LOGGER.info("We have results for tourney game by team:" + this.idgame);
+				//LOGGER.info("We have results for tourney game by team:" + this.idgame);
 			}
 			
 			rs.close();
 			db.cleanup();
     		
-			LOGGER.info("loaded detail for non scaha game:" + this.idgame);
+			//LOGGER.info("loaded detail for non scaha game:" + this.idgame);
     		
     	} catch (SQLException e) {
     		// TODO Auto-generated catch block

@@ -155,14 +155,14 @@ public class LiveGameRosterSpotList extends ListDataModel<LiveGameRosterSpot> im
 	@SuppressWarnings("unchecked")
 	public void reset() {
 		// TODO Auto-generated method stub
-		LOGGER.info("resetting Participant List..");
+		//LOGGER.info("resetting Participant List..");
 		((ArrayList<LiveGameRosterSpot>)this.getWrappedData()).clear();
 		hm.clear();
 	}  
 	
 	@SuppressWarnings("unchecked")
 	public void add(LiveGameRosterSpot _p) {
-		LOGGER.info("Adding Participant to List:" + _p);
+		//LOGGER.info("Adding Participant to List:" + _p);
 		((ArrayList<LiveGameRosterSpot>)this.getWrappedData()).add(_p);
 		hm.put(_p.ID+"", _p);
 	}

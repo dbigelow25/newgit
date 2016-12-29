@@ -453,7 +453,7 @@ public class boxscoresheetBean implements Serializable{
 					this.startdate=rs.getString("startdate");
 					this.starttime=rs.getString("starttime");
 				}
-				LOGGER.info("We have selected details for live game id:" + gameid);
+				//LOGGER.info("We have selected details for live game id:" + gameid);
 			}
 			rs.close();
 			
@@ -474,7 +474,7 @@ public class boxscoresheetBean implements Serializable{
 					
 					temphomeplayers.add(player);
 				}
-				LOGGER.info("We have home players for live game id:" + gameid);
+				//LOGGER.info("We have home players for live game id:" + gameid);
 			}
 			
 			rs.close();
@@ -495,7 +495,7 @@ public class boxscoresheetBean implements Serializable{
 					
 					tempawayplayers.add(player);
 				}
-				LOGGER.info("We have selected details for live game id:" + gameid);
+				//LOGGER.info("We have selected details for live game id:" + gameid);
 			}
 			
 			rs.close();
@@ -523,7 +523,7 @@ public class boxscoresheetBean implements Serializable{
 					
 					temphomescoresummary.add(ss);
 				}
-				LOGGER.info("We have selected scoring for live game id:" + gameid);
+				//LOGGER.info("We have selected scoring for live game id:" + gameid);
 			}
 			rs.close();
 			
@@ -548,7 +548,7 @@ public class boxscoresheetBean implements Serializable{
 					
 					tempawayscoresummary.add(ss);
 				}
-				LOGGER.info("We have selected scoring for live game id:" + gameid);
+				//LOGGER.info("We have selected scoring for live game id:" + gameid);
 			}
 			rs.close();
 			
@@ -573,7 +573,7 @@ public class boxscoresheetBean implements Serializable{
 					sog.setShots9(rs.getInt("totalshots"));
 					homegoaliestats.add(sog);
 				}
-				LOGGER.info("We have selected home goalie stats for live game id:" + gameid);
+				//LOGGER.info("We have selected home goalie stats for live game id:" + gameid);
 			}
 			rs.close();
 			
@@ -595,7 +595,7 @@ public class boxscoresheetBean implements Serializable{
 					sog.setShots8(rs.getInt("otshots"));
 					awaygoaliestats.add(sog);
 				}
-				LOGGER.info("We have selected home goalie stats for live game id:" + gameid);
+				//LOGGER.info("We have selected home goalie stats for live game id:" + gameid);
 			}
 			rs.close();
     		
@@ -616,7 +616,7 @@ public class boxscoresheetBean implements Serializable{
 					penalty.setTimeofpenalty(rs.getString("timeofpenalty"));
 					homepenalties.add(penalty);
 				}
-				LOGGER.info("We have selected home goalie stats for live game id:" + gameid);
+				//LOGGER.info("We have selected home goalie stats for live game id:" + gameid);
 			}
 			rs.close();
     		
@@ -637,7 +637,7 @@ public class boxscoresheetBean implements Serializable{
 					penalty.setTimeofpenalty(rs.getString("timeofpenalty"));
 					awaypenalties.add(penalty);
 				}
-				LOGGER.info("We have selected home goalie stats for live game id:" + gameid);
+				//LOGGER.info("We have selected home goalie stats for live game id:" + gameid);
 			}
 			rs.close();
 			

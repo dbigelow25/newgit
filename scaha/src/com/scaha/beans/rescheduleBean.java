@@ -257,7 +257,7 @@ public class rescheduleBean implements Serializable, MailableObject {
 			db.commit();
 			db.cleanup();
     		
-			LOGGER.info("game change request has been added:" + this.gameid);
+			//LOGGER.info("game change request has been added:" + this.gameid);
     		
 			//add ability to send email right here to manager and scheduler
 			//need to add email to manager and scaha statistician
@@ -294,7 +294,7 @@ public class rescheduleBean implements Serializable, MailableObject {
 		    this.setSubject("Game Change Request for " + this.requestingteam);
 		    
 			SendMailSSL mail = new SendMailSSL(this);
-			LOGGER.info("Finished creating mail object for Game Change request for " + this.requestingteam);
+			//LOGGER.info("Finished creating mail object for Game Change request for " + this.requestingteam);
 			
 			//set flag for getbody to know which template and values to use
 			mail.sendMail();
@@ -339,14 +339,14 @@ public class rescheduleBean implements Serializable, MailableObject {
 					this.gamedetails = rs.getString("gamedetails");
     				this.requestingteam = rs.getString("requestingteam");
     			}
-				LOGGER.info("We have results for game details:" + this.gameid);
+				//LOGGER.info("We have results for game details:" + this.gameid);
 			}
 			
 			
 			rs.close();
 			db.cleanup();
     		
-			LOGGER.info("game change reqeust added:" + this.gameid);
+			//LOGGER.info("game change reqeust added:" + this.gameid);
     		
 			
 			

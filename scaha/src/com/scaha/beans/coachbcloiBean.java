@@ -256,7 +256,7 @@ public class coachbcloiBean implements Serializable, MailableObject {
         				tempresult.add(ocoach);
     				}
     				
-    				LOGGER.info("We have results for coach bc lois for the search criteria:" + this.searchcriteria);
+    				//LOGGER.info("We have results for coach bc lois for the search criteria:" + this.searchcriteria);
     				
     			}
     			rs.close();	
@@ -312,7 +312,7 @@ public class coachbcloiBean implements Serializable, MailableObject {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("verify loi code provided");
+ 				//LOGGER.info("verify loi code provided");
  				CallableStatement cs = db.prepareCall("CALL scaha.getCoachIdByCoachRosterId(?)");
     		    cs.setInt("coachrosterid", Integer.parseInt(sidcoach));
     		    rs=cs.executeQuery();
@@ -323,7 +323,7 @@ public class coachbcloiBean implements Serializable, MailableObject {
     					Integer idplayer = rs.getInt("idcoach");
     					sidcoach = idplayer.toString();
         			}
-    				LOGGER.info("We have results for person id by coach");
+    				//LOGGER.info("We have results for person id by coach");
     			}
     			rs.close();
     		    db.commit();
@@ -366,7 +366,7 @@ public class coachbcloiBean implements Serializable, MailableObject {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("verify loi code provided");
+ 				//LOGGER.info("verify loi code provided");
  				CallableStatement cs = db.prepareCall("CALL scaha.setcoachtoVoid(?)");
     		    cs.setInt("coachid", Integer.parseInt(sidcoach));
     		    cs.executeQuery();
@@ -374,7 +374,7 @@ public class coachbcloiBean implements Serializable, MailableObject {
     			db.cleanup();
  				
     		    //logging 
-    			LOGGER.info("We are voiding the loi for coach id:" + sidcoach);
+    			//LOGGER.info("We are voiding the loi for coach id:" + sidcoach);
     		    
     			FacesContext context = FacesContext.getCurrentInstance();  
                 context.addMessage(null, new FacesMessage("Successful", "You have voided the loi for: " + coachname));
@@ -408,7 +408,7 @@ public class coachbcloiBean implements Serializable, MailableObject {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("verify loi code provided");
+ 				//LOGGER.info("verify loi code provided");
  				CallableStatement cs = db.prepareCall("CALL scaha.getPersonIdbyCoachId(?)");
     		    cs.setInt("icoachid", Integer.parseInt(sidcoach));
     		    rs=cs.executeQuery();
@@ -419,7 +419,7 @@ public class coachbcloiBean implements Serializable, MailableObject {
     					Integer idplayer = rs.getInt("idperson");
     					sidcoach = idplayer.toString();
         			}
-    				LOGGER.info("We have results for person id by coach");
+    				//LOGGER.info("We have results for person id by coach");
     			}
     		    rs.close();
     			db.commit();
@@ -460,11 +460,11 @@ public class coachbcloiBean implements Serializable, MailableObject {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("verify loi code provided");
+ 				//LOGGER.info("verify loi code provided");
  				CallableStatement cs = db.prepareCall("CALL scaha.confirmCoachLoi(?)");
     		    cs.setInt("icoachid", Integer.parseInt(sidcoach));
     		    cs.executeQuery();
-    		    LOGGER.info("We have confirmed loi for coach id:" + sidcoach);
+    		    //LOGGER.info("We have confirmed loi for coach id:" + sidcoach);
     			
     			db.commit();
     			db.cleanup();
@@ -510,11 +510,11 @@ public class coachbcloiBean implements Serializable, MailableObject {
 				if (db.setAutoCommit(false)) {
 				
 					//Need to provide info to the stored procedure to save or update
-	 				LOGGER.info("confirming player :" + sidplayer);
+	 				//LOGGER.info("confirming player :" + sidplayer);
 	 				CallableStatement cs = db.prepareCall("CALL scaha.confirmCoachLoi(?)");
 	    		    cs.setInt("icoachid", sidplayer);
 	    		    cs.executeQuery();
-	    		    LOGGER.info("We have confirmed loi for player id:" + sidplayer.toString());
+	    		    //LOGGER.info("We have confirmed loi for player id:" + sidplayer.toString());
 	    			
 	    			db.commit();
 	    			db.cleanup();
@@ -582,7 +582,7 @@ public class coachbcloiBean implements Serializable, MailableObject {
 					this.setClubname(rs.getString("clubname"));
 					}
 				rs.close();
-				LOGGER.info("We have results for club for a profile");
+				//LOGGER.info("We have results for club for a profile");
 			}
 			db.cleanup();
     	} catch (SQLException e) {

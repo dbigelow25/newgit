@@ -293,7 +293,7 @@ public class ScahaTeam extends ScahaObject implements Serializable {
 		Club cl = this.getTeamClub();
 		
 		if (cl == null) {
-			LOGGER.info("SCAHATEAM update.. have no reference to the Club this belongs to.. aborting the update");
+			//LOGGER.info("SCAHATEAM update.. have no reference to the Club this belongs to.. aborting the update");
 			return;
 		}
 		
@@ -480,7 +480,7 @@ public class ScahaTeam extends ScahaObject implements Serializable {
 		int ioptot = _op.getTeamGameInfo().getHomeGames() + _op.getTeamGameInfo().getAwayGames();
 		int igamecap = _se.getMaxgamecnt();
 		
-		LOGGER.info("gamecapcheck:mytot=" + imytot + ", ioptot=" + ioptot + ", igamecap =" + igamecap + ", teamcount=" + _se.getTeamcount());
+		//LOGGER.info("gamecapcheck:mytot=" + imytot + ", ioptot=" + ioptot + ", igamecap =" + igamecap + ", teamcount=" + _se.getTeamcount());
 		//
 		// if we have an odd number of teams.
 		//
@@ -489,16 +489,16 @@ public class ScahaTeam extends ScahaObject implements Serializable {
 		
 		if (_se.getTeamcount() % 2 != 0) {
 			if (imytot == igamecap + 1) {
-				LOGGER.info("gamecap alert:  I (" + this +  ") ODD I at my limit..");
+				//LOGGER.info("gamecap alert:  I (" + this +  ") ODD I at my limit..");
 				return true;
 				
 			}
 			if (imytot == igamecap && ioptot > igamecap) {
-				LOGGER.info("gamecap alert:  I (" + this +  ") ODD am at my game cap.. my opponent is over it..");
+				//LOGGER.info("gamecap alert:  I (" + this +  ") ODD am at my game cap.. my opponent is over it..");
 				return true;
 			}
 			if (imytot == igamecap && ioptot == igamecap) {
-				LOGGER.info("gamecap alert:  I (" + this +  ") ODD am at game cap.. and my opponent is as well");
+				//LOGGER.info("gamecap alert:  I (" + this +  ") ODD am at game cap.. and my opponent is as well");
 				return true;
 			}
 			return false;
@@ -506,7 +506,7 @@ public class ScahaTeam extends ScahaObject implements Serializable {
 		// if either are at game cap here.. return 	
 		if (_se.getTeamcount() % 2 == 0) {
 			if (imytot == igamecap) {
-				LOGGER.info("gamecap alert:  I (" + this +  ") EVEN - I AM AT MY GAME CAP...");
+				//LOGGER.info("gamecap alert:  I (" + this +  ") EVEN - I AM AT MY GAME CAP...");
 				return true;
 			}
 		}

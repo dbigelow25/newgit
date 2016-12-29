@@ -89,14 +89,14 @@ public class ScoringList extends ListDataModel<Scoring> implements Serializable,
 	@SuppressWarnings("unchecked")
 	public void reset() {
 		// TODO Auto-generated method stub
-		LOGGER.info("resetting Participant List..");
+		//LOGGER.info("resetting Participant List..");
 		((ArrayList<Scoring>)this.getWrappedData()).clear();
 		hm.clear();
 	}  
 	
 	@SuppressWarnings("unchecked")
 	public void add(Scoring _p) {
-		LOGGER.info("Adding Participant to List:" + _p);
+		//LOGGER.info("Adding Participant to List:" + _p);
 		((ArrayList<Scoring>)this.getWrappedData()).add(_p);
 		hm.put(_p.ID+"", _p);
 	}

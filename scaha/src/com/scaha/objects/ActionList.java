@@ -37,7 +37,7 @@ public class ActionList extends ScahaObject{
 	 */
 	public ActionList (Profile _pro) {
 
-		LOGGER.info("Generating ActionList for Profile " + _pro);
+		//LOGGER.info("Generating ActionList for Profile " + _pro);
 		setProfile(_pro);
 		this.ID = 0;
 		this.refresh();

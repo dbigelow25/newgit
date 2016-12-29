@@ -40,10 +40,60 @@ public class Stat extends ScahaObject implements Serializable {
 	private String saves=null;
 	private Integer id = null;
 	private String jersey = null;
+	private String ppg = null;
+	private String ppa = null;
+	private String shg = null;
+	private String sha = null;
+	private String gwg = null;
 	
 	public Stat() {
 	
 	}
+	
+	public String getGwg(){
+		return gwg;
+	}
+	
+	public void setGwg(String value){
+		gwg=value;
+	}
+	
+	
+	public String getSha(){
+		return sha;
+	}
+	
+	public void setSha(String value){
+		sha=value;
+	}
+	
+	
+	public String getShg(){
+		return shg;
+	}
+	
+	public void setShg(String value){
+		shg=value;
+	}
+	
+	public String getPpa(){
+		return ppa;
+	}
+	
+	public void setPpa(String value){
+		ppa=value;
+	}
+	
+	
+	public String getPpg(){
+		return ppg;
+	}
+	
+	public void setPpg(String value){
+		ppg=value;
+	}
+	
+	
 	
 	public String getJersey(){
 		return jersey;

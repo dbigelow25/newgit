@@ -86,7 +86,7 @@ public class FamilyMember extends Person implements Serializable {
 	
 		CallableStatement cs = _db.prepareCall("call scaha.updateFamilyMember(?,?,?,?,?,?)");
 			
-		LOGGER.info("HERE IS THE Pre FamilyMember ID:" + this.ID);
+		//LOGGER.info("HERE IS THE Pre FamilyMember ID:" + this.ID);
 
 		int i = 1;
 		cs.registerOutParameter(1, java.sql.Types.INTEGER);
@@ -103,7 +103,7 @@ public class FamilyMember extends Person implements Serializable {
 		//
 		this.ID = cs.getInt(1);
 		cs.close();
-		LOGGER.info("HERE IS THE Family Mamber ID:" + this.ID);
+		//LOGGER.info("HERE IS THE Family Mamber ID:" + this.ID);
 				
 		
 	}

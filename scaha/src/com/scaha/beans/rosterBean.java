@@ -209,7 +209,7 @@ public class rosterBean implements Serializable{
 					division.setDivisionname(divisionname);
 					templist.add(division);
 				}
-				LOGGER.info("We have results for divisions");
+				//LOGGER.info("We have results for divisions");
 			}
 			rs.close();
 			
@@ -257,7 +257,7 @@ public class rosterBean implements Serializable{
 					Team team = new Team(teamname,teamid);
 					templist.add(team);
 				}
-				LOGGER.info("We have results for divisions");
+				//LOGGER.info("We have results for divisions");
 			}
 			rs.close();
 			
@@ -298,7 +298,7 @@ public class rosterBean implements Serializable{
 				while (rs.next()) {
 					this.teamname = rs.getString("teamname");
 				}
-				LOGGER.info("We have results for team name");
+				//LOGGER.info("We have results for team name");
 			}
 			rs.close();
 			db.cleanup();
@@ -325,7 +325,7 @@ public class rosterBean implements Serializable{
 					
 					templist.add(player);
 				}
-				LOGGER.info("We have results for team roster");
+				//LOGGER.info("We have results for team roster");
 			}
 			rs.close();
 			
@@ -351,7 +351,7 @@ public class rosterBean implements Serializable{
 					
 					templist2.add(player);
 				}
-				LOGGER.info("We have results for team roster");
+				//LOGGER.info("We have results for team roster");
 			}
 			rs.close();
 			db.cleanup();
@@ -411,7 +411,7 @@ public class rosterBean implements Serializable{
 					
 					templist.add(season);
 				}
-				LOGGER.info("We have results for seasons");
+				//LOGGER.info("We have results for seasons");
 			}
 			rs.close();
 			

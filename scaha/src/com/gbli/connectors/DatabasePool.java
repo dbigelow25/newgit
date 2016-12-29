@@ -66,22 +66,22 @@ public class DatabasePool implements Runnable {
 		
 		while (!m_bshutdown) {
 			
-			LOGGER.info("======================================================================================");
-			LOGGER.info("DB Pool ("  + getName() + ") dbcount is (" + m_iCount + ") Connections.  txCnt:" + this.m_itxSum);
-			LOGGER.info("======================================================================================");
+			//LOGGER.info("======================================================================================");
+			//LOGGER.info("DB Pool ("  + getName() + ") dbcount is (" + m_iCount + ") Connections.  txCnt:" + this.m_itxSum);
+			//LOGGER.info("======================================================================================");
 			for (int i=0; i < m_iCount;i++) {
-				LOGGER.info(this.m_vConnections.get(i).toString());
+				//LOGGER.info(this.m_vConnections.get(i).toString());
 			}
-			LOGGER.info("======================================================================================");
+			//LOGGER.info("======================================================================================");
 			try {
 				Thread.sleep(60000);
 			} catch (InterruptedException  ex) {
-				LOGGER.info("Database Pool Interrupt on Thread Detected..");
+				//LOGGER.info("Database Pool Interrupt on Thread Detected..");
 				//ex.printStackTrace();
 			}
 		}
 		
-		LOGGER.info("Database Pool Shudown Request Detected..");
+		//LOGGER.info("Database Pool Shudown Request Detected..");
 		
 		//
 		// Lets close out the connections..
@@ -89,7 +89,7 @@ public class DatabasePool implements Runnable {
 		for (int i=0; i < m_iCount;i++) {
 			Database db = m_vConnections.get(i);
 			db.close();
-			LOGGER.info(this.m_vConnections.get(i).toString() + ":" + "Closing out connection..");
+			//LOGGER.info(this.m_vConnections.get(i).toString() + ":" + "Closing out connection..");
 		}
 
 		//
@@ -152,10 +152,10 @@ public class DatabasePool implements Runnable {
 			icount++;
 			try {
 				//thread to sleep for the specified number of milliseconds
-				LOGGER.info(" All connections busy.. sleeping for a bit...");
+				//LOGGER.info(" All connections busy.. sleeping for a bit...");
 			 	Thread.sleep(5000);
   		    } catch ( java.lang.InterruptedException ie) {
-				LOGGER.info(" All connections busy.. woke up afer wait...");
+				//LOGGER.info(" All connections busy.. woke up afer wait...");
             };
 		}
 		return null;

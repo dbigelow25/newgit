@@ -48,7 +48,7 @@ public class RoleCollection extends ScahaObject  {
 				int iparentid = rs.getInt(i++);
 				boolean idr = (rs.getInt(i++) == 1 ? true : false);
 				// lets see if this role has already been stubbed out in this collection
-				LOGGER.info("getAllRoles:" + id + ":" + sName + ":" + sDesc +":" + iparentid + ":" + idr);
+				//LOGGER.info("getAllRoles:" + id + ":" + sName + ":" + sDesc +":" + iparentid + ":" + idr);
 				Role rl = (Role)this.get(id,Role.class.getSimpleName());
 				if (rl == null) {
 					rl = new Role(id, sName, sDesc,idr);

@@ -615,14 +615,14 @@ public class managerBean implements Serializable, MailableObject {
     				tempresult.add(ogame);
     				
 				}
-				LOGGER.info("We have results for tourney list by team:" + this.teamid);
+				//LOGGER.info("We have results for tourney list by team:" + this.teamid);
 			}
 			
 			
 			rs.close();
 			db.cleanup();
     		
-			LOGGER.info("manager has added tournament:" + this.tournamentname);
+			//LOGGER.info("manager has added tournament:" + this.tournamentname);
     		//need to add email sent to scaha statistician and manager
 			
 			
@@ -691,7 +691,7 @@ public class managerBean implements Serializable, MailableObject {
 				this.idclub = rs.getInt("idclub");
 			}
 			rs.close();
-			LOGGER.info("We have results for club for a profile");
+			//LOGGER.info("We have results for club for a profile");
     	} catch (SQLException e) {
     		// TODO Auto-generated catch block
     		LOGGER.info("ERROR IN loading club by profile");
@@ -719,7 +719,7 @@ public class managerBean implements Serializable, MailableObject {
 				while (rs.next()) {
 					isschool = rs.getInt("result");
 				}
-				LOGGER.info("We have results for club is a high school");
+				//LOGGER.info("We have results for club is a high school");
 				db.cleanup();
 				
 				if (isschool.equals(0)){
@@ -816,7 +816,7 @@ public class managerBean implements Serializable, MailableObject {
 				while (rs.next()) {
 					this.teamname = rs.getString("teamname");
 				}
-				LOGGER.info("We have results for team name");
+				//LOGGER.info("We have results for team name");
 			}
 			rs.close();
 			db.cleanup();
@@ -844,7 +844,7 @@ public class managerBean implements Serializable, MailableObject {
 					
 					templist.add(player);
 				}
-				LOGGER.info("We have results for team roster");
+				//LOGGER.info("We have results for team roster");
 			}
 			rs.close();
 			
@@ -870,7 +870,7 @@ public class managerBean implements Serializable, MailableObject {
 					
 					templist2.add(player);
 				}
-				LOGGER.info("We have results for team roster");
+				//LOGGER.info("We have results for team roster");
 			}
 			rs.close();
 			
@@ -930,7 +930,7 @@ public class managerBean implements Serializable, MailableObject {
 		    cs.executeQuery();
 			db.commit();
 			
-			LOGGER.info("manager has added tournament:" + this.tournamentname);
+			//LOGGER.info("manager has added tournament:" + this.tournamentname);
     		
 			getTournament();
 			
@@ -981,7 +981,7 @@ public class managerBean implements Serializable, MailableObject {
 		    this.setSubject(this.tournamentname + " Added for " + this.teamname);
 		    
 			SendMailSSL mail = new SendMailSSL(this);
-			LOGGER.info("Finished creating mail object for " + this.tournamentname + " Added for " + this.teamname);
+			//LOGGER.info("Finished creating mail object for " + this.tournamentname + " Added for " + this.teamname);
 			
 			//set flag for getbody to know which template and values to use
 			this.addingtournament=true;
@@ -1052,14 +1052,14 @@ public class managerBean implements Serializable, MailableObject {
     				tournament.setRendered(rendered);
     				templist.add(tournament);
 				}
-				LOGGER.info("We have results for tourney list by team:" + this.teamid);
+				//LOGGER.info("We have results for tourney list by team:" + this.teamid);
 			}
 			
 			
 			rs.close();
 			db.cleanup();
     		
-			LOGGER.info("manager has added tournament:" + this.tournamentname);
+			//LOGGER.info("manager has added tournament:" + this.tournamentname);
     		//need to add email sent to scaha statistician and manager
 			
 			
@@ -1114,7 +1114,7 @@ public class managerBean implements Serializable, MailableObject {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("remove tournament from list");
+ 				//LOGGER.info("remove tournament from list");
  				CallableStatement cs = db.prepareCall("CALL scaha.deleteTeamTournament(?)");
     		    cs.setInt("teamtournamentid", tournamentid);
     		    cs.executeQuery();
@@ -1213,14 +1213,14 @@ public class managerBean implements Serializable, MailableObject {
     				tournament.setRendered(rendered);
     				templist.add(tournament);
 				}
-				LOGGER.info("We have results for tourney list by team:" + this.teamid);
+				//LOGGER.info("We have results for tourney list by team:" + this.teamid);
 			}
 			
 			
 			rs.close();
 			db.cleanup();
     		
-			LOGGER.info("manager has added tournament:" + this.tournamentname);
+			//LOGGER.info("manager has added tournament:" + this.tournamentname);
     		//need to add email sent to scaha statistician and manager
 			
 			
@@ -1277,7 +1277,7 @@ public class managerBean implements Serializable, MailableObject {
   			}
   		    db.commit();
 			
-			LOGGER.info("manager has added tournament game:" + this.gamedate);
+			//LOGGER.info("manager has added tournament game:" + this.gamedate);
     		
 			
 			//need to add email to manager and scaha statistician
@@ -1312,7 +1312,7 @@ public class managerBean implements Serializable, MailableObject {
 		    this.setSubject("Tournament Game Added vs " + this.opponent);
 		    
 			SendMailSSL mail = new SendMailSSL(this);
-			LOGGER.info("Finished creating mail object for Tournament Game Added vs " + this.opponent);
+			//LOGGER.info("Finished creating mail object for Tournament Game Added vs " + this.opponent);
 			//set flag for getbody to know which template and values to use
 			this.addingtournamentgame=true;
 			mail.sendMail();
@@ -1360,7 +1360,7 @@ public class managerBean implements Serializable, MailableObject {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("remove tournament game from list");
+ 				//LOGGER.info("remove tournament game from list");
  				CallableStatement cs = db.prepareCall("CALL scaha.deleteTeamTournamentGame(?)");
     		    cs.setInt("gameid", gameid);
     		    cs.executeQuery();
@@ -1417,7 +1417,7 @@ public class managerBean implements Serializable, MailableObject {
 			cs.executeQuery();
 			db.commit();
 			
-			LOGGER.info("manager has added exhibition game:" + this.gamedate);
+			//LOGGER.info("manager has added exhibition game:" + this.gamedate);
     		
 			//need to add email to manager and scaha statistician
 			to = "";
@@ -1451,7 +1451,7 @@ public class managerBean implements Serializable, MailableObject {
 		    this.setSubject("Exhibition game Added vs " + this.opponent);
 		    
 			SendMailSSL mail = new SendMailSSL(this);
-			LOGGER.info("Finished creating mail object for exhibition game Added vs " + this.opponent);
+			//LOGGER.info("Finished creating mail object for exhibition game Added vs " + this.opponent);
 			
 			//set flag for getbody to know which template and values to use
 			this.addingexhibitiongame=true;
@@ -1521,7 +1521,7 @@ public class managerBean implements Serializable, MailableObject {
     				tournament.setRendered(rendered);
     				templist.add(tournament);
 				}
-				LOGGER.info("We have results for exhibition list by team:" + this.teamid);
+				//LOGGER.info("We have results for exhibition list by team:" + this.teamid);
 			}
 			
 			
@@ -1556,7 +1556,7 @@ public class managerBean implements Serializable, MailableObject {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("remove tournament game from list");
+ 				//LOGGER.info("remove tournament game from list");
  				CallableStatement cs = db.prepareCall("CALL scaha.deleteTeamTournamentGame(?)");
     		    cs.setInt("gameid", gameid);
     		    cs.executeQuery();
@@ -1648,7 +1648,7 @@ public class managerBean implements Serializable, MailableObject {
 
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("get flags for alerts");
+ 				//LOGGER.info("get flags for alerts");
  				CallableStatement cs = db.prepareCall("CALL scaha.getManagerFlags(?)");
  				cs.setInt("teamid",this.teamid);
     		    rs = cs.executeQuery();
@@ -1663,7 +1663,7 @@ public class managerBean implements Serializable, MailableObject {
     					this.currentpimcount = rs.getString("pimcount");
     					this.maxpimcount = rs.getString("maxpimcount");
         			}
-    				LOGGER.info("We have results for manager team flags list by team:" + this.teamid);
+    				//LOGGER.info("We have results for manager team flags list by team:" + this.teamid);
     			}
     			
     			rs.close();
@@ -1711,7 +1711,7 @@ public class managerBean implements Serializable, MailableObject {
 
 			
 			
-			LOGGER.info("get dynamic messages");
+			//LOGGER.info("get dynamic messages");
 			CallableStatement cs = db.prepareCall("CALL scaha.getmessages()");
 			rs = cs.executeQuery();
 		    
@@ -1723,7 +1723,7 @@ public class managerBean implements Serializable, MailableObject {
 					this.setDisplaymessage(true);
 					context.addMessage("scahagamesmessages", new FacesMessage(getSeverity(severity),"", message));
     			}
-				LOGGER.info("We have results for messages");
+				//LOGGER.info("We have results for messages");
 			}
 			
 			rs.close();

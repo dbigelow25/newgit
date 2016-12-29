@@ -125,7 +125,7 @@ public class patchBean implements Serializable{
     				tempresult.add(player);
     				
 				}
-				LOGGER.info("We have results for scaha games schedule for review by statistician for schedule:" + this.selectedpatch.toString());
+				//LOGGER.info("We have results for scaha games schedule for review by statistician for schedule:" + this.selectedpatch.toString());
 			}
 			
 			

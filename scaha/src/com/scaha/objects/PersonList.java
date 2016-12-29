@@ -45,10 +45,10 @@ public class PersonList extends ListDataModel<Person> implements Serializable, S
 	public static PersonList NewPersonListFactory(Profile _pro, ScahaDatabase _db,  UsaHockeyRegistration  _usah) throws SQLException {
 	
 		
-		LOGGER.info ("USAR:" + _usah.toString());
-		LOGGER.info ("USAR:FIRST NAME:" + _usah.getFirstName());
-		LOGGER.info ("USAR:LAST NAME:" + _usah.getLastName());
-		LOGGER.info ("USAR:DOB:" + _usah.getDOB());
+		//LOGGER.info ("USAR:" + _usah.toString());
+		//LOGGER.info ("USAR:FIRST NAME:" + _usah.getFirstName());
+		//LOGGER.info ("USAR:LAST NAME:" + _usah.getLastName());
+		//LOGGER.info ("USAR:DOB:" + _usah.getDOB());
 
 		int loopcount = 0;
 		List<Person> data = new ArrayList<Person>();
@@ -56,10 +56,10 @@ public class PersonList extends ListDataModel<Person> implements Serializable, S
 		boolean goodparms = true;
 		
 		if (_pro.getPerson() == null) {
-			LOGGER.info("**SERVER ERRROR ****, Profile getPerson returns nothing");
+			//LOGGER.info("**SERVER ERRROR ****, Profile getPerson returns nothing");
 			goodparms = false;
 		} else if (_pro.getPerson().getFamily() == null) {
-			LOGGER.info("**SERVER ERRROR ****, Person in the Profile Has No Family Structure.. THis is bad!!");
+			//LOGGER.info("**SERVER ERRROR ****, Person in the Profile Has No Family Structure.. THis is bad!!");
 			goodparms = false;
 		}
 		
@@ -103,7 +103,7 @@ public class PersonList extends ListDataModel<Person> implements Serializable, S
 				int i = 1;
 				Person per = new Person(rs.getInt(i++),_pro);
 				
-				LOGGER.info("Person ID is:" + per.ID);
+				//LOGGER.info("Person ID is:" + per.ID);
 				per.setsFirstName(rs.getString(i++));
 				per.setsLastName(rs.getString(i++));
 				per.setsEmail(rs.getString(i++));
@@ -191,7 +191,7 @@ public class PersonList extends ListDataModel<Person> implements Serializable, S
 	public static PersonList NewPersonListFactory(ScahaDatabase _db,  String _strLastName) throws SQLException {
 	
 		
-		LOGGER.info ("getPersonWithProfileByLastNamePattern:" + _strLastName);
+		//LOGGER.info ("getPersonWithProfileByLastNamePattern:" + _strLastName);
 		List<Person> data = new ArrayList<Person>();
 		PreparedStatement ps = _db.prepareStatement("call scaha.getPersonWithProfileByLastNamePattern(?)");
 		ps.setString(1,_strLastName);
@@ -199,7 +199,7 @@ public class PersonList extends ListDataModel<Person> implements Serializable, S
 		while (rs.next()) {
 			int i = 1;
 			Person per = new Person(rs.getInt(i++));
-			LOGGER.info("Person ID is:" + per.ID);
+			//LOGGER.info("Person ID is:" + per.ID);
 			per.setsFirstName(rs.getString(i++));
 			per.setsLastName(rs.getString(i++));
 			per.setsEmail(rs.getString(i++));
@@ -247,7 +247,7 @@ public class PersonList extends ListDataModel<Person> implements Serializable, S
      * @throws SQLException 
      */
 	public static PersonList NewPersonListFactory(ScahaDatabase _db, int _number) throws SQLException {
-		LOGGER.info ("getPersonByID:" + _number);
+		//LOGGER.info ("getPersonByID:" + _number);
 		List<Person> data = new ArrayList<Person>();
 		PreparedStatement ps = _db.prepareStatement("call scaha.getPersonByID(?)");
 		ps.setInt(1,_number);
@@ -255,7 +255,7 @@ public class PersonList extends ListDataModel<Person> implements Serializable, S
 		while (rs.next()) {
 			int i = 1;
 			Person per = new Person(rs.getInt(i++));
-			LOGGER.info("Person ID is:" + per.ID);
+			//LOGGER.info("Person ID is:" + per.ID);
 			per.setsFirstName(rs.getString(i++));
 			per.setsLastName(rs.getString(i++));
 			per.setsEmail(rs.getString(i++));

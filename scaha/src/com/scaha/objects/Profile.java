@@ -153,7 +153,7 @@ public class Profile extends ScahaObject {
 		if (bgood) {
 			prof =  new Profile (id, db, sNickName, _sUser, _sPass, true);
 			db.setProfile(prof);
-			LOGGER.info("Login was successful for " + prof);
+			//LOGGER.info("Login was successful for " + prof);
 		} 
 		
 		db.free();
@@ -256,7 +256,7 @@ public class Profile extends ScahaObject {
 		cs.registerOutParameter(7, java.sql.Types.INTEGER);
 		cs.execute();
 
-		LOGGER.info(this + ": Has just " + (this.ID < 1 ? " created " : " updated ") + " their profile information.");
+		//LOGGER.info(this + ": Has just " + (this.ID < 1 ? " created " : " updated ") + " their profile information.");
 		//
 		// Update the new ID from the database...
 		//

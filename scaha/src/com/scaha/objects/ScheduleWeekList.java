@@ -52,7 +52,7 @@ public class ScheduleWeekList extends ListDataModel<ScheduleWeek> implements Ser
 		
 		List<ScheduleWeek> data = new ArrayList<ScheduleWeek>();
 		
-		LOGGER.info("Loading Schdule Weeks for schedule " + _sch);
+		//LOGGER.info("Loading Schdule Weeks for schedule " + _sch);
 		
 		PreparedStatement ps = _db.prepareStatement("call scaha.getScheduleWeeks(?,?)");
 		ps.setInt(1,_sch.ID);

@@ -129,7 +129,7 @@ public class DraftPlayersBean implements Serializable {
    				Team team = new Team(teamname,idteam);
    				templist.add(team);
 			}
-			LOGGER.info("We have results for team list by club");
+			//LOGGER.info("We have results for team list by club");
 			rs.close();
 			db.cleanup();
 	
@@ -205,7 +205,7 @@ public class DraftPlayersBean implements Serializable {
         		tempresult.add(result);
     		}
     				
-    		LOGGER.info("We have results for search criteria " + this.searchcriteria);
+    		//LOGGER.info("We have results for search criteria " + this.searchcriteria);
     		rs.close();
     		db.cleanup();
     		
@@ -260,7 +260,7 @@ public class DraftPlayersBean implements Serializable {
         		tempresult.add(result);
     		}
     				
-    		LOGGER.info("We have results for search criteria " + this.searchcriteria);
+    		//LOGGER.info("We have results for search criteria " + this.searchcriteria);
     		rs.close();
     		db.cleanup();
     		
@@ -340,7 +340,7 @@ public class DraftPlayersBean implements Serializable {
 		    ResultSet rs = db.getResultSet();
 			if (rs.next()){
 				isdelinquent = rs.getString("delinquencycleared");
-	    		LOGGER.info("We have matching delinquency for:" + playerid);
+	    		//LOGGER.info("We have matching delinquency for:" + playerid);
 			}
 			rs.close();
 
@@ -374,7 +374,7 @@ public class DraftPlayersBean implements Serializable {
     		ResultSet rs = cs.executeQuery();
 			if (rs.next()){
 				previousTeamID = rs.getInt("idteam");
-				LOGGER.info("We have matching delinquency for:" + playerid);
+				//LOGGER.info("We have matching delinquency for:" + playerid);
 			}
     		rs.close();		
     		cs.close();
@@ -412,7 +412,7 @@ public class DraftPlayersBean implements Serializable {
     	int selectedPlayerid = Integer.parseInt(tempResult.getIdplayer());
     	String selectedPlayername = tempResult.getPlayername();
     	
-    	LOGGER.info("Adding to D-List: playerid=" + selectedPlayerid + " ,selectedPlayerName=" + selectedPlayername);
+    	//LOGGER.info("Adding to D-List: playerid=" + selectedPlayerid + " ,selectedPlayerName=" + selectedPlayername);
     	ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
     	
     	try{
@@ -451,7 +451,7 @@ public class DraftPlayersBean implements Serializable {
 			while (rs.next()) {
 				isschool = rs.getInt("result");
 			}
-			LOGGER.info("We have results for club is a high school");
+			//LOGGER.info("We have results for club is a high school");
 			rs.close();
 			
 			if (isschool.equals(0)){
@@ -482,7 +482,7 @@ public class DraftPlayersBean implements Serializable {
 			while (rs.next()) {
 				this.clubid = rs.getInt("idclub");
 			}
-			LOGGER.info("We have results for club for a profile");
+			//LOGGER.info("We have results for club for a profile");
 			rs.close();
     	} catch (SQLException e) {
     		// TODO Auto-generated catch block

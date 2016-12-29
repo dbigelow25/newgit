@@ -28,7 +28,7 @@ public class ConfirmPasswordValidator implements Validator {
             String password = (String) value;
             String confirm = (String) component.getAttributes().get("confirm");
 
-            LOGGER.info("pass=" + password + ", confirm=" + confirm);
+            //LOGGER.info("pass=" + password + ", confirm=" + confirm);
             
             if (password == null || confirm == null || password.isEmpty()) {
                 return; // Just ignore and let required="true" do its job.

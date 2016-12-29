@@ -92,7 +92,7 @@ public class DraftCoachesBean implements Serializable {
 				Team team = new Team(teamname,idteam);
 				templist.add(team);
 			}
-			LOGGER.info("We have results for team list by club");
+			//LOGGER.info("We have results for team list by club");
    			rs.close();
     	} catch (SQLException e) {
     		// TODO Auto-generated catch block
@@ -128,7 +128,7 @@ public class DraftCoachesBean implements Serializable {
     //retrieves list of players for registrar to select from based on criteria provided
     public ResultDataModel coachSearch(){
     
-    	LOGGER.info("************WE HAVE A REQUEST TO RUN COACH SEARCH ******************");
+    	//LOGGER.info("************WE HAVE A REQUEST TO RUN COACH SEARCH ******************");
     	ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
     	List<Result> tempresult = new ArrayList<Result>();
     	
@@ -165,7 +165,7 @@ public class DraftCoachesBean implements Serializable {
 				tempresult.add(res);
 			}
 				
-			LOGGER.info("We have results for search criteria " + this.searchcriteria);
+			//LOGGER.info("We have results for search criteria " + this.searchcriteria);
 			rs.close();
 
     	} catch (SQLException e) {
@@ -187,7 +187,7 @@ public class DraftCoachesBean implements Serializable {
     //been loid previously
     public ResultDataModel loidcoachSearch(){
     
-    	LOGGER.info("************WE HAVE A REQUEST TO RUN COACH SEARCH ******************");
+    	//LOGGER.info("************WE HAVE A REQUEST TO RUN COACH SEARCH ******************");
     	ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
     	List<Result> tempresult = new ArrayList<Result>();
     	
@@ -224,7 +224,7 @@ public class DraftCoachesBean implements Serializable {
 				tempresult.add(res);
 			}
 				
-			LOGGER.info("We have results for search criteria " + this.searchcriteria);
+			//LOGGER.info("We have results for search criteria " + this.searchcriteria);
 			rs.close();
 
     	} catch (SQLException e) {

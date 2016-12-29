@@ -163,7 +163,7 @@ public class suspensionBean implements Serializable {
 					
 					tempresult.add(susp);
     					}
-				LOGGER.info("We have results for suspension list");
+				//LOGGER.info("We have results for suspension list");
 			}
 			
 			
@@ -222,7 +222,7 @@ public class suspensionBean implements Serializable {
 					
 					tempresult.add(susp);
     					}
-				LOGGER.info("We have results for suspension list");
+				//LOGGER.info("We have results for suspension list");
 			}
 			
 			
@@ -255,7 +255,7 @@ public class suspensionBean implements Serializable {
 			cs.setInt("suspensionid", suspensionid);
     		cs.executeQuery();
 			
-			LOGGER.info("set suspension as served for:" + suspensionid.toString());
+			//LOGGER.info("set suspension as served for:" + suspensionid.toString());
 						
 			db.commit();
 			db.cleanup();
@@ -290,7 +290,7 @@ public class suspensionBean implements Serializable {
 			cs.setString("susdate", this.suspdate);
     		cs.executeQuery();
 			
-			LOGGER.info("set suspension for:" + this.selectedplayer.getIdplayer().toString());
+			//LOGGER.info("set suspension for:" + this.selectedplayer.getIdplayer().toString());
 						
 			db.commit();
 			db.cleanup();

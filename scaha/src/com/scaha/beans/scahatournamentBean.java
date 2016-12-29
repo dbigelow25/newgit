@@ -170,7 +170,7 @@ public class scahatournamentBean implements Serializable {
 					tempvenue=null;
 					tempdivision=null;
     			}
-				LOGGER.info("We have results for tourney list");
+				//LOGGER.info("We have results for tourney list");
 			}
 			
 			rs.close();

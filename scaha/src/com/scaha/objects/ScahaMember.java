@@ -101,7 +101,7 @@ public class ScahaMember extends ScahaObject implements Serializable {
 		
 		
 		if (this.ID > 0 ) {
-			LOGGER.info("Blocking an Update Call to a Member Object that has a positive ID");
+			//LOGGER.info("Blocking an Update Call to a Member Object that has a positive ID");
 			return;
 		}
 

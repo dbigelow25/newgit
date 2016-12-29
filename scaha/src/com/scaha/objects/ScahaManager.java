@@ -86,8 +86,8 @@ public class ScahaManager extends Person {
 		//
 		CallableStatement cs = _db.prepareCall("call scaha.updateManager(?,?,?,?)");
 		
-		LOGGER.info("HERE IS THE PERSON ID for manager:" + super.ID);
-		LOGGER.info("HERE IS THE manager  ID for manager:" + this.ID);
+		//LOGGER.info("HERE IS THE PERSON ID for manager:" + super.ID);
+		//LOGGER.info("HERE IS THE manager  ID for manager:" + this.ID);
 		
 		int i = 1;
 		cs.registerOutParameter(1, java.sql.Types.INTEGER);
@@ -102,7 +102,7 @@ public class ScahaManager extends Person {
 		//
 		this.ID = cs.getInt(1);
 		cs.close();
-		LOGGER.info("HERE IS THE New  Manager ID:" + this.ID);
+		//LOGGER.info("HERE IS THE New  Manager ID:" + this.ID);
 		
 	}
 
@@ -122,7 +122,7 @@ public class ScahaManager extends Person {
 			if (rs != null){
 				while (rs.next()) {
 					teamid = rs.getInt("idteam");
-					LOGGER.info("We have results for teamid:" + teamid);
+					//LOGGER.info("We have results for teamid:" + teamid);
 					if (teamid>0){
 						this.setIsmanager(true);
 					}
@@ -156,7 +156,7 @@ public class ScahaManager extends Person {
 				while (rs.next()) {
 					
 					Integer teamid = rs.getInt("idteam");
-					LOGGER.info("We have results for teamid:" + teamid);
+					//LOGGER.info("We have results for teamid:" + teamid);
 					if (teamid>0){
 						this.setIsmanager(true);
 					}

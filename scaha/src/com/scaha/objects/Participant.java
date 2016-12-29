@@ -150,12 +150,12 @@ public class Participant extends ScahaObject implements Serializable {
 			    long hours = Math.abs(diff / (1000*60*60));
 				
 				if (_pAgainst.getTeam().ID ==  slot.idTeamAgainst && hours < 24 * (_se.getTeamcount() * 2)) {
-			    	LOGGER.info("I cannot play...not enough time between matchups.. needs to be more than:" +(24 * (_se.getTeamcount() * 1.25)));
+			    	//LOGGER.info("I cannot play...not enough time between matchups.. needs to be more than:" +(24 * (_se.getTeamcount() * 1.25)));
 			    	return false;
 			    }
 			    if (hours < 7 ) {
 			    	
-			    	LOGGER.info("I cannot play... da=" + dateAvail + ", dp=" + datePlaying + " not enough time (" + hours + ") between matchups..  already have a game within 7 hours of start time");
+			    	//LOGGER.info("I cannot play... da=" + dateAvail + ", dp=" + datePlaying + " not enough time (" + hours + ") between matchups..  already have a game within 7 hours of start time");
 			    	return false;
 			    }
 			    
@@ -168,7 +168,7 @@ public class Participant extends ScahaObject implements Serializable {
 			        long bodiff = dateAvail.getTime() - datebo.getTime();
 			    	long bodhours = Math.abs(bodiff / (1000*60*60));
 					if (bodhours < 72) {
-				    	LOGGER.info("I cannot play..club or team is out of town");
+				    	//LOGGER.info("I cannot play..club or team is out of town");
 					   	return false;
 					}
 			    }
@@ -178,7 +178,7 @@ public class Participant extends ScahaObject implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	LOGGER.info("I (" + this.getTeam() + ") can play on this slot:" + _sl);
+    	//LOGGER.info("I (" + this.getTeam() + ") can play on this slot:" + _sl);
 		
 		return true;
 	}

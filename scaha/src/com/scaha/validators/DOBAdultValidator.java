@@ -35,7 +35,7 @@ public class DOBAdultValidator implements Validator {
         String strDob = (String) value;
         
         if (getAge(strDob) < 19) { 
-        	LOGGER.info("DOB Validation: " + strDob + " means they are too young to register...");
+        	//LOGGER.info("DOB Validation: " + strDob + " means they are too young to register...");
             FacesMessage message = new FacesMessage();
             message.setDetail("Age Validation: the DOB of " + strDob +  " means they are too young to register...");
             message.setSummary("Email Error");

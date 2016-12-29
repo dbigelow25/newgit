@@ -84,7 +84,7 @@ public class ParticipantList extends ListDataModel<Participant> implements Seria
 			
 			part.setSchedule(_sch);
 			part.setPlace(y++);
-			LOGGER.info("Found new Participant for schedule " + _sch + ". " + part);
+			//LOGGER.info("Found new Participant for schedule " + _sch + ". " + part);
 			data.add(part);
 			hm.put(part.ID+"", part);
 			part.setSchedule(_sch);
@@ -136,7 +136,7 @@ public class ParticipantList extends ListDataModel<Participant> implements Seria
 			
 			part.setSchedule(null);
 			part.setPlace(y++);
-			LOGGER.info("Found new Participant for schedule " + selectedschedule + ". " + part);
+			//LOGGER.info("Found new Participant for schedule " + selectedschedule + ". " + part);
 			
 			data.add(part);
 			
@@ -172,7 +172,7 @@ public class ParticipantList extends ListDataModel<Participant> implements Seria
 			listteam.setTeamname(rs.getString(i++));
 			
 			part.setTeam(listteam);
-			LOGGER.info("Found new Participant list for historical schedule " + selectedschedule + ". " + part);
+			//LOGGER.info("Found new Participant list for historical schedule " + selectedschedule + ". " + part);
 			
 			data.add(part);
 			
@@ -197,7 +197,7 @@ public class ParticipantList extends ListDataModel<Participant> implements Seria
 	public void refreshList (Profile _pro, ScahaDatabase _db) throws SQLException {
 		
 		if (this.teamlist == null || this.schedule == null) {
-			LOGGER.info("**** PARTICIPANT LIST NOT YET INITIALIZED ****");
+			//LOGGER.info("**** PARTICIPANT LIST NOT YET INITIALIZED ****");
 			return;
 		}
 		TeamList _tl = this.teamlist;
@@ -247,14 +247,14 @@ public class ParticipantList extends ListDataModel<Participant> implements Seria
 	@SuppressWarnings("unchecked")
 	public void reset() {
 		// TODO Auto-generated method stub
-		LOGGER.info("resetting Participant List..");
+		//LOGGER.info("resetting Participant List..");
 		((ArrayList<Participant>)this.getWrappedData()).clear();
 		hm.clear();
 	}  
 	
 	@SuppressWarnings("unchecked")
 	public void add(Participant _p) {
-		LOGGER.info("Adding Participant to List:" + _p);
+		//LOGGER.info("Adding Participant to List:" + _p);
 		((ArrayList<Participant>)this.getWrappedData()).add(_p);
 		hm.put(_p.ID+"", _p);
 	}

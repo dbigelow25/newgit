@@ -172,7 +172,7 @@ public class reviewtournamentresultsBean implements Serializable{
     				tournament.setScoresheetrendered(scoresheetrendered);
     				templist.add(tournament);
 				}
-				LOGGER.info("We have results for tourney games:");
+				//LOGGER.info("We have results for tourney games:");
 			}
 			
 			
@@ -226,7 +226,7 @@ public class reviewtournamentresultsBean implements Serializable{
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("remove tournament game from list");
+ 				//LOGGER.info("remove tournament game from list");
  				CallableStatement cs = db.prepareCall("CALL scaha.deleteTeamTournamentGame(?)");
     		    cs.setInt("gameid", gameid);
     		    cs.executeQuery();

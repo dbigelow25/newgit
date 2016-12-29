@@ -341,7 +341,7 @@ public class reviewloiBean implements Serializable, MailableObject {
         				tempresult.add(oplayer);
     				}
     				
-    				LOGGER.info("We have results for lois for the lookup date" + date.toString());
+    				//LOGGER.info("We have results for lois for the lookup date" + date.toString());
     				
     			}
     			rs.close();	
@@ -418,7 +418,7 @@ public class reviewloiBean implements Serializable, MailableObject {
         						
         				templist.add(club);
     				}
-    				LOGGER.info("We have results for division list");
+    				//LOGGER.info("We have results for division list");
     			}
     			rs.close();
     			db.cleanup();
@@ -478,7 +478,7 @@ public class reviewloiBean implements Serializable, MailableObject {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("verify loi code provided");
+ 				//LOGGER.info("verify loi code provided");
  				CallableStatement cs = db.prepareCall("CALL scaha.settoVoid(?)");
     		    cs.setInt("playerid", Integer.parseInt(sidplayer));
     		    cs.executeQuery();
@@ -487,11 +487,11 @@ public class reviewloiBean implements Serializable, MailableObject {
     			db.cleanup();
  				
     		    //logging 
-    			LOGGER.info("We are voiding the loi for player id:" + sidplayer);
+    			//LOGGER.info("We are voiding the loi for player id:" + sidplayer);
     		    
     			//need to send an email acknowledging the loi is voided.
     			to = "";
-    			LOGGER.info("Sending void loi email to club registrar, and family");
+    			//LOGGER.info("Sending void loi email to club registrar, and family");
     			cs = db.prepareCall("CALL scaha.getClubRegistrarEmail(?)");
     		    cs.setInt("iclubid", this.clubid);
     		    rs = cs.executeQuery();
@@ -524,7 +524,7 @@ public class reviewloiBean implements Serializable, MailableObject {
     		    this.setSubject(this.selectedplayer.getFirstname() + " " + this.selectedplayer.getLastname() + " LOI Void with " + this.getClubname());
     		    
 				SendMailSSL mail = new SendMailSSL(this);
-				LOGGER.info("Finished creating mail object for " + this.selectedplayer.getFirstname() + " " + this.selectedplayer.getLastname() + " LOI Void with " + this.getClubname());
+				//LOGGER.info("Finished creating mail object for " + this.selectedplayer.getFirstname() + " " + this.selectedplayer.getLastname() + " LOI Void with " + this.getClubname());
 				mail.sendMail();
 				
     			
@@ -575,11 +575,11 @@ public class reviewloiBean implements Serializable, MailableObject {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("verify loi code provided");
+ 				//LOGGER.info("verify loi code provided");
  				CallableStatement cs = db.prepareCall("CALL scaha.confirmCoachLoi(?)");
     		    cs.setInt("icoachid", Integer.parseInt(sidplayer));
     		    cs.executeQuery();
-    		    LOGGER.info("We have confirmed loi for player id:" + sidplayer);
+    		    //LOGGER.info("We have confirmed loi for player id:" + sidplayer);
     			
     			db.commit();
     			db.cleanup();
@@ -645,11 +645,11 @@ public class reviewloiBean implements Serializable, MailableObject {
 				if (db.setAutoCommit(false)) {
 				
 					//Need to provide info to the stored procedure to save or update
-	 				LOGGER.info("confirming player :" + sidplayer);
+	 				//LOGGER.info("confirming player :" + sidplayer);
 	 				CallableStatement cs = db.prepareCall("CALL scaha.confirmCoachLoi(?)");
 	    		    cs.setInt("icoachid", sidplayer);
 	    		    cs.executeQuery();
-	    		    LOGGER.info("We have confirmed loi for player id:" + sidplayer.toString());
+	    		    //LOGGER.info("We have confirmed loi for player id:" + sidplayer.toString());
 	    			
 	    			db.commit();
 	    			db.cleanup();
@@ -693,11 +693,11 @@ public class reviewloiBean implements Serializable, MailableObject {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("confirming player :" + sidplayer);
+ 				//LOGGER.info("confirming player :" + sidplayer);
  				CallableStatement cs = db.prepareCall("CALL scaha.confirmCoachLoi(?)");
     		    cs.setInt("icoachid", sidplayer);
     		    cs.executeQuery();
-    		    LOGGER.info("We have confirmed loi for player id:" + sidplayer.toString());
+    		    //LOGGER.info("We have confirmed loi for player id:" + sidplayer.toString());
     			
     			db.commit();
     			db.cleanup();
@@ -764,7 +764,7 @@ public class reviewloiBean implements Serializable, MailableObject {
 					this.setClubname(rs.getString("clubname"));
 					}
 				rs.close();
-				LOGGER.info("We have results for club for a profile");
+				//LOGGER.info("We have results for club for a profile");
 			}
 			db.cleanup();
     	} catch (SQLException e) {

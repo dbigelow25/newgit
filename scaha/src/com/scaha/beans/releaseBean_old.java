@@ -484,7 +484,7 @@ public class releaseBean_old implements Serializable, MailableObject {
         				
         				templist.add(club);
     				}
-    				LOGGER.info("We have results for club list");
+    				//LOGGER.info("We have results for club list");
     			}
     			db.cleanup();
     		} else {
@@ -544,7 +544,7 @@ public class releaseBean_old implements Serializable, MailableObject {
         				
         				templist.add(reason);
     				}
-    				LOGGER.info("We have results for club list");
+    				//LOGGER.info("We have results for club list");
     			}
     			db.cleanup();
     		} else {
@@ -601,7 +601,7 @@ public class releaseBean_old implements Serializable, MailableObject {
         				division.setDivisionname(divisionname);
         				templist.add(division);
     				}
-    				LOGGER.info("We have results for club list");
+    				//LOGGER.info("We have results for club list");
     			}
     			db.cleanup();
     		} else {
@@ -658,7 +658,7 @@ public class releaseBean_old implements Serializable, MailableObject {
         				skill.setSkilllevelname(skilllevelname);
         				templist.add(skill);
     				}
-    				LOGGER.info("We have results for club list");
+    				//LOGGER.info("We have results for club list");
     			}
     			db.cleanup();
     		} else {
@@ -715,7 +715,7 @@ public class releaseBean_old implements Serializable, MailableObject {
         				parentemail = rs.getString("parentemail");
         				releasingclubdivision = rs.getString("releasingclubdivision");
         			}
-    				LOGGER.info("We have results for player details by player id");
+    				//LOGGER.info("We have results for player details by player id");
     			}
     			db.cleanup();
     		} else {
@@ -758,7 +758,7 @@ public class releaseBean_old implements Serializable, MailableObject {
 					this.clubid = rs.getInt("idclub");
 					
 					}
-				LOGGER.info("We have results for club for a profile");
+				//LOGGER.info("We have results for club for a profile");
 			}
 			
 			db.cleanup();
@@ -775,7 +775,7 @@ public class releaseBean_old implements Serializable, MailableObject {
 				while (rs.next()) {
 					this.clubname = rs.getString("clubname");
 				}
-				LOGGER.info("We have results for club name");
+				//LOGGER.info("We have results for club name");
 			}
 			
 			db.cleanup();
@@ -852,7 +852,7 @@ public class releaseBean_old implements Serializable, MailableObject {
     		    cs.executeQuery();
     			
     		    //need to get display values for all lookup fields for the email sent.
-    		    LOGGER.info("Sending email to club registrar, family, and scaha registrar");
+    		    //LOGGER.info("Sending email to club registrar, family, and scaha registrar");
     			cs = db.prepareCall("CALL scaha.getReleaseLookups(?,?,?,?,?,?)");
     		    cs.setInt("reason", Integer.parseInt(this.selectedreason));
     			cs.setInt("suspension", Integer.parseInt(this.selectedsuspension));
@@ -876,12 +876,12 @@ public class releaseBean_old implements Serializable, MailableObject {
     					this.displayacceptingskilllevel = rs.getString("levelsname");
     					this.displayfinancial = rs.getString("financial");
     				}
-    				LOGGER.info("We have results for club list");
+    				//LOGGER.info("We have results for club list");
     			}
     			db.cleanup();
     			//need to send email to club registrars, family, and scaha registrar
     			//first releasing club
-    			LOGGER.info("Sending email to club registrar, family, and scaha registrar");
+    			//LOGGER.info("Sending email to club registrar, family, and scaha registrar");
     			cs = db.prepareCall("CALL scaha.getClubRegistrarEmail(?)");
     		    cs.setInt("iclubid", this.clubid);
     		    rs = cs.executeQuery();
@@ -892,7 +892,7 @@ public class releaseBean_old implements Serializable, MailableObject {
     			}
     		    
     		    //next receiving club
-    			LOGGER.info("Sending email to club registrar, family, and scaha registrar");
+    			//LOGGER.info("Sending email to club registrar, family, and scaha registrar");
     			cs = db.prepareCall("CALL scaha.getClubRegistrarEmail(?)");
     		    cs.setInt("iclubid", Integer.parseInt(this.getSelectedacceptingclub()));
     		    rs = cs.executeQuery();
@@ -926,7 +926,7 @@ public class releaseBean_old implements Serializable, MailableObject {
     		    this.setSubject(this.firstname + " " + this.lastname + " Released from " + this.clubname);
     		    
 				SendMailSSL mail = new SendMailSSL(this);
-				LOGGER.info("Finished creating mail object for Release");
+				//LOGGER.info("Finished creating mail object for Release");
 				mail.sendMail();
 				
     		    

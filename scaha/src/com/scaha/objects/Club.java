@@ -213,7 +213,7 @@ public class Club extends ScahaObject implements Serializable {
 	 * @param teams the teams to set
 	 */
 	public void setScahaTeams(TeamList teams) {
-		LOGGER.info("Setting Team List for Club:" + this.getClubname());
+		//LOGGER.info("Setting Team List for Club:" + this.getClubname());
 		Teams = teams;
 	}
 

@@ -36,7 +36,7 @@ public class MemberList extends ListDataModel<Member> implements Serializable, S
 	
 	public static MemberList NewBoardmemberListFactory(ScahaDatabase _db,String sqlparam) throws SQLException {
 		
-		LOGGER.info ("Getting list of board members");
+		//LOGGER.info ("Getting list of board members");
 
 		List<Member> data = new ArrayList<Member>();
 	

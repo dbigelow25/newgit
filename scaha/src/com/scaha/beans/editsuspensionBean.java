@@ -164,7 +164,7 @@ public class editsuspensionBean implements Serializable {
 					this.served=iserved;
 					this.suspdate=ssuspensiondate;
 				}
-				LOGGER.info("We have results for suspension id:" + this.suspensionid.toString());
+				//LOGGER.info("We have results for suspension id:" + this.suspensionid.toString());
 			}
 			
 			
@@ -204,7 +204,7 @@ public class editsuspensionBean implements Serializable {
 			cs.setString("susdate", this.suspdate);
     		cs.executeQuery();
 			
-			LOGGER.info("set suspension for:" + this.suspensionid);
+			//LOGGER.info("set suspension for:" + this.suspensionid);
 						
 			db.commit();
 			db.cleanup();

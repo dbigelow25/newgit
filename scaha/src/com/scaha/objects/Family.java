@@ -30,7 +30,7 @@ public class Family extends ScahaObject implements Serializable  {
 	}
 
 	public Family (ScahaDatabase _db, Person _per) {
-		LOGGER.info("Creating Family Structure for:" + _per);
+		//LOGGER.info("Creating Family Structure for:" + _per);
 		this.per = _per;
 		FamilyMembers = new ArrayList<FamilyMember>();
 		
@@ -69,7 +69,7 @@ public class Family extends ScahaObject implements Serializable  {
 					mem.setScholarathletedisplay(rs.getBoolean(20));
 					mem.setScholarathletestatus(rs.getString(21));
 					FamilyMembers.add(mem);
-					LOGGER.info("FamilyMember: adding " + mem + " to " + _per +"'s family tree.");
+					//LOGGER.info("FamilyMember: adding " + mem + " to " + _per +"'s family tree.");
 				}	
 					
 			}
@@ -139,7 +139,7 @@ public class Family extends ScahaObject implements Serializable  {
 			
 			CallableStatement cs = _db.prepareCall("call scaha.updateFamily(?,?,?,?,?)");
 				
-			LOGGER.info("HERE IS THE Prior Update Family ID:" + this.ID);
+			//LOGGER.info("HERE IS THE Prior Update Family ID:" + this.ID);
 
 			int i = 1;
 			cs.registerOutParameter(1, java.sql.Types.INTEGER);
@@ -155,7 +155,7 @@ public class Family extends ScahaObject implements Serializable  {
 			//
 			this.ID = cs.getInt(1);
 			cs.close();
-			LOGGER.info("HERE IS THE New Family ID:" + this.ID);
+			//LOGGER.info("HERE IS THE New Family ID:" + this.ID);
 				
 		}
 			

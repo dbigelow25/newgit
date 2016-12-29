@@ -82,9 +82,9 @@ public class ContextManager implements ServletContextListener {
 					e.printStackTrace();
 				}
 
-				c_Logger.info("Context Created...");
-				c_Logger.info("AbsolutePath is: " + c_context.getRealPath("/"));
-				c_Logger.info("Check List Initiated...");
+				//c_Logger.info("Context Created...");
+				//c_Logger.info("AbsolutePath is: " + c_context.getRealPath("/"));
+				//c_Logger.info("Check List Initiated...");
 
 				// Set up Scaha Database Database Pool 
 				// Lets always default to two connections in the pool..
@@ -94,13 +94,13 @@ public class ContextManager implements ServletContextListener {
 					Context ic;
 					ic = new InitialContext();
 					ipc = (Integer) ic.lookup("java:comp/env/scaha/dbpoolcount");
-					c_Logger.info("**** Pool Count is..." + ipc);
+					//c_Logger.info("**** Pool Count is..." + ipc);
 					
 					String sMailAuth = (String)ic.lookup("java:comp/env/scaha/emailauth");
 					String[] saMailAuth = sMailAuth.split(":");
 					SendMailSSL.setUsername(saMailAuth[0]);
 					SendMailSSL.setPassword(saMailAuth[1]);
-					c_Logger.info("***** Mail Info is:" + SendMailSSL.getUsername() + ", " + SendMailSSL.getPassword());
+					//c_Logger.info("***** Mail Info is:" + SendMailSSL.getUsername() + ", " + SendMailSSL.getPassword());
 					ic.close();
 				} catch (NamingException e) {
 					e.printStackTrace();
@@ -113,12 +113,12 @@ public class ContextManager implements ServletContextListener {
 				dbp2.setMyThread(th2);
 				th2.start();
 			
-				c_Logger.info("Check List Completed...");
+				//c_Logger.info("Check List Completed...");
 				c_bLoaded = true;
 				
 			} else {
 				
-				c_Logger.info("Systems already Initialized...");
+				//c_Logger.info("Systems already Initialized...");
 			}
 		}
 
@@ -148,12 +148,12 @@ public class ContextManager implements ServletContextListener {
 		//
 		for (Enumeration<DatabasePool> en = c_hDBPools.elements(); en.hasMoreElements();) {
 			DatabasePool dp = en.nextElement();
-			c_Logger.info("Found a Database Pool to Shut Down!");
+			//c_Logger.info("Found a Database Pool to Shut Down!");
 			Thread th = dp.getMyThread();
 			dp.shutdown();
 			th.interrupt();
 			try {
-				c_Logger.info("Joining Database Pool Thread for shutdown wait...");
+				//c_Logger.info("Joining Database Pool Thread for shutdown wait...");
 				th.join();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

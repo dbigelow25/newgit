@@ -323,7 +323,7 @@ public class TeamBean implements Serializable, MailableObject {
 			cs.setString("in_seasontag", scaha.getScahaSeasonList().getCurrentSeason().getTag());
 			cs.executeUpdate();
 			cs.close();
-			LOGGER.info("Saved a new team");
+			//LOGGER.info("Saved a new team");
 			
 			refreshTeamsForClub(db,idclub );
 			
@@ -376,12 +376,12 @@ public class TeamBean implements Serializable, MailableObject {
    				this.setTeamstabletitle(sclubname + " Teams for the " + scaha.getScahaSeasonList().getCurrentSeason());
    			}
 				
-			LOGGER.info("We have results for teams by club" + idclub);
+			//LOGGER.info("We have results for teams by club" + idclub);
 				
 			rs.close();	
 			cs.close();
 
-			LOGGER.info("We have tried to retrieve teams for club" + idclub);
+			//LOGGER.info("We have tried to retrieve teams for club" + idclub);
     		
     	} catch (SQLException e) {
     		// TODO Auto-generated catch block
@@ -420,7 +420,7 @@ public class TeamBean implements Serializable, MailableObject {
 				this.idclub = rs.getInt("idclub");
 			}
 			rs.close();
-			LOGGER.info("We have results for club for a profile");
+			//LOGGER.info("We have results for club for a profile");
     	} catch (SQLException e) {
     		// TODO Auto-generated catch block
     		LOGGER.info("ERROR IN loading club by profile");
@@ -447,7 +447,7 @@ public class TeamBean implements Serializable, MailableObject {
 				while (rs.next()) {
 					isschool = rs.getInt("result");
 				}
-				LOGGER.info("We have results for club is a high school");
+				//LOGGER.info("We have results for club is a high school");
 				
 				if (isschool.equals(0)){
 					this.ishighschool=false;
@@ -621,10 +621,10 @@ public class TeamBean implements Serializable, MailableObject {
 		// 3) Team Skill Level
 		
 		ScahaTeam myteam = (ScahaTeam) event.getObject();
-		LOGGER.info("HERE IS MY TEAM:" + myteam + ":retire:" + myteam.isRetire() + myteam.getSskilllevel() + ":" + myteam.getSdivision());
+		//LOGGER.info("HERE IS MY TEAM:" + myteam + ":retire:" + myteam.isRetire() + myteam.getSskilllevel() + ":" + myteam.getSdivision());
 		for (ScahaTeam t : MyTeamList) {
 			if (t.ID  ==  myteam.ID) {
-				LOGGER.info("HERE IS MY TEAM:" + t);
+				//LOGGER.info("HERE IS MY TEAM:" + t);
 				t.setTeamname(myteam.getTeamname());
 				
 				//
@@ -663,7 +663,7 @@ public class TeamBean implements Serializable, MailableObject {
 		// refresh the list..
 		//
 
-		LOGGER.info("HERE IS MY TEAM:" + myteam);
+		//LOGGER.info("HERE IS MY TEAM:" + myteam);
 		
 		
 	} 
@@ -699,7 +699,7 @@ public class TeamBean implements Serializable, MailableObject {
 		
 		for (ScahaTeam t : MyTeamList) {
 			if (t.ID  ==  this.selectedteam.ID) {
-				LOGGER.info("HERE IS MY Deleted TEAM:" + t);
+				//LOGGER.info("HERE IS MY Deleted TEAM:" + t);
 				t.setRetire(true);
 		    	try {
 					t.update(db);
@@ -776,7 +776,7 @@ public class TeamBean implements Serializable, MailableObject {
         				this.teamname = tempteamname;
     				}
     				
-    				LOGGER.info("We have results for scoresheet list");
+    				//LOGGER.info("We have results for scoresheet list");
     				
     			}
     				

@@ -172,7 +172,7 @@ public class reviewscahagamesBean implements Serializable{
     				tempresult.add(ogame);
     				
 				}
-				LOGGER.info("We have results for scaha games schedule for review by statistician for schedule:" + this.selectedschedule);
+				//LOGGER.info("We have results for scaha games schedule for review by statistician for schedule:" + this.selectedschedule);
 			}
 			
 			

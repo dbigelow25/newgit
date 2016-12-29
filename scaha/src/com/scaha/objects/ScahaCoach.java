@@ -86,8 +86,8 @@ public class ScahaCoach extends Person {
 		//
 		CallableStatement cs = _db.prepareCall("call scaha.updateScahaCoach(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 		
-		LOGGER.info("HERE IS THE PERSON ID for coach:" + super.ID);
-		LOGGER.info("HERE IS THE coach ID for coach:" + this.ID);
+		//LOGGER.info("HERE IS THE PERSON ID for coach:" + super.ID);
+		//LOGGER.info("HERE IS THE coach ID for coach:" + this.ID);
 
 		int i = 1;
 		cs.registerOutParameter(1, java.sql.Types.INTEGER);
@@ -112,7 +112,7 @@ public class ScahaCoach extends Person {
 		//
 		this.ID = cs.getInt(1);
 		cs.close();
-		LOGGER.info("HERE IS THE NEW Coach ID:" + this.ID);
+		//LOGGER.info("HERE IS THE NEW Coach ID:" + this.ID);
 		
 	}
 	

@@ -105,7 +105,7 @@ public class editrosterBean implements Serializable {
 				while (rs.next()) {
 					this.teamname = rs.getString("teamname");
 				}
-				LOGGER.info("We have results for team name");
+				//LOGGER.info("We have results for team name");
 			}
 			rs.close();
 			db.cleanup();
@@ -148,7 +148,7 @@ public class editrosterBean implements Serializable {
 					
 					templist.add(player);
 				}
-				LOGGER.info("We have results for team roster");
+				//LOGGER.info("We have results for team roster");
 			}
 			rs.close();
 			db.cleanup();
@@ -188,7 +188,7 @@ public class editrosterBean implements Serializable {
 					
 					tempcoachlist.add(coach);
 				}
-				LOGGER.info("We have results for team roster");
+				//LOGGER.info("We have results for team roster");
 			}
 			rs.close();
 			db.cleanup();
@@ -280,7 +280,7 @@ public class editrosterBean implements Serializable {
 				while (rs.next()) {
 					this.teamname = rs.getString("teamname");
 				}
-				LOGGER.info("We have results for team name");
+				//LOGGER.info("We have results for team name");
 			}
 			rs.close();
 			db.cleanup();
@@ -323,7 +323,7 @@ public class editrosterBean implements Serializable {
 					
 					templist.add(player);
 				}
-				LOGGER.info("We have results for team roster");
+				//LOGGER.info("We have results for team roster");
 			}
 			rs.close();
 			db.cleanup();
@@ -363,7 +363,7 @@ public class editrosterBean implements Serializable {
 					
 					tempcoachlist.add(coach);
 				}
-				LOGGER.info("We have results for team roster");
+				//LOGGER.info("We have results for team roster");
 			}
 			rs.close();
 			db.cleanup();

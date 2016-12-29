@@ -250,7 +250,7 @@ public class Scoring extends ScahaObject implements Serializable {
 		
 		CallableStatement cs = db.prepareCall("call scaha.updateScoring(?,?,?,?,?,?,?,?,?,?,?)");
 		
-		LOGGER.info("HERE IS THE Starting Scoring ID:" + this.ID);
+		//LOGGER.info("HERE IS THE Starting Scoring ID:" + this.ID);
 
 		int i = 1;
 		cs.registerOutParameter(1, java.sql.Types.INTEGER);
@@ -273,7 +273,7 @@ public class Scoring extends ScahaObject implements Serializable {
 		this.ID = cs.getInt(1);
 		cs.close();
 
-		LOGGER.info("HERE IS THE new Scoring ID:" + this.ID);
+		//LOGGER.info("HERE IS THE new Scoring ID:" + this.ID);
 
 		
 	}

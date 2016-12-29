@@ -122,7 +122,7 @@ public class StatsList extends ListDataModel<Stat> implements Serializable, Sele
 						tempgoals.add(stat);
 						
 					}
-					LOGGER.info("We have results for goal leaders:" + sdivision + ":" + syear);
+					//LOGGER.info("We have results for goal leaders:" + sdivision + ":" + syear);
 					rs2.close();
 				}
 				
@@ -155,7 +155,7 @@ public class StatsList extends ListDataModel<Stat> implements Serializable, Sele
 						tempresult.add(stat);
 						
 					}
-					LOGGER.info("We have results for points leaders:" + sdivision + ":" + syear);
+					//LOGGER.info("We have results for points leaders:" + sdivision + ":" + syear);
 					
 					
 				}
@@ -192,7 +192,7 @@ public class StatsList extends ListDataModel<Stat> implements Serializable, Sele
 						tempassists.add(stat);
 						
 					}
-					LOGGER.info("We have results for assists leaders:" + sdivision + ":" + syear);
+					//LOGGER.info("We have results for assists leaders:" + sdivision + ":" + syear);
 					
 				}
 				
@@ -228,7 +228,7 @@ public class StatsList extends ListDataModel<Stat> implements Serializable, Sele
 						tempgaa.add(stat);
 						
 					}
-					LOGGER.info("We have results for gaa leaders:" + sdivision + ":" + syear);
+					//LOGGER.info("We have results for gaa leaders:" + sdivision + ":" + syear);
 					
 					
 				}
@@ -263,7 +263,7 @@ public class StatsList extends ListDataModel<Stat> implements Serializable, Sele
 						tempsave.add(stat);
 						
 					}
-					LOGGER.info("We have results for save percentage leaders:" + sdivision + ":" + syear);
+					//LOGGER.info("We have results for save percentage leaders:" + sdivision + ":" + syear);
 					
 				}
 				

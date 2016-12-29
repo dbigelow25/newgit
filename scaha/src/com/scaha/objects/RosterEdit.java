@@ -47,7 +47,7 @@ public class RosterEdit extends ScahaObject implements Serializable {
     			db.commit();
     		    db.cleanup();
         		
-        		LOGGER.info("We have updated the jersey number rosterid:" + this.IDplayer + "jersey number: " + fname);
+        		//LOGGER.info("We have updated the jersey number rosterid:" + this.IDplayer + "jersey number: " + fname);
     			
         		
         	} catch (SQLException e) {

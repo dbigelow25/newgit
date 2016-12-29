@@ -320,10 +320,10 @@ public class RegistrationBean implements Serializable, MailableObject  {
 				db.free();
 
 				// We want to create a family called the <lastname> family...
-				LOGGER.info("HERE IS WHERE WE SAVE EVERYTHING COLLECTED FROM REGISTRATION..");
-				LOGGER.info("Sending Registration mail here...");
+				//LOGGER.info("HERE IS WHERE WE SAVE EVERYTHING COLLECTED FROM REGISTRATION..");
+				//LOGGER.info("Sending Registration mail here...");
 				SendMailSSL mail = new SendMailSSL(this);
-				LOGGER.info("Finished creating mail object for " + this.getUsername());
+				//LOGGER.info("Finished creating mail object for " + this.getUsername());
 				mail.sendMail();
 				
 				//
@@ -341,7 +341,7 @@ public class RegistrationBean implements Serializable, MailableObject  {
 				return "Welcome.xhtml?faces-redirect=true";
 			
 			} else {
-				LOGGER.info(" ** Cannot set autocommit to false *** ERROR IN REGISTRATION PROCESS FOR " + this.getUsername());
+				//LOGGER.info(" ** Cannot set autocommit to false *** ERROR IN REGISTRATION PROCESS FOR " + this.getUsername());
 				return "fail";
 			}
 			

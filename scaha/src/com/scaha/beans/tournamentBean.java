@@ -261,7 +261,7 @@ public class tournamentBean implements Serializable {
 				this.idclub = rs.getInt("idclub");
 			}
 			rs.close();
-			LOGGER.info("We have results for club for a profile");
+			//LOGGER.info("We have results for club for a profile");
     	} catch (SQLException e) {
     		// TODO Auto-generated catch block
     		LOGGER.info("ERROR IN loading club by profile");
@@ -289,7 +289,7 @@ public class tournamentBean implements Serializable {
 				while (rs.next()) {
 					isschool = rs.getInt("result");
 				}
-				LOGGER.info("We have results for club is a high school");
+				//LOGGER.info("We have results for club is a high school");
 				db.cleanup();
 				
 				if (isschool.equals(0)){
@@ -362,7 +362,7 @@ public class tournamentBean implements Serializable {
 			db.commit();
 			db.cleanup();
     		
-			LOGGER.info("manager has added tournament:" + this.tournamentname);
+			//LOGGER.info("manager has added tournament:" + this.tournamentname);
     		
 			getTournament();
 			
@@ -421,14 +421,14 @@ public class tournamentBean implements Serializable {
     				this.website = rs.getString("website");
     				this.phone = rs.getString("phone");
     			}
-				LOGGER.info("We have results for tourney list by team:" + this.teamid);
+				//LOGGER.info("We have results for tourney list by team:" + this.teamid);
 			}
 			
 			
 			rs.close();
 			db.cleanup();
     		
-			LOGGER.info("manager has added tournament:" + this.tournamentname);
+			//LOGGER.info("manager has added tournament:" + this.tournamentname);
     		//need to add email sent to scaha statistician and manager
 			
 			

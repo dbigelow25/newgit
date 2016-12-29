@@ -116,7 +116,7 @@ public class NewsBean implements Serializable,  MailableObject  {
 			e.printStackTrace();
 		}	
 		db.free();
-		LOGGER.info(current.toString());
+		//LOGGER.info(current.toString());
 
 	}
 	
@@ -194,7 +194,7 @@ public class NewsBean implements Serializable,  MailableObject  {
 			e.printStackTrace();
 		}	
 		db.free();
-		LOGGER.info("added " + this.getNewssubject() + " news item");
+		//LOGGER.info("added " + this.getNewssubject() + " news item");
 
 		getNewsItemList();
 	}
@@ -214,7 +214,7 @@ public class NewsBean implements Serializable,  MailableObject  {
 			e.printStackTrace();
 		}	
 		db.free();
-		LOGGER.info("added " + this.getNewssubject() + " news item");
+		//LOGGER.info("added " + this.getNewssubject() + " news item");
 
 		getNewsItemList();
 	}

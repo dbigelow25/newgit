@@ -104,7 +104,7 @@ public class PenaltyPusher  implements Serializable,  MailableObject {
 			ps.close();
 			
 			for (InternetAddress ia : data) {
-				LOGGER.info("e-mail:" + ia);
+				//LOGGER.info("e-mail:" + ia);
 			}
 
 		} catch (SQLException e) {

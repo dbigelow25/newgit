@@ -303,7 +303,7 @@ public class approveexhibitionBean implements Serializable, MailableObject {
     				tournament.setManageremail(manageremail);
     				templist.add(tournament);
 				}
-				LOGGER.info("We have results for all exhibition list");
+				//LOGGER.info("We have results for all exhibition list");
 			}
 			
 			
@@ -377,7 +377,7 @@ public class approveexhibitionBean implements Serializable, MailableObject {
     		    this.setSubject("Exhibition Game Approved for " + tournament.getRequestingteam());
     		    
     			SendMailSSL mail = new SendMailSSL(this);
-    			LOGGER.info("Finished creating mail object for " + tournament.getTournamentname() + " Approved for " + tournament.getRequestingteam());
+    			//LOGGER.info("Finished creating mail object for " + tournament.getTournamentname() + " Approved for " + tournament.getRequestingteam());
     			mail.sendMail();
     			db.cleanup();
 			} else {
@@ -416,7 +416,7 @@ public class approveexhibitionBean implements Serializable, MailableObject {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("remove tournament from list");
+ 				//LOGGER.info("remove tournament from list");
  				CallableStatement cs = db.prepareCall("CALL scaha.setExhibitionDeclined(?)");
     		    cs.setInt("gameid", gameid);
     		    cs.executeQuery();
@@ -450,7 +450,7 @@ public class approveexhibitionBean implements Serializable, MailableObject {
     		    this.setSubject("Exhibition Game Declined for " + tournament.getRequestingteam());
     		    
     			SendMailSSL mail = new SendMailSSL(this);
-    			LOGGER.info("Finished creating mail object for " + tournament.getTournamentname() + " Declined for " + tournament.getRequestingteam());
+    			//LOGGER.info("Finished creating mail object for " + tournament.getTournamentname() + " Declined for " + tournament.getRequestingteam());
     			mail.sendMail();
     			db.cleanup();
 			} else {

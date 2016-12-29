@@ -141,30 +141,30 @@ public class Penalty extends ScahaObject implements Serializable {
 		
 		CallableStatement cs = db.prepareCall("call scaha.updatePenalty(?,?,?,?,?,?,?,?,?,?)");
 		
-		LOGGER.info("HERE IS THE Starting Penalty ID:" + this.ID);
+		//LOGGER.info("HERE IS THE Starting Penalty ID:" + this.ID);
 
 		int i = 1;
 		cs.registerOutParameter(1, java.sql.Types.INTEGER);
 		cs.setInt(i++, this.ID);
-		LOGGER.info("A");
+		//LOGGER.info("A");
 		cs.setInt(i++, this.idroster);
-		LOGGER.info("B");
+		//LOGGER.info("B");
 		cs.setInt(i++, this.getLivegame().ID);
-		LOGGER.info("C");
+		//LOGGER.info("C");
 		cs.setInt(i++, this.getTeam().ID);
-		LOGGER.info("D");
+		//LOGGER.info("D");
 		cs.setString(i++, this.penaltytype);
-		LOGGER.info("E");
+		//LOGGER.info("E");
 		cs.setInt(i++, this.period);
-		LOGGER.info("F");
+		//LOGGER.info("F");
 		cs.setString(i++, this.minutes);
-		LOGGER.info("G");
+		//LOGGER.info("G");
 		cs.setString(i++, this.timeofpenalty);
-		LOGGER.info("H");
+		//LOGGER.info("H");
 		cs.setInt(i++,1);
-		LOGGER.info("I");
+		//LOGGER.info("I");
 		cs.setString(i++,null);
-		LOGGER.info("J");
+		//LOGGER.info("J");
 		cs.execute();
 		
 		//
@@ -173,7 +173,7 @@ public class Penalty extends ScahaObject implements Serializable {
 		this.ID = cs.getInt(1);
 		cs.close();
 
-		LOGGER.info("HERE IS THE new Penalty ID:" + this.ID);
+		//LOGGER.info("HERE IS THE new Penalty ID:" + this.ID);
 
 		
 	}

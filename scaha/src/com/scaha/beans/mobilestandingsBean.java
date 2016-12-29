@@ -134,7 +134,7 @@ public class mobilestandingsBean implements Serializable{
     				xmlstring = xmlstring + "<ga>" + ga + "</ga>";
     				xmlstring = xmlstring + "</standing>";
 				}
-				LOGGER.info("We have results for scaha standings for review by statistician for schedule:" + this.selectedschedule);
+				//LOGGER.info("We have results for scaha standings for review by statistician for schedule:" + this.selectedschedule);
 			}
 			
 			xmlstring = xmlstring + "</standings>";

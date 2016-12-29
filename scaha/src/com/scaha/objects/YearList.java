@@ -37,7 +37,7 @@ public class YearList extends ListDataModel<Year> implements Serializable, Selec
 	
 	public static YearList NewYearListFactory(ScahaDatabase _db) throws SQLException {
 		
-		LOGGER.info ("Getting list of years containing meeting minutes");
+		//LOGGER.info ("Getting list of years containing meeting minutes");
 
 		List<Year> data = new ArrayList<Year>();
 		

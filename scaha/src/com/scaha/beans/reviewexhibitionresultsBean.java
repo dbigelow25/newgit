@@ -237,7 +237,7 @@ public class reviewexhibitionresultsBean implements Serializable, MailableObject
     				tournament.setScoresheetrendered(scoresheetrendered);
     				templist.add(tournament);
 				}
-				LOGGER.info("We have results for all exhibition list for confirming scoresheets");
+				//LOGGER.info("We have results for all exhibition list for confirming scoresheets");
 			}
 			
 			
@@ -270,7 +270,7 @@ public class reviewexhibitionresultsBean implements Serializable, MailableObject
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("remove tournament game from list");
+ 				//LOGGER.info("remove tournament game from list");
  				CallableStatement cs = db.prepareCall("CALL scaha.deleteTeamTournamentGame(?)");
     		    cs.setInt("gameid", gameid);
     		    cs.executeQuery();

@@ -27,7 +27,7 @@ public class USAHRegClient {
 		Simple3Des crypt = new Simple3Des();
  
 		System.out.println("START:" + crypt.encryptText(_strUSAH));
-		LOGGER.info("(http://108.175.159.184) http://scahaservices.com/ReqUSAH.aspx?usah='" + crypt.encryptText(_strUSAH).replace("+", ":PLUS:") + "'");
+		//LOGGER.info("(http://108.175.159.184) http://scahaservices.com/ReqUSAH.aspx?usah='" + crypt.encryptText(_strUSAH).replace("+", ":PLUS:") + "'");
 		//URL url = new URL("http://108.175.159.184/ReqUSAH.aspx?usah='" + crypt.encryptText(_strUSAH).replace("+", ":PLUS:") + "'");
 		URL url = new URL("http://scahaservices.com/ReqUSAH.aspx?usah='" + crypt.encryptText(_strUSAH).replace("+", ":PLUS:") + "'");
 		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -41,10 +41,10 @@ public class USAHRegClient {
         String[] temp = answer.split("(<textarea name=\"TextArea1\" id=\"TextArea1\" cols=\"200\" rows=\"20\">{1})|(</textarea></body></html>{1})");
         String cyph = crypt.decryptText(temp[1]); 
 
-        LOGGER.info("HERE IS cyph:" + cyph);
+        //LOGGER.info("HERE IS cyph:" + cyph);
         
         String [] ans = cyph.split("\\|");
-        LOGGER.info("HERE IS cyph after the split:  len=" + ans.length + ", ans=" + ans);
+        //LOGGER.info("HERE IS cyph after the split:  len=" + ans.length + ", ans=" + ans);
         UsaHockeyRegistration myUSAHockey =  new UsaHockeyRegistration(0,_strUSAH);
         int i = 2;
         if (ans.length > 2) {
@@ -66,7 +66,7 @@ public class USAHRegClient {
 	        myUSAHockey.setPGSFName(ans[i++]);
 	        myUSAHockey.setPGSMName(ans[i++]);
 	        myUSAHockey.setEmail(ans[i++]);
-	        LOGGER.info("Done Packing and creating the USAHockey Object");
+	        //LOGGER.info("Done Packing and creating the USAHockey Object");
         } else {
 	        myUSAHockey.setLastName("");
 	        myUSAHockey.setFirstName("");
@@ -86,7 +86,7 @@ public class USAHRegClient {
 	        myUSAHockey.setPGSFName("");
 	        myUSAHockey.setPGSMName("");
 	        myUSAHockey.setEmail("");
-	        LOGGER.info("Done Resetting the USA Hockey Object");
+	        //LOGGER.info("Done Resetting the USA Hockey Object");
         	
         }
 

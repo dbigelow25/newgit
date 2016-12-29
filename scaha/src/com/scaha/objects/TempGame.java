@@ -159,7 +159,7 @@ public class TempGame extends ScahaObject implements Serializable {
     			db.commit();
     		    db.cleanup();
         		
-        		LOGGER.info("We have updated the home score:" + this.idgame + "home score: " + fname);
+        		//LOGGER.info("We have updated the home score:" + this.idgame + "home score: " + fname);
     			
         		
         	} catch (SQLException e) {
@@ -213,7 +213,7 @@ public class TempGame extends ScahaObject implements Serializable {
     			db.commit();
     		    db.cleanup();
         		
-        		LOGGER.info("We have updated the away score:" + this.idgame + "away score: " + lname);
+        		//LOGGER.info("We have updated the away score:" + this.idgame + "away score: " + lname);
     			
         		
         	} catch (SQLException e) {

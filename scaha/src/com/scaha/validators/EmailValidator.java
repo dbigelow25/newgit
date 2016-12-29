@@ -44,7 +44,7 @@ public class EmailValidator implements Validator {
         	InternetAddress emailAddr = new InternetAddress(username);
         	emailAddr.validate();
        	} catch (AddressException ex) {
-        	LOGGER.info("E-mail Validation: " + username + "is not an e-mail address");
+        	//LOGGER.info("E-mail Validation: " + username + "is not an e-mail address");
             FacesMessage message = new FacesMessage();
             message.setDetail("E-mail Validation: " + username + "is not an e-mail address");
             message.setSummary("Email Error");
@@ -52,7 +52,7 @@ public class EmailValidator implements Validator {
             throw new ValidatorException(message);
        	}
 
-        LOGGER.info("E-mail Validation: " + username + "appears to look copesetic..");
+        //LOGGER.info("E-mail Validation: " + username + "appears to look copesetic..");
         
 		//
 		// ok.. lets check the database to make sure its unique..

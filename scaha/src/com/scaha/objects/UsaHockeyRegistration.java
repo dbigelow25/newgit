@@ -275,7 +275,7 @@ public class UsaHockeyRegistration extends ScahaObject implements Serializable {
 		USAHnum = _uSAHnum;
 	}
 	public String getMembership201XYear() {
-		LOGGER.info("GMY:" + getUSAHnum());
+		//LOGGER.info("GMY:" + getUSAHnum());
 		
 		return "201" +  this.getUSAHnum().substring(3,4);
 		
@@ -344,7 +344,7 @@ public class UsaHockeyRegistration extends ScahaObject implements Serializable {
 				this.ID = cs.getInt(1);
 				cs.close();
 
-				LOGGER.info("HERE IS THE NEW ID:" + this.ID);
+				//LOGGER.info("HERE IS THE NEW ID:" + this.ID);
 				
 				_per.setUsaHockeyRegistration(this);
 	

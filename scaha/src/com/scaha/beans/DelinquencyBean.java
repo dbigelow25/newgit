@@ -80,7 +80,7 @@ public class DelinquencyBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		LOGGER.info("**************** DelinquencyBean Has Been Init-ed ********************");
+		//LOGGER.info("**************** DelinquencyBean Has Been Init-ed ********************");
 		playersDisplay();
 		clubplayersDisplay();
     }  
@@ -154,7 +154,7 @@ public class DelinquencyBean implements Serializable {
 	    
     //retrieves list of players
     public void playersDisplay(){
-    	LOGGER.info("Refreshing the list of delinquent players..");
+    	//LOGGER.info("Refreshing the list of delinquent players..");
     	ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
     	List<Player> tempresult = new ArrayList<Player>();
     	Integer recordcount = 0;
@@ -206,7 +206,7 @@ public class DelinquencyBean implements Serializable {
     }
 
     public void clubplayersDisplay(){
-    	LOGGER.info("Refreshing the list of delinquent players..");
+    	//LOGGER.info("Refreshing the list of delinquent players..");
     	ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
     	List<Player> tempresult = new ArrayList<Player>();
     	Integer recordcount = 0;
@@ -282,11 +282,11 @@ public class DelinquencyBean implements Serializable {
 		
 		try{
 
-			LOGGER.info("update player in delinquency list");
+			//LOGGER.info("update player in delinquency list");
 			CallableStatement cs = db.prepareCall("CALL scaha.removeDelinquency(?)");
 		    cs.setInt("iplayerid", Integer.parseInt(sidplayer));
 		    cs.executeUpdate();
-			LOGGER.info("We are remove the delinquency for player id:" + sidplayer);
+			//LOGGER.info("We are remove the delinquency for player id:" + sidplayer);
 		    cs.close();
 			
 		} catch (SQLException e) {

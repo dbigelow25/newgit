@@ -78,7 +78,7 @@ public class ClubList extends ListDataModel<Club> implements Serializable, Selec
 			c.setTryoutlist(TryoutList.NewTryoutListFactory(psTry, c));
 			c.setOpeninglist(OpeningsList.NewOpeningListFactory(psOpen,c));
 		}
-		LOGGER.info("Finished all the Club List Loading!!");
+		//LOGGER.info("Finished all the Club List Loading!!");
 		return new ClubList(data);
 	}
 

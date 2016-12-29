@@ -725,7 +725,7 @@ public class coachloiBean implements Serializable, MailableObject {
         				team.setCoachrole("No Role");
         				templist.add(team);
     				}
-    				LOGGER.info("We have results for team list by club");
+    				//LOGGER.info("We have results for team list by club");
     			}
     			rs.close();
     			cs.close();
@@ -867,7 +867,7 @@ public class coachloiBean implements Serializable, MailableObject {
         				
         				setCepmodulesselected(templist);
         			}
-    				LOGGER.info("We have results for player details by player id");
+    				//LOGGER.info("We have results for player details by player id");
     			}
     			rs.close();
     			db.cleanup();
@@ -897,7 +897,7 @@ public class coachloiBean implements Serializable, MailableObject {
     					}
     					tempteams.add(teamname + ", " + newcoachrole);
     				}
-    				LOGGER.info("We have results for teams for the coach");
+    				//LOGGER.info("We have results for teams for the coach");
     			}
     			this.setBoysteams(tempteams);
     			teamname = "";
@@ -933,7 +933,7 @@ public class coachloiBean implements Serializable, MailableObject {
     					}
     					tempgirlteams.add(teamname + ", " + newcoachrole);
     				}
-    				LOGGER.info("We have results for teams for the coach");
+    				//LOGGER.info("We have results for teams for the coach");
     			}
     			this.setGirlsteams(tempgirlteams);
     			teamname = "";
@@ -971,7 +971,7 @@ public class coachloiBean implements Serializable, MailableObject {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to check loi code from family first
- 				LOGGER.info("verify loi code provided");
+ 				//LOGGER.info("verify loi code provided");
  				CallableStatement cs = db.prepareCall("CALL scaha.validateMemberNumber(?,?)");
  				cs.setString("memnumber", this.loicode);
  				cs.setInt("personid", this.selectedcoach);
@@ -984,7 +984,7 @@ public class coachloiBean implements Serializable, MailableObject {
     				while (rs.next()) {
     					resultcount = rs.getInt("idmember");
     				}
-    				LOGGER.info("We have coach season pass code validation results for coach details by coach id");
+    				//LOGGER.info("We have coach season pass code validation results for coach details by coach id");
     			}
     		    rs.close();
     		    db.cleanup();
@@ -993,7 +993,7 @@ public class coachloiBean implements Serializable, MailableObject {
     			if (resultcount > 0){
     		    	
 	    		    //if good save info to person table, then add record to roster then email
-	 				LOGGER.info("updating person record");
+	 				//LOGGER.info("updating person record");
 	 				cs = db.prepareCall("CALL scaha.updatePersonInfoAddress(?,?,?,?,?)");
 	    		    cs.setInt("ipersonid", this.selectedcoach);
 	    		    cs.setString("iaddress", this.address);
@@ -1010,7 +1010,7 @@ public class coachloiBean implements Serializable, MailableObject {
 	    			//need to add to the coach roster table for each boys team
 	    			for(Team team : this.boysteamdatamodel) {  
 	    				if (!team.getCoachrole().equals("No Role")){
-    						LOGGER.info("updating coach roster record for:" + team.getIdteam());
+    						//LOGGER.info("updating coach roster record for:" + team.getIdteam());
     						cs.setInt("ipersonid", this.selectedcoach);
     		    		    cs.setInt("iteamid", Integer.parseInt(team.getIdteam()));
     		    		    cs.setInt("setyear", 2014);
@@ -1050,7 +1050,7 @@ public class coachloiBean implements Serializable, MailableObject {
 	    			//need to add to the coach roster table for each boys team
 	    			for(Team team : this.girlsteamdatamodel) {  
 	    				if (!team.getCoachrole().equals("No Role")){
-	    					LOGGER.info("updating coach roster record for:" + team.getIdteam());
+	    					//LOGGER.info("updating coach roster record for:" + team.getIdteam());
     						cs.setInt("ipersonid", this.selectedcoach);
     		    		    cs.setInt("iteamid", Integer.parseInt(team.getIdteam()));
     		    		    cs.setInt("setyear", 2014);
@@ -1084,7 +1084,7 @@ public class coachloiBean implements Serializable, MailableObject {
 	    			//we don't need to differentiate anymore.
 	    			//if (!this.coachrole.equals("Manager")) {
     				//need to save coaches screening and cep stuff
-	    			LOGGER.info("updating coach record");
+	    			//LOGGER.info("updating coach record");
 	 				cs = db.prepareCall("CALL scaha.updateCoach(?,?,?,?,?,?,?,?,?,?,?,?)");
 	    		    cs.setInt("coachid", this.selectedcoach);
 	    		    cs.setString("screenexpires", this.screeningexpires);
@@ -1192,7 +1192,7 @@ public class coachloiBean implements Serializable, MailableObject {
 	    			rs.close();
 	    		    */
 	    			to = "";
-	    			LOGGER.info("Sending email to club registrar, family, and scaha registrar");
+	    			//LOGGER.info("Sending email to club registrar, family, and scaha registrar");
 	    			cs = db.prepareCall("CALL scaha.getClubRegistrarEmail(?)");
 	    		    cs.setInt("iclubid", this.clubid);
 	    		    rs = cs.executeQuery();
@@ -1252,7 +1252,7 @@ public class coachloiBean implements Serializable, MailableObject {
 	    		    this.setSubject(this.firstname + " " + this.lastname + " LOI with " + this.getClubName());
 	    		    
 					SendMailSSL mail = new SendMailSSL(this);
-					LOGGER.info("Finished creating mail object for ");
+					//LOGGER.info("Finished creating mail object for ");
 					mail.sendMail();
 					db.commit();
 					db.cleanup();
@@ -1310,7 +1310,7 @@ public class coachloiBean implements Serializable, MailableObject {
 					this.clubid = rs.getInt("idclub");
 					
 					}
-				LOGGER.info("We have results for club for a profile");
+				//LOGGER.info("We have results for club for a profile");
 			}
 			rs.close();
 			db.cleanup();
@@ -1327,7 +1327,7 @@ public class coachloiBean implements Serializable, MailableObject {
 				while (rs.next()) {
 					clubname = rs.getString("clubname");
 				}
-				LOGGER.info("We have results for club name");
+				//LOGGER.info("We have results for club name");
 			}
 			rs.close();
 			db.cleanup();
@@ -1377,7 +1377,7 @@ public class coachloiBean implements Serializable, MailableObject {
 				while (rs.next()) {
 					teamname = rs.getString("teamname");
 				}
-				LOGGER.info("We have results for Team name for a person");
+				//LOGGER.info("We have results for Team name for a person");
 			}
 			rs.close();
 			db.cleanup();
@@ -1417,7 +1417,7 @@ public class coachloiBean implements Serializable, MailableObject {
 				while (rs.next()) {
 					teamname = rs.getString("teamname");
 				}
-				LOGGER.info("We have results for Team name for a person");
+				//LOGGER.info("We have results for Team name for a person");
 			}
 			rs.close();
 			db.cleanup();
@@ -1470,7 +1470,7 @@ public class coachloiBean implements Serializable, MailableObject {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to store note first
- 				LOGGER.info("storing note for :" + this.selectedcoach);
+ 				//LOGGER.info("storing note for :" + this.selectedcoach);
  				CallableStatement cs = db.prepareCall("CALL scaha.saveNote(?,?)");
  				cs.setString("innote", this.notes);
  				cs.setInt("personid", this.selectedcoach);
@@ -1504,7 +1504,7 @@ public class coachloiBean implements Serializable, MailableObject {
     					
     					tempgirlteams.add(teamname);
     				}
-    				LOGGER.info("We have results for teams for the coach");
+    				//LOGGER.info("We have results for teams for the coach");
     			}
     			this.setGirlsteams(tempgirlteams);
     			teamname = "";
@@ -1535,7 +1535,7 @@ public class coachloiBean implements Serializable, MailableObject {
     					}
     					tempteams.add(teamname);
     				}
-    				LOGGER.info("We have results for teams for the coach");
+    				//LOGGER.info("We have results for teams for the coach");
     			}
     			this.setBoysteams(tempteams);
     			teamname = "";
@@ -1545,7 +1545,7 @@ public class coachloiBean implements Serializable, MailableObject {
     		        
     		    to = this.email;
     		    
-    			LOGGER.info("Sending email to club registrar, and scaha registrar");
+    			//LOGGER.info("Sending email to club registrar, and scaha registrar");
     			cs = db.prepareCall("CALL scaha.getClubRegistrarEmailByPersonID(?)");
     		    cs.setInt("personid", this.selectedcoach);
     		    rs = cs.executeQuery();
@@ -1578,7 +1578,7 @@ public class coachloiBean implements Serializable, MailableObject {
     		    this.setSubject("SCAHA LOI Review Note for: " + this.firstname + " " + this.lastname + " LOI");
     		    
 				SendMailSSL mail = new SendMailSSL(this);
-				LOGGER.info("Finished creating mail note object for " + this.firstname + " " + this.lastname + " LOI");
+				//LOGGER.info("Finished creating mail note object for " + this.firstname + " " + this.lastname + " LOI");
 				mail.sendMail();
 					
 				db.commit();
@@ -1625,7 +1625,7 @@ public class coachloiBean implements Serializable, MailableObject {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to store note first
- 				LOGGER.info("storing note for :" + this.selectedcoach);
+ 				//LOGGER.info("storing note for :" + this.selectedcoach);
  				CallableStatement cs = db.prepareCall("CALL scaha.saveNote(?,?)");
  				cs.setString("innote", this.notes);
  				cs.setInt("personid", this.selectedcoach);

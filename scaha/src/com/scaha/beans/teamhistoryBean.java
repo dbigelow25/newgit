@@ -95,7 +95,7 @@ public class teamhistoryBean implements Serializable {
 				team.setMatchcount(matchcount);
    				templist.add(team);
 			}
-			LOGGER.info("We have results for penalty history by team");
+			//LOGGER.info("We have results for penalty history by team");
 			rs.close();
 			db.cleanup();
 	

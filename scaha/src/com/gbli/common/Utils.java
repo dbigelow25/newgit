@@ -158,7 +158,7 @@ public class Utils {
 			db2.getData("CALL scaha.checkforuser(?)", v);
 		        
 			if (db2.getResultSet() != null && db2.getResultSet().next()){
-				LOGGER.info("Cannot Create Profile due to same e-mail address..." + pgemail +":" + fname + ":" +  lname);
+				//LOGGER.info("Cannot Create Profile due to same e-mail address..." + pgemail +":" + fname + ":" +  lname);
 				db2.getResultSet().close();
 				continue;
 			}
@@ -311,7 +311,7 @@ public class Utils {
 			);
 
 			if (usahockey.length() != 14) {
-				LOGGER.info("usaHockey # for " + fname + " " + lname + "is bad =" + usahockey);
+				//LOGGER.info("usaHockey # for " + fname + " " + lname + "is bad =" + usahockey);
 				continue;
 			}
 			
@@ -344,13 +344,13 @@ public class Utils {
 			
 			if (iProfileid > 0 ) {
 				
-				 LOGGER.info("Profile already exists.. loading it (and Person, family)");
+				// LOGGER.info("Profile already exists.. loading it (and Person, family)");
 				 pro =  new Profile (iProfileid, db2, strnn, struser, strpwd, false);
-				 LOGGER.info("Profile already exists.. DONE loading it (and Person, family)");
+				 //LOGGER.info("Profile already exists.. DONE loading it (and Person, family)");
 
 			} else {
 
-				LOGGER.info("Creating new Profile.. person for email");
+				//LOGGER.info("Creating new Profile.. person for email");
 
 				pro = new Profile(email, email, fname + " " + lname);
 				pro.update(db2);
@@ -369,14 +369,14 @@ public class Utils {
 				// Lets update now ..
 				per.update(db2);
 				Family fam = new Family(-1, pro, per);
-				LOGGER.info("Creating new Family.");
+				//LOGGER.info("Creating new Family.");
 				fam.setFamilyName("The " + per.getsLastName() + " Family");
 				fam.update(db2, false);
 				
 				//
 				// Make sure the person is always them selves
 				//
-				LOGGER.info("Creating new FamilyMember (self).");
+				//LOGGER.info("Creating new FamilyMember (self).");
 				FamilyMember fm = new FamilyMember(pro,fam, per);
 				fm.setRelationship("Self");
 				fm.updateFamilyMemberStructure(db2);
@@ -400,7 +400,7 @@ public class Utils {
 			// 
 			if (db2.getResultSet() != null && db2.getResultSet().next()){
 				if (db2.getResultSet().getInt(1) > 0) {
-					LOGGER.info("!!USA HOCKEY NUMBER ALREADY IN SYSTEM.. SKIPPING: " + usahockey);
+					//LOGGER.info("!!USA HOCKEY NUMBER ALREADY IN SYSTEM.. SKIPPING: " + usahockey);
 					db2.commit();
 					continue;
 				}
@@ -439,7 +439,7 @@ public class Utils {
 			// If the person is the child.. (meaning) they registered themselves.. (when they are 18.. or a true adult)
 			if (fname.equals(kidfirst) && lname.equals(kidlast) && kidfirst.equals(tper.getsFirstName()) && kidlast.equals(tper.getsLastName())) {
 				per = tper;
-				LOGGER.info("!!!!!Selfie Found for " + tper);
+				//LOGGER.info("!!!!!Selfie Found for " + tper);
 			} else {
 				per.gleanUSAHinfo(usar);
 				per.update(db2);
@@ -625,7 +625,7 @@ public class Utils {
 			
 		
 			if (usahockey.length() != 14) {
-				LOGGER.info("usaHockey # for " + fname + " " + lname + "is bad =" + usahockey);
+				//LOGGER.info("usaHockey # for " + fname + " " + lname + "is bad =" + usahockey);
 				continue;
 			}
 			
@@ -658,13 +658,13 @@ public class Utils {
 			
 			if (iProfileid > 0 ) {
 				
-				 LOGGER.info("Profile already exists.. loading it (and Person, family)");
+				 //LOGGER.info("Profile already exists.. loading it (and Person, family)");
 				 pro =  new Profile (iProfileid, db2, strnn, struser, strpwd, false);
-				 LOGGER.info("Profile already exists.. DONE loading it (and Person, family)");
+				// LOGGER.info("Profile already exists.. DONE loading it (and Person, family)");
 
 			} else {
 
-				LOGGER.info("Creating new Profile.. person for email");
+				//LOGGER.info("Creating new Profile.. person for email");
 
 				pro = new Profile(email, email, fname + " " + lname);
 				pro.update(db2);
@@ -683,14 +683,14 @@ public class Utils {
 				// Lets update now ..
 				per.update(db2);
 				Family fam = new Family(-1, pro, per);
-				LOGGER.info("Creating new Family.");
+				//LOGGER.info("Creating new Family.");
 				fam.setFamilyName("The " + per.getsLastName() + " Family");
 				fam.update(db2, false);
 				
 				//
 				// Make sure the person is always them selves
 				//
-				LOGGER.info("Creating new FamilyMember (self).");
+				//LOGGER.info("Creating new FamilyMember (self).");
 				FamilyMember fm = new FamilyMember(pro,fam, per);
 				fm.setRelationship("Self");
 				fm.updateFamilyMemberStructure(db2);
@@ -714,7 +714,7 @@ public class Utils {
 			// 
 			if (db2.getResultSet() != null && db2.getResultSet().next()){
 				if (db2.getResultSet().getInt(1) > 0) {
-					LOGGER.info("!!USA HOCKEY NUMBER ALREADY IN SYSTEM.. SKIPPING: " + usahockey);
+					//LOGGER.info("!!USA HOCKEY NUMBER ALREADY IN SYSTEM.. SKIPPING: " + usahockey);
 					db2.commit();
 					continue;
 				}
@@ -753,7 +753,7 @@ public class Utils {
 			// If the person is the child.. (meaning) they registered themselves.. (when they are 18.. or a true adult)
 			if (fname.equals(kidfirst) && lname.equals(kidlast) && kidfirst.equals(tper.getsFirstName()) && kidlast.equals(tper.getsLastName())) {
 				per = tper;
-				LOGGER.info("!!!!!Selfie Found for " + tper);
+				//LOGGER.info("!!!!!Selfie Found for " + tper);
 			} else {
 				per.gleanUSAHinfo(usar);
 				per.update(db2);
@@ -949,7 +949,7 @@ public class Utils {
 			
 		
 			if (usahockey.length() != 14) {
-				LOGGER.info("usaHockey # for " + fname + " " + lname + "is bad =" + usahockey);
+				//LOGGER.info("usaHockey # for " + fname + " " + lname + "is bad =" + usahockey);
 				continue;
 			}
 			
@@ -982,13 +982,13 @@ public class Utils {
 			
 			if (iProfileid > 0 ) {
 				
-				 LOGGER.info("Profile already exists.. loading it (and Person, family)");
+				 //LOGGER.info("Profile already exists.. loading it (and Person, family)");
 				 pro =  new Profile (iProfileid, db2, strnn, struser, strpwd, false);
-				 LOGGER.info("Profile already exists.. DONE loading it (and Person, family)");
+				// LOGGER.info("Profile already exists.. DONE loading it (and Person, family)");
 
 			} else {
 
-				LOGGER.info("Creating new Profile.. person for email");
+				//LOGGER.info("Creating new Profile.. person for email");
 
 				pro = new Profile(email, email, fname + " " + lname);
 				pro.update(db2);
@@ -1007,14 +1007,14 @@ public class Utils {
 				// Lets update now ..
 				per.update(db2);
 				Family fam = new Family(-1, pro, per);
-				LOGGER.info("Creating new Family.");
+				//LOGGER.info("Creating new Family.");
 				fam.setFamilyName("The " + per.getsLastName() + " Family");
 				fam.update(db2, false);
 				
 				//
 				// Make sure the person is always them selves
 				//
-				LOGGER.info("Creating new FamilyMember (self).");
+				//LOGGER.info("Creating new FamilyMember (self).");
 				FamilyMember fm = new FamilyMember(pro,fam, per);
 				fm.setRelationship("Self");
 				fm.updateFamilyMemberStructure(db2);
@@ -1062,7 +1062,7 @@ public class Utils {
 			// If the person is the child.. (meaning) they registered themselves.. (when they are 18.. or a true adult)
 			if (fname.equals(kidfirst) && lname.equals(kidlast) && kidfirst.equals(tper.getsFirstName()) && kidlast.equals(tper.getsLastName())) {
 				per = tper;
-				LOGGER.info("!!!!!Selfie Found for " + tper);
+				//LOGGER.info("!!!!!Selfie Found for " + tper);
 			} else {
 				per.gleanUSAHinfo(usar);
 				per.update(db2);
@@ -1088,7 +1088,7 @@ public class Utils {
 			if (db2.getResultSet() != null && db2.getResultSet().next()){
 				if (db2.getResultSet().getInt(1) > 0) {
 
-					LOGGER.info("!!USA HOCKEY NUMBER ALREADY IN SYSTEM.. SKIPPING: Saving this and Creating a Membership.. " + usahockey);
+					//LOGGER.info("!!USA HOCKEY NUMBER ALREADY IN SYSTEM.. SKIPPING: Saving this and Creating a Membership.. " + usahockey);
 					
 				} else {
 
@@ -1154,7 +1154,7 @@ public class Utils {
     public static String getMailTemplateFromFile(String _sPath) {
 
     	String sAbsolutePath = ContextManager.getRealPath() + _sPath;
-		LOGGER.info("absolute Path is here:" + sAbsolutePath);
+		//LOGGER.info("absolute Path is here:" + sAbsolutePath);
 
 		StringBuffer sb = new StringBuffer();
 		
@@ -1179,7 +1179,7 @@ public class Utils {
      */
 	public static String mergeTokens(String _str, List<String> _sparms) {
 		
-		LOGGER.info("Utilites.. mergingTokens now..");
+		//LOGGER.info("Utilites.. mergingTokens now..");
 	
 		for (String s : _sparms ){
 			
@@ -1194,7 +1194,7 @@ public class Utils {
 
 	public static String mergeTokens(String _str, List<String> _sparms, String _delim) {
 		
-		LOGGER.info("Utilites.. mergingTokens now..");
+		//LOGGER.info("Utilites.. mergingTokens now..");
 	
 		for (String s : _sparms ){
 			

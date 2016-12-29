@@ -81,16 +81,16 @@ public class ScahaBean implements Serializable,  MailableObject {
 	 @PostConstruct
 	 public void init() {
 		 
-		 LOGGER.info("******************* START: SCAHA BEAN INIT... ***********************");
-		 LOGGER.info("\t old level at:" + LOGGER.getLevel());
-		 LOGGER.setLevel(Level.ALL);
-		 LOGGER.info("\t new level at:" + LOGGER.getLevel());
+		 //LOGGER.info("******************* START: SCAHA BEAN INIT... ***********************");
+		 //LOGGER.info("\t old level at:" + LOGGER.getLevel());
+		 //LOGGER.setLevel(Level.ALL);
+		 //LOGGER.info("\t new level at:" + LOGGER.getLevel());
 		 this.setDefaultProfile(new Profile());
 		 this.setExecutiveboard();
 		 this.setMeetingminutes();
 		 this.loadNoimage();
 		 this.refreshBean();
-		 LOGGER.info("******************* FINISH: SCAHA BEAN INIT... ***********************");
+		 //LOGGER.info("******************* FINISH: SCAHA BEAN INIT... ***********************");
 	 }
 	 
 	 @PreDestroy
@@ -185,7 +185,7 @@ public class ScahaBean implements Serializable,  MailableObject {
 		ps.setString(1,"SCAHA-1415");
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
-			LOGGER.info("found row");
+			//LOGGER.info("found row");
 		}
 		db.free();
 		} catch (SQLException ex) {
@@ -293,7 +293,7 @@ public class ScahaBean implements Serializable,  MailableObject {
 	 */
 	private void loadTeamLists(ScahaDatabase _db) throws SQLException {
 	
-		LOGGER.info("loading Team Lists for SCAHA Application");
+		//LOGGER.info("loading Team Lists for SCAHA Application");
 		
 		GeneralSeason scahags = this.getScahaSeasonList().getCurrentSeason();
 		this.setScahaTeamList(TeamList.ListFactory());
@@ -315,7 +315,7 @@ public class ScahaBean implements Serializable,  MailableObject {
 			
 		}
 		
-		LOGGER.info("Combined List is:" + this.getScahaTeamList());
+		//LOGGER.info("Combined List is:" + this.getScahaTeamList());
 			
 	}
 
@@ -563,7 +563,7 @@ public class ScahaBean implements Serializable,  MailableObject {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("verify loi code provided");
+ 				//LOGGER.info("verify loi code provided");
  				CallableStatement cs = db.prepareCall("CALL scaha.setBoardMemberDisplay(?,?,?)");
     		    cs.setInt("profileid", Integer.parseInt(profileid));
     		    cs.setInt("flagstate", Integer.parseInt(flagstate));
@@ -574,7 +574,7 @@ public class ScahaBean implements Serializable,  MailableObject {
     			db.cleanup();
  				
     		    //logging 
-    			LOGGER.info("We are have set " + flagtype + " display for " + profileid);
+    			//LOGGER.info("We are have set " + flagtype + " display for " + profileid);
     		    
     		} else {
 		
@@ -623,7 +623,7 @@ public class ScahaBean implements Serializable,  MailableObject {
 		try {
 			for (Schedule sch: gs.getSchedList()) {
 				if (sch.isLocked()) {
-					LOGGER.info("SCHEDULING: SEASON IS LOCKED.. " + sch);
+					//LOGGER.info("SCHEDULING: SEASON IS LOCKED.. " + sch);
 					continue;
 				}
 				sch.schedule(false);
@@ -632,18 +632,18 @@ public class ScahaBean implements Serializable,  MailableObject {
 			
 			for (Schedule sch: gs.getSchedList()) {
 				if (db.stopScheduleEngine()) {
-					LOGGER.info("SCHEDULING: Control Software asked to Bail .. " + sch);
+					//LOGGER.info("SCHEDULING: Control Software asked to Bail .. " + sch);
 					continue;
 				}
 				if (sch.isLocked()) {
-					LOGGER.info("SCHEDULING: with Bounce on  SEASON IS LOCKED.. " + sch);
+					//LOGGER.info("SCHEDULING: with Bounce on  SEASON IS LOCKED.. " + sch);
 					continue;
 				}
 				sch.schedule(true);
 			}
 			
 			if (db.stopScheduleEngine()) {
-				LOGGER.info("SCHEDULING: Control Software asked to Bail .. " );
+				//LOGGER.info("SCHEDULING: Control Software asked to Bail .. " );
 				keepgoing = false;
 			}
 			
@@ -656,14 +656,14 @@ public class ScahaBean implements Serializable,  MailableObject {
 				keepgoing = false;
 				for (Schedule sch: gs.getSchedList()) {
 					if (sch.isLocked()) {
-						LOGGER.info("SCHEDULING: secondary loop  SEASON IS LOCKED.. " + sch);
+						//LOGGER.info("SCHEDULING: secondary loop  SEASON IS LOCKED.. " + sch);
 						continue;
 					}
 					
 					sch.schedule(true);
 					
 					if (db.stopScheduleEngine()) {
-						LOGGER.info("SCHEDULING: Control Software asked to Bail .. " + sch);
+						//LOGGER.info("SCHEDULING: Control Software asked to Bail .. " + sch);
 						break;
 					}
 					ParticipantList parts = sch.getPartlist();
@@ -671,19 +671,19 @@ public class ScahaBean implements Serializable,  MailableObject {
 						ScahaTeam tm = p.getTeam();
 						TeamGameInfo tgi = tm.getTeamGameInfo();
 						tgi.refreshInfo(db, sch);
-						LOGGER.info("GAME COUNT CHECK... " + tgi.toString() + " with a min count of:" +  sch.getMingamecnt());
+						//LOGGER.info("GAME COUNT CHECK... " + tgi.toString() + " with a min count of:" +  sch.getMingamecnt());
 						// int iagmax = ((tm.getTotalGames() / 2) + 2 + ((tm.getTotalGames() % 2 != 0 ? 1 : 0)));
 						if (tm.isExhibition()) {
-							LOGGER.info("Team Info:" + tm.getTeamname() + " is exhibition.. not too worried");
+							//LOGGER.info("Team Info:" + tm.getTeamname() + " is exhibition.. not too worried");
 						} else if ((tm.getTotalGames() - (sch.isExhibitioncounts() ? 0 : tm.getTeamGameInfo().getExGames())) < sch.getMingamecnt()) { 
-							LOGGER.info("Team Info:" + tm.getTeamname() + "not enough games.. try again...");
+							//LOGGER.info("Team Info:" + tm.getTeamname() + "not enough games.. try again...");
 							if (loopalot) {
 								db.resetGames(sch);
 								keepgoing = true;
 							}
 							break;
 						} else if (tm.getTeamGameInfo().getAwayGames() < 0  ) {
-							LOGGER.info("Team Info:" + tm.getTeamname() + "no away games...");
+							//LOGGER.info("Team Info:" + tm.getTeamname() + "no away games...");
 							if (loopalot) {
 								db.resetGames(sch);
 								keepgoing = true;
@@ -691,7 +691,7 @@ public class ScahaBean implements Serializable,  MailableObject {
 							break;
 							// we have to bypass carlbad teams.. they have to play all away games until ice is available
 						} else if (tm.getTeamGameInfo().getAwayGames() > sch.getMaxawaycnt() && tm.ID != 462 && tm.ID != 573 && tm.ID != 539 ) {
-							LOGGER.info("Team Info:" + tm.getTeamname() + "too many away games...");
+							//LOGGER.info("Team Info:" + tm.getTeamname() + "too many away games...");
 							if (loopalot) {
 								db.resetGames(sch);
 								keepgoing = true;
@@ -703,7 +703,7 @@ public class ScahaBean implements Serializable,  MailableObject {
 					if (keepgoing) {
 						sch.schedule(false);
 						if (db.stopScheduleEngine()) {
-							LOGGER.info("SCHEDULING: Control Software asked to Bail .. " + sch);
+							//LOGGER.info("SCHEDULING: Control Software asked to Bail .. " + sch);
 						} else {
 							sch.schedule(true);
 						}
@@ -751,11 +751,11 @@ public class ScahaBean implements Serializable,  MailableObject {
     	int id = Integer.parseInt(get);
 	    Club myclub  = this.findClubByID(id);
 	    if (myclub == null) {
-			LOGGER.info("*** Could not find club... for id LOGO ID IS (" + get + ") ");
+			//LOGGER.info("*** Could not find club... for id LOGO ID IS (" + get + ") ");
     		return new DefaultStreamedContent();
 	    }
 	    
-	    LOGGER.info("*** club is...("+ myclub + ") for id LOGO ID IS (" + get + ") ");
+	    //LOGGER.info("*** club is...("+ myclub + ") for id LOGO ID IS (" + get + ") ");
 		return getClubLogo(myclub);
 	}
 	
@@ -764,14 +764,14 @@ public class ScahaBean implements Serializable,  MailableObject {
 		boolean bstream = true;
 		FacesContext context = FacesContext.getCurrentInstance();
 		
-		LOGGER.info("getClub Logo Club is" + _cl);
+		//LOGGER.info("getClub Logo Club is" + _cl);
 		if (_cl == null) {
 			bstream = false;
 		} else 	if (_cl.getLogo() == null) {
-			LOGGER.info("getClub for " + _cl + " get Logo returned null...");
+			//LOGGER.info("getClub for " + _cl + " get Logo returned null...");
 			bstream = false;
 		} else if (_cl.getLogo().getMmObject() == null) {
-			LOGGER.info("getClub for " + _cl + " not mm object.. its null...");
+			//LOGGER.info("getClub for " + _cl + " not mm object.. its null...");
 			bstream = false;
 		} else { 
 			
@@ -780,19 +780,19 @@ public class ScahaBean implements Serializable,  MailableObject {
 		}
 		if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
 		    // So, we're rendering the HTML. Return a stub StreamedContent so that it will generate right URL.
-			LOGGER.info("we are just rendering an empty response.. ");
+			//LOGGER.info("we are just rendering an empty response.. ");
 			return  new DefaultStreamedContent();
 			
 		} else {
 
 			if (bstream) {
-				LOGGER.info("We are going for " + _cl + "'s logo vis getSteamedContent()");
+				//LOGGER.info("We are going for " + _cl + "'s logo vis getSteamedContent()");
 				return _cl.getLogo().getStreamedContent();
 			}
             
 			try {
 
-			LOGGER.info("we cannot stream.. so lets stream a default image.... ");
+			//LOGGER.info("we cannot stream.. so lets stream a default image.... ");
 
 			//
 			// ok.. through some text up as a defaul ..
@@ -816,7 +816,7 @@ public class ScahaBean implements Serializable,  MailableObject {
 	
 	private StatsList loadStats(ScahaDatabase _db) throws SQLException {
 		
-		LOGGER.info("loading Stats Lists for SCAHA Application");
+		//LOGGER.info("loading Stats Lists for SCAHA Application");
 		
 		StatsList templist = new StatsList();
 		templist.NewStatListFactory(_db);

@@ -49,7 +49,7 @@ public class LiveGameList extends ListDataModel<LiveGame> implements Serializabl
 	public static LiveGameList NewListFactory(Profile _pro, ScahaDatabase _db, GeneralSeason currentSeason,TeamList _tl, ScheduleList _schl) throws SQLException {
 		List<LiveGame> data = new ArrayList<LiveGame>();
 		HashMap<String, LiveGame> hm = new HashMap<String,LiveGame>();
-		LOGGER.info("NewList is looking for LiveGames that match " + currentSeason.getTag());
+		//LOGGER.info("NewList is looking for LiveGames that match " + currentSeason.getTag());
 		PreparedStatement ps = _db.prepareStatement("call scaha.getLiveGamesBySeason(?)");
 		ps.setString(1,currentSeason.getTag());
 		ResultSet rs = ps.executeQuery();
@@ -80,7 +80,7 @@ public class LiveGameList extends ListDataModel<LiveGame> implements Serializabl
 		}
 		rs.close();
 		ps.close();
-		LOGGER.info("NewList is done looking for LiveGames that match " + currentSeason + ". datalen=" + data.size());
+		//LOGGER.info("NewList is done looking for LiveGames that match " + currentSeason + ". datalen=" + data.size());
 		return new LiveGameList(data,hm);
 		
 	}
@@ -88,15 +88,15 @@ public class LiveGameList extends ListDataModel<LiveGame> implements Serializabl
 	//use this method to retrieve historical game schedules and not hte current one which is loaded in memory when application is started.
 	public static LiveGameList NewListFactory(ScahaDatabase _db, Integer selectedschedule) throws SQLException {
 		List<LiveGame> data = new ArrayList<LiveGame>();
-		LOGGER.info("NewList is looking for LiveGames that match " + selectedschedule.toString());
+		//LOGGER.info("NewList is looking for LiveGames that match " + selectedschedule.toString());
 		PreparedStatement ps = _db.prepareStatement("call scaha.getHistoricalLiveGamesBySeason(?)");
 		ps.setInt(1,selectedschedule);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			int i = 1;
-			LOGGER.info("Found a row..");
+			//LOGGER.info("Found a row..");
 			LiveGame live = new LiveGame(rs.getInt(i++));
-			LOGGER.info("Found a live.." + live);
+			//LOGGER.info("Found a live.." + live);
 			live.setTypetag(rs.getString(i++));
 			live.setStatetag(rs.getString(i++));
 			
@@ -128,7 +128,7 @@ public class LiveGameList extends ListDataModel<LiveGame> implements Serializabl
 		}
 		rs.close();
 		ps.close();
-		LOGGER.info("NewList is done looking for LiveGames that match " + selectedschedule + ". datalen=" + data.size());
+		//LOGGER.info("NewList is done looking for LiveGames that match " + selectedschedule + ". datalen=" + data.size());
 		return new LiveGameList(data);
 		
 	}
@@ -137,7 +137,7 @@ public class LiveGameList extends ListDataModel<LiveGame> implements Serializabl
 	//use this interface to get the historical schedule by team.
 	public static LiveGameList NewListFactory(ScahaDatabase _db, Integer selectedschedule, Integer selectedparticipant) throws SQLException {
 		List<LiveGame> data = new ArrayList<LiveGame>();
-		LOGGER.info("NewList is looking for LiveGames that match " + selectedschedule.toString());
+		//LOGGER.info("NewList is looking for LiveGames that match " + selectedschedule.toString());
 		PreparedStatement ps = _db.prepareStatement("call scaha.getHistoricalLiveGamesByScheduleAndTeam(?,?)");
 		ps.setInt(1,selectedschedule);
 		ps.setInt(2, selectedparticipant);
@@ -178,7 +178,7 @@ public class LiveGameList extends ListDataModel<LiveGame> implements Serializabl
 		}
 		rs.close();
 		ps.close();
-		LOGGER.info("NewList is done looking for LiveGames that match " + selectedschedule + ". datalen=" + data.size());
+		//LOGGER.info("NewList is done looking for LiveGames that match " + selectedschedule + ". datalen=" + data.size());
 		return new LiveGameList(data);
 		
 	}
@@ -192,7 +192,7 @@ public class LiveGameList extends ListDataModel<LiveGame> implements Serializabl
 		public static LiveGameList NewListFactory(ScahaDatabase _db, Profile _pro) throws SQLException {
 			List<LiveGame> data = new ArrayList<LiveGame>();
 			Integer profileid = 0;
-			LOGGER.info("NewList is looking for LiveGames that match " + _pro.toString());
+			//LOGGER.info("NewList is looking for LiveGames that match " + _pro.toString());
 			profileid = _pro.ID;
 		
 				//first lets get the club id
@@ -249,7 +249,7 @@ public class LiveGameList extends ListDataModel<LiveGame> implements Serializabl
 			}
 			rs.close();
 			ps.close();
-			LOGGER.info("NewList is done looking for LiveGames that match " + clubid + ". datalen=" + data.size());
+			//LOGGER.info("NewList is done looking for LiveGames that match " + clubid + ". datalen=" + data.size());
 			return new LiveGameList(data);
 			
 		}
@@ -261,7 +261,7 @@ public class LiveGameList extends ListDataModel<LiveGame> implements Serializabl
 	 */
 	public LiveGameList NewList (Profile _pro, Schedule _sch, ScahaTeam _tm) {
 		
-		LOGGER.info("NewList is looking for LiveGames that match " + _sch + ", tm=" + _tm);
+		//LOGGER.info("NewList is looking for LiveGames that match " + _sch + ", tm=" + _tm);
 		List<LiveGame> data = new ArrayList<LiveGame>();
 		HashMap<String, LiveGame> hm = new HashMap<String,LiveGame>();
 		@SuppressWarnings("unchecked")
@@ -274,13 +274,13 @@ public class LiveGameList extends ListDataModel<LiveGame> implements Serializabl
 				hm.put(live.ID+"", live);
 			}
 		}
-		LOGGER.info("NewList completed for LiveGames.." + data.size());
+		//LOGGER.info("NewList completed for LiveGames.." + data.size());
 		return new LiveGameList(data,hm);
 	}
 	
 public LiveGameList NewList (Profile _pro, Schedule _sch, Integer _tm) {
 		
-		LOGGER.info("NewList is looking for LiveGames that match " + _sch + ", tm=" + _tm);
+		//LOGGER.info("NewList is looking for LiveGames that match " + _sch + ", tm=" + _tm);
 		List<LiveGame> data = new ArrayList<LiveGame>();
 		HashMap<String, LiveGame> hm = new HashMap<String,LiveGame>();
 		@SuppressWarnings("unchecked")
@@ -293,7 +293,7 @@ public LiveGameList NewList (Profile _pro, Schedule _sch, Integer _tm) {
 				hm.put(live.ID+"", live);
 			}
 		}
-		LOGGER.info("NewList completed for LiveGames.." + data.size());
+		//LOGGER.info("NewList completed for LiveGames.." + data.size());
 		return new LiveGameList(data,hm);
 	}
 	/** 
@@ -306,11 +306,11 @@ public LiveGameList NewList (Profile _pro, Schedule _sch, Integer _tm) {
 
 		List<LiveGame> data = new ArrayList<LiveGame>();
 		HashMap<String, LiveGame> hm = new HashMap<String,LiveGame>();
-		LOGGER.info("NewList is looking for LiveGames that match " + _sch);
+		//LOGGER.info("NewList is looking for LiveGames that match " + _sch);
 			
 		for (LiveGame live : this) {
 			try {
-				LOGGER.info("livegame scheduled id being compared:" + live);
+				//LOGGER.info("livegame scheduled id being compared:" + live);
 				if (live.getSched().ID == _sch.ID) {
 					data.add(live);
 					//LOGGER.info("Found a match " + live);
@@ -323,7 +323,7 @@ public LiveGameList NewList (Profile _pro, Schedule _sch, Integer _tm) {
 			    System.err.println("Caught IOException: " + e.getMessage());
 			}
 		}
-		LOGGER.info("NewList completed for LiveGames for a schedule.." + data.size());
+		//LOGGER.info("NewList completed for LiveGames for a schedule.." + data.size());
 		_sch.setLivegamelist(new LiveGameList(data,hm));
 		return  _sch.getLivegamelist();
 	}
@@ -333,11 +333,11 @@ public LiveGameList NewList (Profile _pro, Schedule _sch, Integer _tm) {
 
 		List<LiveGame> data = new ArrayList<LiveGame>();
 		HashMap<String, LiveGame> hm = new HashMap<String,LiveGame>();
-		LOGGER.info("NewList is looking for LiveGames that match " + _sch);
+		//LOGGER.info("NewList is looking for LiveGames that match " + _sch);
 			
 		for (LiveGame live : this) {
 			try {
-				LOGGER.info("livegame scheduled id being compared:" + live);
+				//LOGGER.info("livegame scheduled id being compared:" + live);
 				if (live.getSched().ID == _sch) {
 					data.add(live);
 					//LOGGER.info("Found a match " + live);
@@ -350,7 +350,7 @@ public LiveGameList NewList (Profile _pro, Schedule _sch, Integer _tm) {
 			    System.err.println("Caught IOException: " + e.getMessage());
 			}
 		}
-		LOGGER.info("NewList completed for LiveGames for a schedule.." + data.size());
+		//LOGGER.info("NewList completed for LiveGames for a schedule.." + data.size());
 		return  new LiveGameList(data,hm);
 	}
 	
@@ -373,7 +373,7 @@ public LiveGameList NewList (Profile _pro, Schedule _sch, Integer _tm) {
 	
 	@SuppressWarnings("unchecked")
 	public void add(LiveGame _p) {
-		LOGGER.info("Adding Participant to List:" + _p);
+		//LOGGER.info("Adding Participant to List:" + _p);
 		((ArrayList<LiveGame>)this.getWrappedData()).add(_p);
 		hm.put(_p.ID+"", _p);
 	}

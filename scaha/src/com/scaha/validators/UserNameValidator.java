@@ -44,7 +44,7 @@ public class UserNameValidator implements Validator {
         	InternetAddress emailAddr = new InternetAddress(username);
         	emailAddr.validate();
        	} catch (AddressException ex) {
-        	LOGGER.info("This is not an e-mail address");
+        	//LOGGER.info("This is not an e-mail address");
             FacesMessage message = new FacesMessage();
             message.setDetail("Email not valid");
             message.setSummary("Email not valid");
@@ -52,7 +52,7 @@ public class UserNameValidator implements Validator {
             throw new ValidatorException(message);
        	}
 
-        LOGGER.info("It looks like an e-mail address..");
+        //LOGGER.info("It looks like an e-mail address..");
 
         
 		//

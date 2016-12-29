@@ -56,7 +56,7 @@ public class SendMailSSL {
 			}
 		  });
  
-		LOGGER.info("Session Properties for e-mail successfully set up...");
+		//LOGGER.info("Session Properties for e-mail successfully set up...");
 		
 	}
  
@@ -79,7 +79,7 @@ public class SendMailSSL {
  			//
  			//
  			
- 			LOGGER.info("Instansiating a new message for e-mail...");
+ 			//LOGGER.info("Instansiating a new message for e-mail...");
  			
 			Message message = new MimeMessage(m_sess);
 			message.setFrom(new InternetAddress(SendMailSSL.getUsername()+"@iscaha.com","iscaha InfoHub" + (_strFromTag != null ? "(" + _strFromTag + ")" : "" )));
@@ -112,11 +112,11 @@ public class SendMailSSL {
 			message.setSubject(m_mo.getSubject());
 			message.setContent(m_mo.getTextBody(),"text/html; charset=ISO-8859-1");
 
-			LOGGER.info("Sending e-mail now...");
+			//LOGGER.info("Sending e-mail now...");
 			
 			Transport.send(message);
 
-			LOGGER.info("Completed Sending E-mail...");
+			//LOGGER.info("Completed Sending E-mail...");
 
 		} catch (Exception e) {
 			e.printStackTrace();

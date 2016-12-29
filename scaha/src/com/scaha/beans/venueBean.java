@@ -99,7 +99,7 @@ public class venueBean implements Serializable {
         				tempresult.add(ovenue);
     				}
     				
-    				LOGGER.info("We have results for venue lookup");
+    				//LOGGER.info("We have results for venue lookup");
     				
     			}
     			rs.close();	
@@ -145,7 +145,7 @@ public class venueBean implements Serializable {
 			lat = Double.parseDouble(coord[0].trim());
 			lng = Double.parseDouble(coord[1].trim());
 		}
-		LOGGER.info("Creating Map Model for Venue " + venue + ".  Coords are:" +  lat + ":" + lng);
+		//LOGGER.info("Creating Map Model for Venue " + venue + ".  Coords are:" +  lat + ":" + lng);
         //Shared coordinates
         LatLng coord1 = new LatLng(lat,lng);
          

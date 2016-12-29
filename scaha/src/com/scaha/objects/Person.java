@@ -79,7 +79,7 @@ public class Person extends ScahaObject implements Serializable {
 					this.setGender(rs.getString(i++));
 					this.setDob(rs.getString(i++));
 					this.setCitizenship(rs.getString(i++));
-					LOGGER.info("Successfully Created the person: " + this);
+					//LOGGER.info("Successfully Created the person: " + this);
 
 				}
 				
@@ -100,7 +100,7 @@ public class Person extends ScahaObject implements Serializable {
 
 	public Person (Profile _pro, Person _per) {
 		
-		LOGGER.info("Attempting to Create the Person.. from another person");
+		//LOGGER.info("Attempting to Create the Person.. from another person");
 		//
 		//  Lets pull from the database now..
 		// 
@@ -123,7 +123,7 @@ public class Person extends ScahaObject implements Serializable {
 			this.setDob(_per.getDob());
 			this.setCitizenship(_per.getCitizenship());
 			this.fam = _per.getFamily();
-			LOGGER.info("Successfully Created the Person Object.. from another person..");
+			//LOGGER.info("Successfully Created the Person Object.. from another person..");
 		}
 	}
 	
@@ -306,7 +306,7 @@ public class Person extends ScahaObject implements Serializable {
 		CallableStatement cs = db.prepareCall("call scaha.updatePerson(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
 
-		LOGGER.info("HERE IS THE Starting Person ID:" + this.ID);
+		//LOGGER.info("HERE IS THE Starting Person ID:" + this.ID);
 
 		int i = 1;
 		cs.registerOutParameter(1, java.sql.Types.INTEGER);
@@ -343,7 +343,7 @@ public class Person extends ScahaObject implements Serializable {
 		this.ID = cs.getInt(1);
 		cs.close();
 
-		LOGGER.info("HERE IS THE new Person ID:" + this.ID);
+		//LOGGER.info("HERE IS THE new Person ID:" + this.ID);
 
 	}
 

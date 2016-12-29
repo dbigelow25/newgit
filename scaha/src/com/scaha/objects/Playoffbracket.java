@@ -105,7 +105,7 @@ public class Playoffbracket extends ScahaObject implements Serializable {
     			db.commit();
     		    db.cleanup();
         		
-        		LOGGER.info("We have updated the bracket for game:" + this.idbracket + "game1");
+        		//LOGGER.info("We have updated the bracket for game:" + this.idbracket + "game1");
     			
         		
         	} catch (SQLException e) {
@@ -147,7 +147,7 @@ public class Playoffbracket extends ScahaObject implements Serializable {
     			db.commit();
     		    db.cleanup();
         		
-        		LOGGER.info("We have updated the bracket for game:" + this.idbracket + "game2");
+        		//LOGGER.info("We have updated the bracket for game:" + this.idbracket + "game2");
     			
         		
         	} catch (SQLException e) {
@@ -185,7 +185,7 @@ public class Playoffbracket extends ScahaObject implements Serializable {
     			db.commit();
     		    db.cleanup();
         		
-        		LOGGER.info("We have updated the bracket for game:" + this.idbracket + "game3");
+        		//LOGGER.info("We have updated the bracket for game:" + this.idbracket + "game3");
     			
         		
         	} catch (SQLException e) {
@@ -227,7 +227,7 @@ public class Playoffbracket extends ScahaObject implements Serializable {
     			db.commit();
     		    db.cleanup();
         		
-        		LOGGER.info("We have updated the bracket for game:" + this.idbracket + "gametotal");
+        		//LOGGER.info("We have updated the bracket for game:" + this.idbracket + "gametotal");
     			
         		
         	} catch (SQLException e) {
@@ -269,7 +269,7 @@ public class Playoffbracket extends ScahaObject implements Serializable {
     			db.commit();
     		    db.cleanup();
         		
-        		LOGGER.info("We have updated the bracket for game:" + this.idbracket + "place");
+        		//LOGGER.info("We have updated the bracket for game:" + this.idbracket + "place");
     			
         		
         	} catch (SQLException e) {

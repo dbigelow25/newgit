@@ -136,7 +136,7 @@ public class scholarathleteBean implements Serializable {
         		tempresult.add(result);
     		}
     				
-    		LOGGER.info("We have results for scholar athletes ");
+    		//LOGGER.info("We have results for scholar athletes ");
     		rs.close();
     		db.cleanup();
     		
@@ -204,7 +204,7 @@ public class scholarathleteBean implements Serializable {
         		tempresult.add(result);
     		}
     				
-    		LOGGER.info("We have results for scholar athletes ");
+    		//LOGGER.info("We have results for scholar athletes ");
     		rs.close();
     		db.cleanup();
     		
@@ -229,7 +229,7 @@ public class scholarathleteBean implements Serializable {
 			cs.setInt("scholarathleteid", result.getIdscholarathlete());
 			rs = cs.executeQuery();
 			
-    		LOGGER.info("We have approved the scholar athlete");
+    		//LOGGER.info("We have approved the scholar athlete");
     		rs.close();
     		db.cleanup();
     		

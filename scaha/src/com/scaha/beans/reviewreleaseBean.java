@@ -107,7 +107,7 @@ public class reviewreleaseBean implements Serializable {
         				tempresult.add(orelease);
     				}
     				
-    				LOGGER.info("We have results for release list");
+    				//LOGGER.info("We have results for release list");
     				
     			}
     				

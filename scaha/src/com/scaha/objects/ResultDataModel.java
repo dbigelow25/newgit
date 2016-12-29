@@ -30,7 +30,7 @@ public class ResultDataModel extends ListDataModel<Result> implements Serializab
         @SuppressWarnings("unchecked")
 		List<Result> results = (List<Result>) getWrappedData();  
         if (results == null)  {
-        	LOGGER.info("getRowData is Null");
+        	//LOGGER.info("getRowData is Null");
         	return null;
         }
         

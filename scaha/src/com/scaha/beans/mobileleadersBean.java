@@ -127,7 +127,7 @@ public class mobileleadersBean implements Serializable{
     				xmlstring = xmlstring + "<points>" + points + "</points>";
     				xmlstring = xmlstring + "</playerleader>";
 				}
-				LOGGER.info("We have results for scaha player leaders for review by statistician for schedule:" + this.selectedschedule);
+				//LOGGER.info("We have results for scaha player leaders for review by statistician for schedule:" + this.selectedschedule);
 			}
 			
 			cs = db.prepareCall("CALL scaha.getSCAHALeadersForMobile(?,?)");
@@ -153,7 +153,7 @@ public class mobileleadersBean implements Serializable{
     				xmlstring = xmlstring + "<points>" + points + "</points>";
     				xmlstring = xmlstring + "</playerleaderassists>";
 				}
-				LOGGER.info("We have results for scaha player leaders for review by statistician for schedule:" + this.selectedschedule);
+				//LOGGER.info("We have results for scaha player leaders for review by statistician for schedule:" + this.selectedschedule);
 			}
 			
 			cs = db.prepareCall("CALL scaha.getSCAHALeadersForMobile(?,?)");
@@ -179,7 +179,7 @@ public class mobileleadersBean implements Serializable{
     				xmlstring = xmlstring + "<points>" + points + "</points>";
     				xmlstring = xmlstring + "</playerleadergoals>";
 				}
-				LOGGER.info("We have results for scaha player leaders for review by statistician for schedule:" + this.selectedschedule);
+				//LOGGER.info("We have results for scaha player leaders for review by statistician for schedule:" + this.selectedschedule);
 			}
 			
 			
@@ -210,7 +210,7 @@ public class mobileleadersBean implements Serializable{
     				xmlstring = xmlstring + "<gaa>" + gaa + "</gaa>";
     				xmlstring = xmlstring + "</goalieleader>";
 				}
-				LOGGER.info("We have results for scaha player leaders for review by statistician for schedule:" + this.selectedschedule);
+				//LOGGER.info("We have results for scaha player leaders for review by statistician for schedule:" + this.selectedschedule);
 			}
 			
 			cs = db.prepareCall("CALL scaha.getSCAHALeadersForMobile(?,?)");
@@ -240,7 +240,7 @@ public class mobileleadersBean implements Serializable{
     				xmlstring = xmlstring + "<gaa>" + gaa + "</gaa>";
     				xmlstring = xmlstring + "</goalieleadergaa>";
 				}
-				LOGGER.info("We have results for scaha player leaders for review by statistician for schedule:" + this.selectedschedule);
+				//LOGGER.info("We have results for scaha player leaders for review by statistician for schedule:" + this.selectedschedule);
 			}
 			
 			xmlstring = xmlstring + "</leaders>";

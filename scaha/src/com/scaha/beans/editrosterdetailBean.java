@@ -239,7 +239,7 @@ public class editrosterdetailBean implements Serializable {
         				Team team = new Team(teamname,idteam);
         				templist.add(team);
     				}
-    				LOGGER.info("We have results for team list by club");
+    				//LOGGER.info("We have results for team list by club");
     			}
     			rs.close();
     			db.cleanup();
@@ -296,7 +296,7 @@ public class editrosterdetailBean implements Serializable {
 					this.playername = rs.getString("playername");
 					this.personid = rs.getInt("idperson");
 				}
-				LOGGER.info("We have results for roster detail");
+				//LOGGER.info("We have results for roster detail");
 			}
 			rs.close();
 			db.cleanup();

@@ -160,9 +160,9 @@ public class GamesheetBean implements Serializable,  MailableObject {
 	 @PostConstruct
 	 public void init() {
 		 
-		 LOGGER.info(" *************** START :POST INIT FOR GAMESHEET  BEAN *****************");
+		 //LOGGER.info(" *************** START :POST INIT FOR GAMESHEET  BEAN *****************");
 		 this.setLivegame(pb.getSelectedlivegame());
-		 LOGGER.info("/// here is selected live game.." + this.getLivegame());
+		 //LOGGER.info("/// here is selected live game.." + this.getLivegame());
 		 
 		 if (this.getLivegame() != null) {
 			 this.setHometeam(this.refreshHomeRoster());
@@ -176,7 +176,7 @@ public class GamesheetBean implements Serializable,  MailableObject {
 			 this.setHomesogs(this.refreshHomeSog());
 			 this.setAwaysogs(this.refreshAwaySog());
 		 } else {
-			 LOGGER.info(" ##### NO LIVE GAME PASSED... IT WAS NULL #####");
+			 //LOGGER.info(" ##### NO LIVE GAME PASSED... IT WAS NULL #####");
 			 
 		 }
 		 
@@ -204,7 +204,7 @@ public class GamesheetBean implements Serializable,  MailableObject {
 
 		 this.setDisplayValues();
 
-		 LOGGER.info(" *************** FINISH :POST INIT FOR GAMESHEET BEAN *****************");
+		 //LOGGER.info(" *************** FINISH :POST INIT FOR GAMESHEET BEAN *****************");
 		 
 	 }
 	
@@ -214,7 +214,7 @@ public class GamesheetBean implements Serializable,  MailableObject {
 	  */
 	private void setDisplayValues() {
 		
-		LOGGER.info("id Live Game is:" + this.livegame.ID);
+		//LOGGER.info("id Live Game is:" + this.livegame.ID);
 
 		this.lgdate = this.livegame.getStartdate();
 		this.lgtime = this.livegame.getStarttime();
@@ -616,7 +616,7 @@ public SogList refreshHomeSog() {
 		//
 		// reinitialize the info to the current selected score
 		//
-		LOGGER.info("currentscore is: " + currentscore);
+		//LOGGER.info("currentscore is: " + currentscore);
 		
 		this.goalperiod = currentscore.getPeriod();
 		String[] ms = currentscore.getTimescored().split(":");
@@ -737,7 +737,7 @@ public SogList refreshHomeSog() {
 			spot = this.getAwayteam().getByKey(this.selectedawayrosterspot.ID);
 		}
 		
-		LOGGER.info("toggling MIA for " + spot);
+		//LOGGER.info("toggling MIA for " + spot);
 		ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
 		try {
 			CallableStatement pc = db.prepareCall("call scaha.toggleMIA(?,?,?)");
@@ -822,7 +822,7 @@ public SogList refreshHomeSog() {
 		ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
 		List<InternetAddress> data = new ArrayList<InternetAddress>();
 		
-		LOGGER.info(this.livegame.toString());
+		//LOGGER.info(this.livegame.toString());
 		try {
 			PreparedStatement ps = db.prepareCall("call scaha.getLiveGameEmails(?)");
 			ps.setInt(1, this.livegame.ID);
@@ -835,7 +835,7 @@ public SogList refreshHomeSog() {
 			ps.close();
 			
 			for (InternetAddress ia : data) {
-				LOGGER.info("e-mail:" + ia);
+				//LOGGER.info("e-mail:" + ia);
 			}
 
 		} catch (SQLException e) {
@@ -930,7 +930,7 @@ public SogList refreshHomeSog() {
 		} else {
 			sc = this.getAwayscoring().getByKey(selectedawayscore.ID);
 		}
-		LOGGER.info("we need to delete: " + sc);
+		//LOGGER.info("we need to delete: " + sc);
 		ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
 		
 		try {
@@ -953,7 +953,7 @@ public SogList refreshHomeSog() {
 		} else {
 			pen = this.getAwaypenalties().getByKey(this.selectedawaypenalty.ID);
 		}
-		LOGGER.info("we need to delete: " + pen);
+		//LOGGER.info("we need to delete: " + pen);
 		ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
 		
 		try {
@@ -976,7 +976,7 @@ public SogList refreshHomeSog() {
 		} else {
 			sog = this.getAwaysogs().getByKey(this.selectedawaysog.ID);
 		}
-		LOGGER.info("we need to delete: " + sog);
+		//LOGGER.info("we need to delete: " + sog);
 		ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
 		
 		try {
@@ -993,7 +993,7 @@ public SogList refreshHomeSog() {
 	
 	public void saveSog() {
 		
-		LOGGER.info("HERE IS WHERE WE save a SOG for " + this.sogteam.getTeamname());
+		//LOGGER.info("HERE IS WHERE WE save a SOG for " + this.sogteam.getTeamname());
 				
 		Sog sog = this.currentsog;
 		
@@ -1025,7 +1025,7 @@ public SogList refreshHomeSog() {
 	}
 	public void saveGoal() {
 		
-		LOGGER.info("HERE IS WHERE WE save a GOAL for " + this.scoringteam.getTeamname());
+		//LOGGER.info("HERE IS WHERE WE save a GOAL for " + this.scoringteam.getTeamname());
 		
 		Scoring score = this.currentscore;
 		
@@ -1036,7 +1036,7 @@ public SogList refreshHomeSog() {
 		score.setLgrosterspota1(this.scoringroster.getByKey(this.selecteda1roseterid));
 		score.setLgrosterspota2(this.scoringroster.getByKey(this.selecteda2roseterid));
 		
-		LOGGER.info("updating score for " + score);
+		//LOGGER.info("updating score for " + score);
 		ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
 		
 		try {
@@ -1053,7 +1053,7 @@ public SogList refreshHomeSog() {
 
 	public void savePenalty() {
 		
-		LOGGER.info("HERE IS WHERE WE save a Penalty for " + this.penteam.getTeamname());
+		//LOGGER.info("HERE IS WHERE WE save a Penalty for " + this.penteam.getTeamname());
 		
 		Penalty pen = this.currentpenalty;
 		
@@ -1063,7 +1063,7 @@ public SogList refreshHomeSog() {
 		pen.setMinutes(this.getPenminutes());
 		pen.setRosterspot(this.penroster.getByKey(this.selectedpenrosterid));
 		
-		LOGGER.info("updating score for " + pen);
+		//LOGGER.info("updating score for " + pen);
 		ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
 		
 		try {
@@ -2105,20 +2105,20 @@ public SogList refreshHomeSog() {
 		this.lghteam = getStringKeyFromValue(this.htpick, this.lghteamval);
 		this.lgateam = getStringKeyFromValue(this.atpick, this.lgateamval);
 		
-		LOGGER.info("Start Date: " + this.lgdate + ", orig value is " + this.livegame.getStartdate());
-		LOGGER.info("Start Time: " + this.lgtime + ", orig value is " + this.livegame.getStarttime());
-		LOGGER.info("Type: " + this.lgtypeval + ":" + this.lgtype + ", orig value is " + this.livegame.getTypetag());
-		LOGGER.info("State: " + this.lgstateval + ":" + this.lgstate + ", orig value is " + this.livegame.getStatetag());
-		LOGGER.info("Venue: " + this.lgvenueval + ":" + this.lgvenue + ", orig value is " + this.livegame.getVenuetag());
-		LOGGER.info("Sheet: " + this.lgsheet +  ", orig value is " + this.livegame.getSheetname());
-		LOGGER.info("Away Team + " + this.lgateamval + ":" + this.lgateam + ", orig value is " + this.livegame.getAwayteam().ID);
-		LOGGER.info("Home Team + " + this.lghteamval + ":" + this.lghteam + ", orig value is " + this.livegame.getHometeam().ID);
+		//LOGGER.info("Start Date: " + this.lgdate + ", orig value is " + this.livegame.getStartdate());
+		//LOGGER.info("Start Time: " + this.lgtime + ", orig value is " + this.livegame.getStarttime());
+		//LOGGER.info("Type: " + this.lgtypeval + ":" + this.lgtype + ", orig value is " + this.livegame.getTypetag());
+		//LOGGER.info("State: " + this.lgstateval + ":" + this.lgstate + ", orig value is " + this.livegame.getStatetag());
+		//LOGGER.info("Venue: " + this.lgvenueval + ":" + this.lgvenue + ", orig value is " + this.livegame.getVenuetag());
+		//LOGGER.info("Sheet: " + this.lgsheet +  ", orig value is " + this.livegame.getSheetname());
+		//LOGGER.info("Away Team + " + this.lgateamval + ":" + this.lgateam + ", orig value is " + this.livegame.getAwayteam().ID);
+		//LOGGER.info("Home Team + " + this.lghteamval + ":" + this.lghteam + ", orig value is " + this.livegame.getHometeam().ID);
 		
 		//
 		// ok.. lets generate the e-mail.. so we can put prior information.. and current information..
 		//
-		LOGGER.info("HERE IS WHERE WE SAVE EVERYTHING COLLECTED FROM GameChange And Send Mail..");
-		LOGGER.info("Sending Game Change mail here...");
+		//LOGGER.info("HERE IS WHERE WE SAVE EVERYTHING COLLECTED FROM GameChange And Send Mail..");
+		//LOGGER.info("Sending Game Change mail here...");
 		SendMailSSL mail = new SendMailSSL(this);
 		mail.sendMail();
 		
@@ -2168,7 +2168,7 @@ public SogList refreshHomeSog() {
 	
 	public void cancelScheduleInfoChanges() {
 		
-		LOGGER.info(this.lgvenueval + ":" + this.lgvenue);
+		//LOGGER.info(this.lgvenueval + ":" + this.lgvenue);
 		//
 		// reset the display values..
 		//

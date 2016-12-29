@@ -49,7 +49,7 @@ public class safesportBean implements Serializable  {
 	 @PostConstruct
 	 public void init() {
 		 
-		LOGGER.info(" *************** POST INIT FOR safesportBean *****************");
+		//LOGGER.info(" *************** POST INIT FOR safesportBean *****************");
 		FacesContext context = FacesContext.getCurrentInstance();
     	Application app = context.getApplication();
 

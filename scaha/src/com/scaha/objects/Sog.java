@@ -92,7 +92,7 @@ public class Sog extends ScahaObject implements Serializable {
 		
 		CallableStatement cs = db.prepareCall("call scaha.updateSog(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 		
-		LOGGER.info("HERE IS THE Starting Sog ID:" + this.ID + ", idRoster is:" + this.idroster);
+		//LOGGER.info("HERE IS THE Starting Sog ID:" + this.ID + ", idRoster is:" + this.idroster);
 
 		int i = 1;
 		cs.registerOutParameter(1, java.sql.Types.INTEGER);
@@ -120,7 +120,7 @@ public class Sog extends ScahaObject implements Serializable {
 		this.ID = cs.getInt(1);
 		cs.close();
 
-		LOGGER.info("HERE IS THE new Sog ID:" + this.ID);
+		//LOGGER.info("HERE IS THE new Sog ID:" + this.ID);
 
 		
 	}

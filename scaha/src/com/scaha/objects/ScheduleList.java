@@ -39,7 +39,7 @@ public class ScheduleList extends ListDataModel<Schedule> implements Serializabl
 	public static ScheduleList ListFactory(Profile _pro, ScahaDatabase _db, GeneralSeason _gs, TeamList _tl) throws SQLException {
 		
 		List<Schedule> data = new ArrayList<Schedule>();
-		LOGGER.info("Loading Schedules for General Season" + _gs);
+		//LOGGER.info("Loading Schedules for General Season" + _gs);
 		//
 		// Lets go get all the schedules for a given general season..
 		// 

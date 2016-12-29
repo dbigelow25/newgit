@@ -68,7 +68,7 @@ public class ScahaPlayer extends Person {
 		
 		CallableStatement cs = _db.prepareCall("call scaha.updatePlayer(?,?,?,?,?)");
 		
-		LOGGER.info("HERE IS THE Person ID:" + super.ID);
+		//LOGGER.info("HERE IS THE Person ID:" + super.ID);
 
 		int i = 1;
 		cs.registerOutParameter(1, java.sql.Types.INTEGER);
@@ -84,7 +84,7 @@ public class ScahaPlayer extends Person {
 		//
 		this.ID = cs.getInt(1);
 		cs.close();
-		LOGGER.info("HERE IS THE Player ID:" + this.ID);
+		//LOGGER.info("HERE IS THE Player ID:" + this.ID);
 		
 	}
 

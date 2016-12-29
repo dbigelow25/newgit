@@ -222,7 +222,7 @@ public class registrarcoachloiBean implements Serializable {
     				tempresult.add(ocoach);
 				}
    				rs.close();
-   				LOGGER.info("We have results for lois for the lookup date" + date.toString());
+   				//LOGGER.info("We have results for lois for the lookup date" + date.toString());
     				
    			}
   				
@@ -271,7 +271,7 @@ public class registrarcoachloiBean implements Serializable {
 			if (db.setAutoCommit(false)) {
 			
 				//Need to provide info to the stored procedure to save or update
- 				LOGGER.info("verify loi code provided");
+ 				//LOGGER.info("verify loi code provided");
  				CallableStatement cs = db.prepareCall("CALL scaha.getPersonIdbyCoachId(?)");
     		    cs.setInt("icoachid", Integer.parseInt(sidcoach));
     		    rs=cs.executeQuery();
@@ -282,7 +282,7 @@ public class registrarcoachloiBean implements Serializable {
     					Integer idplayer = rs.getInt("idperson");
     					sidcoach = idplayer.toString();
         			}
-    				LOGGER.info("We have results for person id by coach");
+    				//LOGGER.info("We have results for person id by coach");
     			}
     		    rs.close();
     			db.commit();
@@ -345,7 +345,7 @@ public class registrarcoachloiBean implements Serializable {
 					this.clubid = rs.getInt("idclub");
 					
 					}
-				LOGGER.info("We have results for club for a profile");
+				//LOGGER.info("We have results for club for a profile");
 			}
 			
 			db.cleanup();
@@ -362,7 +362,7 @@ public class registrarcoachloiBean implements Serializable {
 				while (rs.next()) {
 					clubname = rs.getString("clubname");
 				}
-				LOGGER.info("We have results for club name");
+				//LOGGER.info("We have results for club name");
 			}
 			
 			db.cleanup();

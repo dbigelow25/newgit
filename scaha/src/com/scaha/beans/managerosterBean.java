@@ -118,7 +118,7 @@ public class managerosterBean implements Serializable {
 						rssub.close();
 					}
 				}
-				LOGGER.info("We have results for division list");
+				//LOGGER.info("We have results for division list");
 				cs.close();
 				csinner.close();
 			}

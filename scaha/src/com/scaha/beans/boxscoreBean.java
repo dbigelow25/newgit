@@ -478,7 +478,7 @@ public class boxscoreBean implements Serializable{
 					this.statetag=rs.getString("statetag");
 					this.typetag=rs.getString("typetag");
 				}
-				LOGGER.info("We have selected details for live game id:" + gameid);
+				//LOGGER.info("We have selected details for live game id:" + gameid);
 			}
 			rs.close();
 			
@@ -506,7 +506,7 @@ public class boxscoreBean implements Serializable{
 				
 					scores.add(score);
 				}
-				LOGGER.info("We have selected details for live game id:" + gameid);
+				//LOGGER.info("We have selected details for live game id:" + gameid);
 			}
 			
 			rs.close();
@@ -534,7 +534,7 @@ public class boxscoreBean implements Serializable{
 					
 					scoresummarys.add(ss);
 				}
-				LOGGER.info("We have selected details for live game id:" + gameid);
+				//LOGGER.info("We have selected details for live game id:" + gameid);
 			}
 			rs.close();
 			
@@ -553,7 +553,7 @@ public class boxscoreBean implements Serializable{
 					this.setHomeppgoalcount(rs.getString("homeppgoalcount"));
 					this.setAwayppgoalcount(rs.getString("awayppgoalcount"));
 				}
-				LOGGER.info("We have selected details for live game id:" + gameid);
+				//LOGGER.info("We have selected details for live game id:" + gameid);
 			}
 			rs.close();
 			
@@ -579,7 +579,7 @@ public class boxscoreBean implements Serializable{
 					
 					penalties.add(pen);
 				}
-				LOGGER.info("We have selected penalties summary for live game id:" + gameid);
+				//LOGGER.info("We have selected penalties summary for live game id:" + gameid);
 			}
 			rs.close();
 			
@@ -602,7 +602,7 @@ public class boxscoreBean implements Serializable{
 					
 					homestats.add(stat);
 				}
-				LOGGER.info("We have selected penalties summary for live game id:" + gameid);
+				//LOGGER.info("We have selected penalties summary for live game id:" + gameid);
 			}
 			rs.close();
 			
@@ -624,7 +624,7 @@ public class boxscoreBean implements Serializable{
 					
 					homegoaliestats.add(stat);
 				}
-				LOGGER.info("We have selected penalties summary for live game id:" + gameid);
+				//LOGGER.info("We have selected penalties summary for live game id:" + gameid);
 			}
 			rs.close();
 			
@@ -647,7 +647,7 @@ public class boxscoreBean implements Serializable{
 					
 					awaystats.add(stat);
 				}
-				LOGGER.info("We have selected penalties summary for live game id:" + gameid);
+				//LOGGER.info("We have selected penalties summary for live game id:" + gameid);
 			}
 			rs.close();
 			
@@ -668,7 +668,7 @@ public class boxscoreBean implements Serializable{
 					
 					awaygoaliestats.add(stat);
 				}
-				LOGGER.info("We have selected penalties summary for live game id:" + gameid);
+				//LOGGER.info("We have selected penalties summary for live game id:" + gameid);
 			}
 			rs.close();
 			

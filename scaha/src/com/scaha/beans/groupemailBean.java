@@ -184,7 +184,7 @@ public class groupemailBean implements Serializable, MailableObject {
 	    					to = to + "," + email;
 	    				}
 					}
-					LOGGER.info("We have results for group list");
+					//LOGGER.info("We have results for group list");
 				}
 	    		
 				rs.close();
@@ -211,9 +211,9 @@ public class groupemailBean implements Serializable, MailableObject {
 		    
 		    
 			SendMailSSL mail = new SendMailSSL(this);
-			LOGGER.info("Finished creating mail object");
+			//LOGGER.info("Finished creating mail object");
 			mail.sendMail();
-    		LOGGER.info("We have sent email with email list:" + to);
+    		//LOGGER.info("We have sent email with email list:" + to);
 			
     	} catch (SQLException e) {
     		// TODO Auto-generated catch block
@@ -280,7 +280,7 @@ public class groupemailBean implements Serializable, MailableObject {
 
         				templist.add(em);
     				}
-    				LOGGER.info("We have results for group list");
+    				//LOGGER.info("We have results for group list");
     			}
     			rs.close();
     			
@@ -304,7 +304,7 @@ public class groupemailBean implements Serializable, MailableObject {
         				idgroup = idgroup + 1;
         				
     				}
-    				LOGGER.info("We have results for scaha group list");
+    				//LOGGER.info("We have results for scaha group list");
     			}
     			rs.close();
     			db.cleanup();
