@@ -21,6 +21,9 @@ public class ScoreSummary extends ScahaObject implements Serializable {
 	private String assist2;
 	private String goaltype;
 	private Integer period;
+	private String goalscorerpersonid;
+	private String assist1personid;
+	private String assist2personid;
 	
 	public void setHomescore(Integer value){
 		homescore = value;
@@ -36,6 +39,30 @@ public class ScoreSummary extends ScahaObject implements Serializable {
 	
 	public Integer getAwayscore(){
 		return awayscore;
+	}
+	
+	public void setGoalscorerpersonid(String value){
+		goalscorerpersonid = value;
+	}
+	
+	public String getGoalscorerpersonid(){
+		return goalscorerpersonid;
+	}
+	
+	public void setAssist1personid(String value){
+		assist1personid = value;
+	}
+	
+	public String getAssist1personid(){
+		return assist1personid;
+	}
+	
+	public void setAssist2personid(String value){
+		assist2personid = value;
+	}
+	
+	public String getAssist2personid(){
+		return assist2personid;
 	}
 	
 	public void setTeamname(String value){

@@ -185,11 +185,11 @@
 										 	<p:spacer width="10" />
 										 	<h:outputText value="-" />
 										 	<p:spacer width="10" />
-										 	<h:outputText  value="#{scoresummary.getGoalscorer()}" />
+										 	<a href="playerdetail.xhtml?id=#{scoresummary.getGoalscorerpersonid()}"><h:outputText  value="#{scoresummary.getGoalscorer()}" /></a>
 										 	<p:spacer width="5" />
 										 	<h:outputText  value="(unassisted)" rendered="#{scoresummary.getAssist1() eq null and scoresummary.getAssist2() eq null}"/>
-										 	<h:outputText  value="(#{scoresummary.getAssist1()})" rendered="#{scoresummary.getAssist1() ne null and scoresummary.getAssist2() eq null}"/>
-										 	<h:outputText  value="(#{scoresummary.getAssist1()},#{scoresummary.getAssist2()})" rendered="#{scoresummary.getAssist1() ne null and scoresummary.getAssist2() ne null}"/>
+										 	<a href="playerdetail.xhtml?id=#{scoresummary.getAssist1personid()}"><h:outputText  value="(#{scoresummary.getAssist1()})" rendered="#{scoresummary.getAssist1() ne null and scoresummary.getAssist2() eq null}"/></a>
+										 	<a href="playerdetail.xhtml?id=#{scoresummary.getAssist2personid()}"><h:outputText  value="(#{scoresummary.getAssist1()}" rendered="#{scoresummary.getAssist1() ne null and scoresummary.getAssist2() ne null}"/></a>,&nbsp;<a href="playerdetail.xhtml?id=#{scoresummary.getAssist2personid()}"><h:outputText  value="#{scoresummary.getAssist2()})" rendered="#{scoresummary.getAssist1() ne null and scoresummary.getAssist2() ne null}"/></a>
 										 	<p:spacer width="5" />
 										 	<h:outputText style="font-style:italic;" value="(#{scoresummary.getGoaltype()})" />
 										 	<p:spacer width="5" />
@@ -216,11 +216,11 @@
 										 	<p:spacer width="10" />
 										 	<h:outputText  value="-" />
 										 	<p:spacer width="10" />
-										 	<h:outputText  value="#{scoresummary.getGoalscorer()}" />
+										 	<a href="playerdetail.xhtml?id=#{scoresummary.getGoalscorerpersonid()}"><h:outputText  value="#{scoresummary.getGoalscorer()}" /></a>
 										 	<p:spacer width="5" />
 										 	<h:outputText  value="(unassisted)" rendered="#{scoresummary.getAssist1() eq null and scoresummary.getAssist2() eq null}"/>
-										 	<h:outputText  value="(#{scoresummary.getAssist1()})" rendered="#{scoresummary.getAssist1() ne null and scoresummary.getAssist2() eq null}"/>
-										 	<h:outputText  value="(#{scoresummary.getAssist1()},#{scoresummary.getAssist2()})" rendered="#{scoresummary.getAssist1() ne null and scoresummary.getAssist2() ne null}"/>
+										 	<a href="playerdetail.xhtml?id=#{scoresummary.getAssist1personid()}"><h:outputText  value="(#{scoresummary.getAssist1()})" rendered="#{scoresummary.getAssist1() ne null and scoresummary.getAssist2() eq null}"/></a>
+										 	<a href="playerdetail.xhtml?id=#{scoresummary.getAssist2personid()}"><h:outputText  value="(#{scoresummary.getAssist1()}" rendered="#{scoresummary.getAssist1() ne null and scoresummary.getAssist2() ne null}"/></a>,&nbsp;<a href="playerdetail.xhtml?id=#{scoresummary.getAssist2personid()}"><h:outputText  value="#{scoresummary.getAssist2()})" rendered="#{scoresummary.getAssist1() ne null and scoresummary.getAssist2() ne null}"/></a>
 										 	<p:spacer width="5" />
 										 	<h:outputText style="font-style:italic;" value="(#{scoresummary.getGoaltype()})" />
 										 	<p:spacer width="5" />
@@ -247,11 +247,11 @@
 										 	<p:spacer width="10" />
 										 	<h:outputText  value="-" />
 										 	<p:spacer width="10" />
-										 	<h:outputText  value="#{scoresummary.getGoalscorer()}" />
+										 	<a href="playerdetail.xhtml?id=#{scoresummary.getGoalscorerpersonid()}"><h:outputText  value="#{scoresummary.getGoalscorer()}" /></a>
 										 	<p:spacer width="5" />
 										 	<h:outputText  value="(unassisted)" rendered="#{scoresummary.getAssist1() eq null and scoresummary.getAssist2() eq null}"/>
-										 	<h:outputText  value="(#{scoresummary.getAssist1()})" rendered="#{scoresummary.getAssist1() ne null and scoresummary.getAssist2() eq null}"/>
-										 	<h:outputText  value="(#{scoresummary.getAssist1()},#{scoresummary.getAssist2()})" rendered="#{scoresummary.getAssist1() ne null and scoresummary.getAssist2() ne null}"/>
+										 	<a href="playerdetail.xhtml?id=#{scoresummary.getAssist1personid()}"><h:outputText  value="(#{scoresummary.getAssist1()})" rendered="#{scoresummary.getAssist1() ne null and scoresummary.getAssist2() eq null}"/></a>
+										 	<a href="playerdetail.xhtml?id=#{scoresummary.getAssist2personid()}"><h:outputText  value="(#{scoresummary.getAssist1()}" rendered="#{scoresummary.getAssist1() ne null and scoresummary.getAssist2() ne null}"/></a>,&nbsp;<a href="playerdetail.xhtml?id=#{scoresummary.getAssist2personid()}"><h:outputText  value="#{scoresummary.getAssist2()})" rendered="#{scoresummary.getAssist1() ne null and scoresummary.getAssist2() ne null}"/></a>
 										 	<p:spacer width="5" />
 										 	<h:outputText style="font-style:italic;" value="(#{scoresummary.getGoaltype()})" />
 										 	<p:spacer width="5" />

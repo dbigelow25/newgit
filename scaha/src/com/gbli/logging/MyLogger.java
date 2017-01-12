@@ -36,7 +36,7 @@ public class MyLogger {
     
 	  //
 	  // Here we set up how we want it to run..
-    LOGGER.setLevel(Level.INFO);
+    LOGGER.setLevel(Level.SEVERE);
   
     SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-ddHHmmss");
     String sTimeStamp = date_format.format(new Date());

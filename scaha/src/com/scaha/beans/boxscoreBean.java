@@ -524,7 +524,10 @@ public class boxscoreBean implements Serializable{
 					
 					ss.setAssist1(rs.getString("assist1"));
 					ss.setAssist2(rs.getString("assist2"));
+					ss.setAssist1personid(rs.getString("assist1personid"));
+					ss.setAssist2personid(rs.getString("assist2personid"));
 					ss.setGoalscorer(rs.getString("goalscorer"));
+					ss.setGoalscorerpersonid(rs.getString("goalscorerpersonid"));
 					ss.setGoaltime(rs.getString("goaltime"));
 					ss.setTeamname(rs.getString("teamname"));
 					ss.setGoaltype(rs.getString("goaltype"));
