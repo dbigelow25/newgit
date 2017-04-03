@@ -2018,7 +2018,7 @@ public SogList refreshHomeSog() {
 		
 		ScahaDatabase db = (ScahaDatabase) ContextManager.getDatabase("ScahaDatabase");
 		try {
-			
+			LOGGER.info("updating game results:");
 			this.livegame.update(db, false);
 			
 			//need to update stats table as game is being finalized.
@@ -2026,20 +2026,22 @@ public SogList refreshHomeSog() {
 			PreparedStatement ps = db.prepareCall("call scaha.updatestatsforLiveGame(?,?)");
 			ps.setInt(1,this.livegame.ID);
 			ps.setInt(2,this.livegame.getAwayteam().ID);
-			
+			LOGGER.info("updating stats for away team:");
 			ps.executeQuery();
 			
 			ps.setInt(1,this.livegame.ID);
 			ps.setInt(2,this.livegame.getHometeam().ID);
-			
+			LOGGER.info("updating stats for home team:");
 			ps.executeQuery();
+			LOGGER.info("closing prepared statement:");
 			ps.close();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			LOGGER.info("errored:");
 		}
-		
+		LOGGER.info("setting connection free:");
 		db.free();
 		
 		
@@ -2048,6 +2050,7 @@ public SogList refreshHomeSog() {
 		// ok.. now we want to check all penalties from both sides..and report any game misconducts
 		// or matches..
 		//
+		LOGGER.info("pushing penalties:");
 		PenaltyPusher pp = new PenaltyPusher();
 		String temppenaltyrows = "";
 		for (Penalty p : this.getAwaypenalties()) {

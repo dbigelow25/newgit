@@ -150,7 +150,7 @@ public class ScahaDatabase extends Database {
 		Vector<String> v = new Vector<String>();
 		v.add(_sUser);
 		v.add(_sPass);
-		//LOGGER.info("db.verify: Parms are:" + _sUser + ":" + _sPass);
+		LOGGER.info("db.verify: Parms are:" + _sUser + ":" + _sPass);
 		return super.getData(c_sp_profile, v);
 
 	}
@@ -186,7 +186,7 @@ public class ScahaDatabase extends Database {
 		String strAnswer = "N";
 		CallableStatement cs = this.prepareCall("call scaha.checkforPersonByFLDOB(?,?,?,?)");
 		
-		//LOGGER.info("FLDOB:" + _sfname + ":" + _slname + ":" + _sDOB); 
+		LOGGER.info("FLDOB:" + _sfname + ":" + _slname + ":" + _sDOB); 
 		cs.registerOutParameter(1, java.sql.Types.VARCHAR);
 		cs.setString(1, strAnswer);
 		cs.setString(2,  _sfname);
@@ -195,7 +195,7 @@ public class ScahaDatabase extends Database {
 		cs.execute();
 		strAnswer = cs.getString(1);
 		cs.close();
-		//LOGGER.info("FLDOB:" + _sfname + ":" + _slname + ":" + _sDOB + ":returns=" + strAnswer); 
+		LOGGER.info("FLDOB:" + _sfname + ":" + _slname + ":" + _sDOB + ":returns=" + strAnswer); 
 		return strAnswer.equals("Y");
 		
 	}
@@ -306,7 +306,7 @@ public class ScahaDatabase extends Database {
 		ps.setString(2,_cs.getTag()); 
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
-			//LOGGER.info("getCLubFamilyEmails:" + rs.getString(1) + ":" +  rs.getString(2));
+			LOGGER.info("getCLubFamilyEmails:" + rs.getString(1) + ":" +  rs.getString(2));
 			try {
 				tmp.add(new InternetAddress(rs.getString(2),rs.getString(1)));
 			} catch (UnsupportedEncodingException e) {
@@ -328,7 +328,7 @@ public class ScahaDatabase extends Database {
 		ps.setString(1,currentSeason.getTag()); 
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
-			//LOGGER.info("getRenegadeFamilyEmails:" + rs.getString(1) + ":" +  rs.getString(2));
+			LOGGER.info("getRenegadeFamilyEmails:" + rs.getString(1) + ":" +  rs.getString(2));
 			tmp.add(new InternetAddress(rs.getString(2),rs.getString(1)));
 		}
 		rs.close();
@@ -344,7 +344,7 @@ public class ScahaDatabase extends Database {
 		PreparedStatement ps = this.prepareStatement("call scaha.getOutstandingMemberSignupEmails()");
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
-			//LOGGER.info("getOutstandingMemberSignupEmails:" + rs.getString(1) + ":" +  rs.getString(2));
+			LOGGER.info("getOutstandingMemberSignupEmails:" + rs.getString(1) + ":" +  rs.getString(2));
 			tmp.add(new InternetAddress(rs.getString(2),rs.getString(1)));
 		}
 		rs.close();
@@ -362,7 +362,7 @@ public class ScahaDatabase extends Database {
 	 */
 	public void syncTeamsToSchedule (Schedule _sc, GeneralSeason _gs) throws SQLException {
 		
-		//LOGGER.info("Searching for new teams and defunct teams for Schedule " + _sc);
+		LOGGER.info("Searching for new teams and defunct teams for Schedule " + _sc);
 		
 		PreparedStatement ps = this.prepareStatement("call scaha.genParticipantChanges(?,?,?)");
 		CallableStatement csAdd = this.prepareCall("call scaha.addParticipantToSchedule(?,?)");
@@ -379,14 +379,14 @@ public class ScahaDatabase extends Database {
 			String sCode = (String)row.elementAt(0);
 			int idTeam = Integer.parseInt(row.elementAt(1).toString());
 			String sName = (String)row.elementAt(2);
-			//LOGGER.info("Hello There:" + sCode + ":" + idTeam + ":" + sName);
+			LOGGER.info("Hello There:" + sCode + ":" + idTeam + ":" + sName);
 			if (sCode.equals("D")) {
-				//LOGGER.info("Found a defunct team id[" + idTeam + "] cleaning up for schedule " + _sc);
+				LOGGER.info("Found a defunct team id[" + idTeam + "] cleaning up for schedule " + _sc);
 				csRemove.setInt(1,idTeam);
 				csRemove.setInt(2,_sc.ID);
 				csRemove.execute();
 			} else if (sCode.equals("A")) {
-				//LOGGER.info("Adding Team [" + sName + "] to the participants for schedule: " + _sc.getTag());
+				LOGGER.info("Adding Team [" + sName + "] to the participants for schedule: " + _sc.getTag());
 				csAdd.setInt(1,idTeam);
 				csAdd.setInt(2,_sc.ID);
 				csAdd.execute();
@@ -398,7 +398,7 @@ public class ScahaDatabase extends Database {
 		csRemove.close();
 		this.cleanup();
 		
-		//LOGGER.info("sychTeamSeeding: Reviewing rankings to ensure they are sequential for Schedule: " + _sc);
+		LOGGER.info("sychTeamSeeding: Reviewing rankings to ensure they are sequential for Schedule: " + _sc);
 		//
 		// We just keep reexecuting this until we are good.
 		//
@@ -423,7 +423,7 @@ public class ScahaDatabase extends Database {
 				ioldrank = rs.getInt(2);
 				if (irank != ioldrank && itargetrank == 0 ) {
 					itargetrank = irank;
-					//LOGGER.info("syncTeamSeeding: Found a ranking gap in Schedule " + _sc  + ". " + rs.getInt(1) + ":" + rs.getInt(2) + ": should be:" + irank);
+					LOGGER.info("syncTeamSeeding: Found a ranking gap in Schedule " + _sc  + ". " + rs.getInt(1) + ":" + rs.getInt(2) + ": should be:" + irank);
 					bwork = true;
 				}
 				ikey = rs.getInt(1);
@@ -435,7 +435,7 @@ public class ScahaDatabase extends Database {
 			// If there is work to do.. then we do it.
 			//
 			if (bwork) {
-				//LOGGER.info("Re-Gapping Participate " + ikey + "] from rank [" + ioldrank + ":" + itargetrank + "] for schedule: " + _sc);
+				LOGGER.info("Re-Gapping Participate " + ikey + "] from rank [" + ioldrank + ":" + itargetrank + "] for schedule: " + _sc);
 				csFixGap.setInt(1,ikey);
 				csFixGap.setInt(2,_sc.ID);
 				csFixGap.setInt(3,ioldrank);
@@ -472,7 +472,7 @@ public class ScahaDatabase extends Database {
 	 */
 	public void genGames(Schedule _sc) throws SQLException {
 		
-		//LOGGER.info("genGames: Starting to Gen games for Schedule "  + _sc);
+		LOGGER.info("genGames: Starting to Gen games for Schedule "  + _sc);
 		CallableStatement csDelete = this.prepareCall("call scaha.removeGamesByScheduleIteration(?,?)");
 		CallableStatement csInsert = this.prepareCall("call scaha.insertGamesByScheduleIteration(?,?)");
 		
@@ -481,7 +481,7 @@ public class ScahaDatabase extends Database {
 		int iGames = _sc.getMingamecnt();
 		int iGamesPerIteration = _sc.getTeamcount() - 1 ;
 		
-		//LOGGER.info("genGames: Check for " + _sc + ". iCount=" + iCount + ": iGames=" + iGames + ": Team Count-1=" + iGamesPerIteration);
+		LOGGER.info("genGames: Check for " + _sc + ". iCount=" + iCount + ": iGames=" + iGames + ": Team Count-1=" + iGamesPerIteration);
 			
 		//
 		// Lets calculate the number of iterations now..
@@ -492,13 +492,13 @@ public class ScahaDatabase extends Database {
 			csInsert.setInt(i++, _sc.ID);
 			csInsert.setInt(i++, iCount);
 			csInsert.execute();
-			//LOGGER.info("genGames: Inserted missing games for iteration :" + iCount + ": for schedule "  + _sc);
+			LOGGER.info("genGames: Inserted missing games for iteration :" + iCount + ": for schedule "  + _sc);
 		}
 		
 		csDelete.close();
 		csInsert.close();
 		
-		//LOGGER.info("genGames: Inserted missing games finished for season " + _sc);
+		LOGGER.info("genGames: Inserted missing games finished for season " + _sc);
 						
 	}	
 	
@@ -511,7 +511,7 @@ public class ScahaDatabase extends Database {
 	 */
 	public void syncSlotsToClub(Club _cl, GeneralSeason _gs) throws SQLException {
 	
-		//LOGGER.info("syncSlotsToClub: Reviewing slot requirements for Club:" + _cl);
+		LOGGER.info("syncSlotsToClub: Reviewing slot requirements for Club:" + _cl);
 		
 		PreparedStatement ps1 = this.prepareStatement("call scaha.getSlotTemplateForClub(?,?,?)");
 		CallableStatement cs1 = this.prepareCall("call scaha.syncSlotsForClubByRank(?,?,?,?,?,?)");
@@ -534,23 +534,23 @@ public class ScahaDatabase extends Database {
 			ps1.setInt(1, _cl.ID);
 			ps1.setString(2,_gs.getTag());
 			ps1.setString(3,date);
-			//LOGGER.info("syncSlotsToClub: calling getSlotTemplateForClub for Club: " + _cl + ", date=" + date);
+			LOGGER.info("syncSlotsToClub: calling getSlotTemplateForClub for Club: " + _cl + ", date=" + date);
 			ResultSet rs = ps1.executeQuery();
 			ReturnDataResultSet rdrs = ReturnDataResultSet.NewReturnDataResultSetFactory(rs);
 			rs.close();
-			//LOGGER.info("syncSlotsToClub: returned from call getSlotTemplateForClub for Club: " + _cl + ", date=" + date);
+			LOGGER.info("syncSlotsToClub: returned from call getSlotTemplateForClub for Club: " + _cl + ", date=" + date);
 
 			for (ReturnDataRow rdr : rdrs) {
 				int i=0;
 				String sFromDate = df.format((Date)rdr.elementAt(i++));
-				//LOGGER.info("syncSlotsToClub: sFromDate is:" + sFromDate);
+				LOGGER.info("syncSlotsToClub: sFromDate is:" + sFromDate);
 				String sToDate = df.format((Date)rdr.elementAt(i++));
-				//LOGGER.info("syncSlotsToClub: sToDate is:" + sToDate);
+				LOGGER.info("syncSlotsToClub: sToDate is:" + sToDate);
 				String sGameTag = (String)rdr.elementAt(i++);
-				//LOGGER.info("syncSlotsToClub: GameTag is:" + sGameTag);
+				LOGGER.info("syncSlotsToClub: GameTag is:" + sGameTag);
 				int iSlotCount =  Integer.parseInt(rdr.elementAt(i++).toString());
-				//LOGGER.info("syncSlotsToClub: iSlotCount is:" + iSlotCount);
-				//LOGGER.info("syncSlotsToClub: Slot req for club " + _cl + " are sc=" + iSlotCount + ". fdate=" + sFromDate + ". todate=" + sToDate + ". gl=" + sGameTag);
+				LOGGER.info("syncSlotsToClub: iSlotCount is:" + iSlotCount);
+				LOGGER.info("syncSlotsToClub: Slot req for club " + _cl + " are sc=" + iSlotCount + ". fdate=" + sFromDate + ". todate=" + sToDate + ". gl=" + sGameTag);
 				for (int c = 1;c<=iSlotCount;c++) {
 					i=1;
 					cs1.setInt(i++,_cl.ID);
@@ -591,7 +591,7 @@ public class ScahaDatabase extends Database {
 		fillMisfitSlots(_cl, _gs, "1.5"); // take any extra club provided slots and force them into an open gen slot
 		fillMisfitSlots(_cl, _gs, "1.25"); // take any extra club provided slots and force them into an open gen slot
 		createBonusSlots(_cl, _gs); // Generate bonus slots
-		//LOGGER.info("syncSlotsToClub: Done reviewing slot requirements for Club:" + _cl);
+		LOGGER.info("syncSlotsToClub: Done reviewing slot requirements for Club:" + _cl);
 		
 	}
 	
@@ -661,7 +661,7 @@ public class ScahaDatabase extends Database {
 		cs1.setInt(i++, _cl.ID);
 		cs1.setString(i++, _gs.getTag());
 		cs1.execute();
-		//LOGGER.info("synchClubSlots: Merged slots to club slots for club :" + _cl);
+		LOGGER.info("synchClubSlots: Merged slots to club slots for club :" + _cl);
 		cs1.close();
 	}
 	
@@ -673,7 +673,7 @@ public class ScahaDatabase extends Database {
 	 */
 	public void fillMisfitSlots (Club _cl, GeneralSeason _gs, String _sGameTag) throws SQLException {
 		
-		//LOGGER.info("fillMisfitSlots for Club " +  _cl + ", gs=" + _gs + ",  gt=" + _sGameTag);
+		LOGGER.info("fillMisfitSlots for Club " +  _cl + ", gs=" + _gs + ",  gt=" + _sGameTag);
 
 		PreparedStatement ps1 = prepareStatement("call scaha.getUnassignedSlotCount(?,?)");
 		CallableStatement cs1 = prepareCall("call scaha.syncAlternateClubSlots(?,?,?)");
@@ -739,7 +739,7 @@ public class ScahaDatabase extends Database {
 
 	public ArrayList<Integer>  getAvailableParticipants(ScheduleWeek sw) throws SQLException {
 
-		//LOGGER.info("getAvailableParticipants:for ScheduleWeekId:" + sw.ID + "ScheduleId" + sw.getSchedule().ID);
+		LOGGER.info("getAvailableParticipants:for ScheduleWeekId:" + sw.ID + "ScheduleId" + sw.getSchedule().ID);
 		 
 
 		ArrayList<Integer> keys = new ArrayList<Integer>();
@@ -751,7 +751,7 @@ public class ScahaDatabase extends Database {
 			keys.add(Integer.valueOf(rs.getInt(1)));	
 		}
 		rs.close();
-		//LOGGER.info("getAvailableParticipants:for scheduleweek:" + sw.ID  + ". " +   keys);
+		LOGGER.info("getAvailableParticipants:for scheduleweek:" + sw.ID  + ". " +   keys);
 		return keys;
 		
 	}

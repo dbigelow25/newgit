@@ -190,7 +190,7 @@ public class Database {
 			m_con.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			//LOGGER.info(this + "DB Close SNAFU");
+			LOGGER.info(this + "DB Close SNAFU");
 		}
 
 	}
@@ -222,7 +222,7 @@ public class Database {
 	public boolean getDataFromSQLFile(String _sPath, Vector _vParms) {
 
 		String sAbsolutePath = ContextManager.getRealPath() + _sPath;
-		//LOGGER.info(this + ":" + sAbsolutePath);
+		LOGGER.info(this + ":" + sAbsolutePath);
 
 		StringBuffer sb = new StringBuffer();
 
@@ -408,36 +408,36 @@ public class Database {
 	 */
 	public void reset() {
 
-		//LOGGER.info(this + "Cleaning and Reseting Connection...");
+		LOGGER.info(this + "Cleaning and Reseting Connection...");
 		this.close();
 		this.primeConnection();
 
 	}
 	
 	public boolean setAutoCommit(boolean _val) {
-		//LOGGER.info(this + "Setting autocommit to (" + _val + ")");
+		LOGGER.info(this + "Setting autocommit to (" + _val + ")");
 			try {
 			m_con.setAutoCommit(_val);
-			//LOGGER.info(this + "Setting autocommit completed successfully to (" + m_con.getAutoCommit() + ")");
+			LOGGER.info(this + "Setting autocommit completed successfully to (" + m_con.getAutoCommit() + ")");
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//LOGGER.info(this + "Setting autocommit failed..");
+		LOGGER.info(this + "Setting autocommit failed..");
 		return false;
 		
 	}
 	
 	public boolean rollback() {
 		try {
-			//LOGGER.info(this + "ROLLBACK INITIATED!!!");
+			LOGGER.info(this + "ROLLBACK INITIATED!!!");
 			m_con.rollback();
-			//LOGGER.info(this + "ROLLBACK COMPLETE!!!");
+			LOGGER.info(this + "ROLLBACK COMPLETE!!!");
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			//LOGGER.info(this + "#### ERROR IN ROLLBACK!!!");
+			LOGGER.info(this + "#### ERROR IN ROLLBACK!!!");
 			e.printStackTrace();
 		}
 		return false;
@@ -447,12 +447,12 @@ public class Database {
 
 		try {
 
-			//LOGGER.info(this + ":DRIVER:" + m_sDriver
-			//		+ ".  Starting to instanciate...");
+			LOGGER.info(this + ":DRIVER:" + m_sDriver
+					+ ".  Starting to instanciate...");
 			Class.forName(m_sDriver).newInstance();
-			//LOGGER.info(this + ":DRIVER:" + m_sDriver + ".  Driver okay...");
+			LOGGER.info(this + ":DRIVER:" + m_sDriver + ".  Driver okay...");
 			m_con = DriverManager.getConnection(m_sURL, m_sUser, m_sPwd);
-			//LOGGER.info(this + "Connection okay..");
+			LOGGER.info(this + "Connection okay..");
 
 		} catch (Exception e) {
 			e.printStackTrace();
