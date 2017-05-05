@@ -28,6 +28,7 @@
             <p:column headerText="Grand Totals for Scaha:" />
         	<p:column headerText="#{clubBean.getGTotalTeams('18U','AAA')}" />
         	<p:column headerText="#{clubBean.getGTotalTeams('16U','AAA')}" />
+        	<p:column headerText="#{clubBean.getGTotalTeams('15U','AAA')}" />
         	<p:column headerText="#{clubBean.getGTotalTeams('14U','AAA')}" />
 	        <p:column headerText="#{clubBean.getGTotalTeams('12U','AAA')}" />
 	        <p:column headerText="#{clubBean.getGTotalTeams('18U','AA')}" />
@@ -51,7 +52,7 @@
         
            <p:row>
                <p:column rowspan="2" headerText="Scaha Clubs" />
-                <p:column colspan="4" headerText="Tier I" />
+                <p:column colspan="5" headerText="Tier I" />
                 <p:column colspan="4" headerText="Tier II" />
                 <p:column colspan="10" headerText="AB Level" />
                 <p:column colspan="2" headerText="Mite" />
@@ -59,32 +60,34 @@
             </p:row>
 
             <p:row>
-                <p:column headerText="m18 AAA" />
-                <p:column headerText="m16 AAA" />
-                <p:column headerText="bnt AAA" />
-                <p:column headerText="pwe AAA" />
-                <p:column headerText="m18 AA" />
-                <p:column headerText="m16 AA" />
-                <p:column headerText="bnt AA" />
-                <p:column headerText="pwe AA" />
-                <p:column headerText="m18 A" />
-                <p:column headerText="m16 A" />
-                <p:column headerText="bnt A" />
-                <p:column headerText="bnt B" />
-                <p:column headerText="pwe A" />
-                <p:column headerText="pwe BB" />
-                <p:column headerText="pwe B" />
-                <p:column headerText="sqt A" />
-                <p:column headerText="sqt BB" />
-                <p:column headerText="sqt B" />
-                <p:column headerText="mt trk1" />
-                <p:column headerText="mt trk2" />
+                <p:column headerText="18U AAA" />
+                <p:column headerText="16U AAA" />
+                <p:column headerText="15U AAA" />
+                <p:column headerText="14U AAA" />
+                <p:column headerText="12U AAA" />
+                <p:column headerText="18U AA" />
+                <p:column headerText="16U AA" />
+                <p:column headerText="14U AA" />
+                <p:column headerText="12U AA" />
+                <p:column headerText="18U A" />
+                <p:column headerText="16U A" />
+                <p:column headerText="14U A" />
+                <p:column headerText="14U B" />
+                <p:column headerText="12U A" />
+                <p:column headerText="12U BB" />
+                <p:column headerText="12U B" />
+                <p:column headerText="10U A" />
+                <p:column headerText="10U BB" />
+                <p:column headerText="10U B" />
+                <p:column headerText="8U A" />
+                <p:column headerText="8U B" />
             </p:row>
         </p:columnGroup>
 
       	<p:column styleClass="mtrxRowHeader">#{club.getClubname()}</p:column>  
       	<p:column styleClass="mtrxColumn">#{club.getTeamCounts('18U','AAA')}</p:column>
         <p:column styleClass="mtrxColumn">#{club.getTeamCounts('16U','AAA')}</p:column>
+        <p:column styleClass="mtrxColumn">#{club.getTeamCounts('15U','AAA')}</p:column>
         <p:column styleClass="mtrxColumn">#{club.getTeamCounts('14U','AAA')}</p:column>
         <p:column styleClass="mtrxColumn">#{club.getTeamCounts('12U','AAA')}</p:column>
     
@@ -112,6 +115,7 @@
                 <p:column footerText="Division Totals:" style="text-align:right"  />
                 <p:column footerText="#{clubBean.getTeamTotals('18U','AAA')}" />
                 <p:column footerText="#{clubBean.getTeamTotals('16U','AAA')}" />
+                <p:column footerText="#{clubBean.getTeamTotals('15U','AAA')}" />
                 <p:column footerText="#{clubBean.getTeamTotals('14U','AAA')}" />
                 <p:column footerText="#{clubBean.getTeamTotals('12U','AAA')}" />
                 <p:column footerText="#{clubBean.getTeamTotals('18U','AA')}" />
@@ -143,7 +147,7 @@
 	    <p:columnGroup type="header">
 	    	<p:row>
                 <p:column rowspan="2" headerText="Exhibition Teams" />
-                <p:column colspan="4" headerText="Tier I" />
+                <p:column colspan="5" headerText="Tier I" />
                 <p:column colspan="4" headerText="Tier II" />
                 <p:column colspan="10" headerText="AB Level" />
                 <p:column colspan="2" headerText="Mite" />
@@ -151,32 +155,34 @@
             </p:row>
 	    
             <p:row>
-                <p:column headerText="m18 AAA" />
-                <p:column headerText="m16 AAA" />
-                <p:column headerText="bnt AAA" />
-                <p:column headerText="pwe AAA" />
-                <p:column headerText="m18 AA" />
-                <p:column headerText="m16 AA" />
-                <p:column headerText="bnt AA" />
-                <p:column headerText="pwe AA" />
-                <p:column headerText="m18 A" />
-                <p:column headerText="m16 A" />
-                <p:column headerText="bnt A" />
-                <p:column headerText="bnt B" />
-                <p:column headerText="pwe A" />
-                <p:column headerText="pwe BB" />
-                <p:column headerText="pwe B" />
-                <p:column headerText="sqt A" />
-                <p:column headerText="sqt BB" />
-                <p:column headerText="sqt B" />
-                <p:column headerText="mt trk1" />
-                <p:column headerText="mt trk2" />
+                <p:column headerText="18U AAA" />
+                <p:column headerText="16U AAA" />
+                <p:column headerText="15U AAA" />
+                <p:column headerText="14U AAA" />
+                <p:column headerText="12U AAA" />
+                <p:column headerText="18U AA" />
+                <p:column headerText="16U AA" />
+                <p:column headerText="14U AA" />
+                <p:column headerText="12U AA" />
+                <p:column headerText="18U A" />
+                <p:column headerText="16U A" />
+                <p:column headerText="14U A" />
+                <p:column headerText="14U B" />
+                <p:column headerText="12U A" />
+                <p:column headerText="12U BB" />
+                <p:column headerText="12U B" />
+                <p:column headerText="10U A" />
+                <p:column headerText="10U BB" />
+                <p:column headerText="10U B" />
+                <p:column headerText="8U A" />
+                <p:column headerText="8U B" />
             </p:row>
         </p:columnGroup>
 
       	<p:column styleClass="mtrxRowHeader">#{xteam.toString()}</p:column>  
       	<p:column styleClass="mtrxColumn">#{xteam.doIeXMatch('18U','AAA')}</p:column>
         <p:column styleClass="mtrxColumn">#{xteam.doIeXMatch('16U','AAA')}</p:column>
+        <p:column styleClass="mtrxColumn">#{xteam.doIeXMatch('15U','AAA')}</p:column>
         <p:column styleClass="mtrxColumn">#{xteam.doIeXMatch('14U','AAA')}</p:column>
         <p:column styleClass="mtrxColumn">#{xteam.doIeXMatch('12U','AAA')}</p:column>
     
@@ -204,6 +210,7 @@
                 <p:column footerText="X-Team Totals:" style="text-align:right"  />
                 <p:column footerText="#{clubBean.geteXTeamTotals('18U','AAA')}" />
                 <p:column footerText="#{clubBean.geteXTeamTotals('16U','AAA')}" />
+                <p:column footerText="#{clubBean.geteXTeamTotals('15U','AAA')}" />
                 <p:column footerText="#{clubBean.geteXTeamTotals('14U','AAA')}" />
                 <p:column footerText="#{clubBean.geteXTeamTotals('12U','AAA')}" />
                 <p:column footerText="#{clubBean.geteXTeamTotals('18U','AA')}" />
