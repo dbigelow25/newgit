@@ -116,7 +116,7 @@
     <location>/Weclome.xhtml</location>
   </error-page>
   <session-config>
-    <session-timeout>15</session-timeout>
+    <session-timeout>5</session-timeout>
   </session-config>
   <context-param>
     <description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
