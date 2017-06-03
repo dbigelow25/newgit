@@ -45,8 +45,8 @@
 	        <p:column headerText="#{clubBean.getGTotalTeams('10U','A')}" />
 	        <p:column headerText="#{clubBean.getGTotalTeams('10U','BB')}" />
 	        <p:column headerText="#{clubBean.getGTotalTeams('10U','B')}" />
-	        <p:column headerText="#{clubBean.getGTotalTeams('08U','TRK1')}" />
-	        <p:column headerText="#{clubBean.getGTotalTeams('08U','TRK2')}" />
+	        <p:column headerText="#{clubBean.getGTotalTeams('08U','A')}" />
+	        <p:column headerText="#{clubBean.getGTotalTeams('08U','B')}" />
 	        <p:column styleClass="mtrxtotColumn" headerText="#{clubBean.getTotalTeamCount(true)}" />
         </p:row>
         
@@ -106,8 +106,8 @@
         <p:column styleClass="mtrxColumn">#{club.getTeamCounts('10U','A')}</p:column>
         <p:column styleClass="mtrxColumn">#{club.getTeamCounts('10U','BB')}</p:column>
         <p:column styleClass="mtrxColumn">#{club.getTeamCounts('10U','B')}</p:column>
-       	<p:column styleClass="mtrxColumn">#{club.getTeamCounts('08U','TRK1')}</p:column>
-      	<p:column styleClass="mtrxColumn">#{club.getTeamCounts('08U','TRK2')}</p:column>
+       	<p:column styleClass="mtrxColumn">#{club.getTeamCounts('08U','A')}</p:column>
+      	<p:column styleClass="mtrxColumn">#{club.getTeamCounts('08U','B')}</p:column>
       	<p:column styleClass="mtrxtotColumn">#{club.getTotalTeamCount(false)}</p:column>
 
         <p:columnGroup type="footer">
@@ -132,8 +132,8 @@
                 <p:column footerText="#{clubBean.getTeamTotals('10U','A')}" />
                 <p:column footerText="#{clubBean.getTeamTotals('10U','BB')}" />
                 <p:column footerText="#{clubBean.getTeamTotals('10U','B')}" />
-                <p:column footerText="#{clubBean.getTeamTotals('08U','TRK1')}" />
-                <p:column footerText="#{clubBean.getTeamTotals('08U','TRK2')}" />
+                <p:column footerText="#{clubBean.getTeamTotals('08U','A')}" />
+                <p:column footerText="#{clubBean.getTeamTotals('08U','B')}" />
                 <p:column styleClass="mtrxtotColumn" footerText="#{clubBean.getTotalTeamCount(false)}" />
             </p:row>
         </p:columnGroup>
@@ -207,8 +207,8 @@
         <p:column styleClass="mtrxColumn">#{xteam.doIeXMatch('10U','A')}</p:column>
         <p:column styleClass="mtrxColumn">#{xteam.doIeXMatch('10U','BB')}</p:column>
         <p:column styleClass="mtrxColumn">#{xteam.doIeXMatch('10U','B')}</p:column>
-       	<p:column styleClass="mtrxColumn">#{xteam.doIeXMatch('08U','TRK1')}</p:column>
-      	<p:column styleClass="mtrxColumn">#{xteam.doIeXMatch('08U','TRK2')}</p:column>
+       	<p:column styleClass="mtrxColumn">#{xteam.doIeXMatch('08U','A')}</p:column>
+      	<p:column styleClass="mtrxColumn">#{xteam.doIeXMatch('08U','B')}</p:column>
       	<p:column styleClass="mtrxtotColumn">1</p:column>
 
         <p:columnGroup type="footer">
@@ -233,8 +233,8 @@
                 <p:column footerText="#{clubBean.geteXTeamTotals('10U','A')}" />
                 <p:column footerText="#{clubBean.geteXTeamTotals('10U','BB')}" />
                 <p:column footerText="#{clubBean.geteXTeamTotals('10U','B')}" />
-                <p:column footerText="#{clubBean.geteXTeamTotals('08U','TRK1')}" />
-                <p:column footerText="#{clubBean.geteXTeamTotals('08U','TRK2')}" />
+                <p:column footerText="#{clubBean.geteXTeamTotals('08U','A')}" />
+                <p:column footerText="#{clubBean.geteXTeamTotals('08U','B')}" />
                 <p:column styleClass="mtrxtotColumn" footerText="#{clubBean.getTotalXTeamCount()}" />
             </p:row>
         </p:columnGroup>
