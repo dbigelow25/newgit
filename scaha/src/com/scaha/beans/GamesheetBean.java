@@ -201,6 +201,7 @@ public class GamesheetBean implements Serializable,  MailableObject {
 		 this.statepick.put("Complete","Complete");
 		 this.statepick.put("Stats Review","StatsReview");
 		 this.statepick.put("Final","Final");
+		 this.statepick.put("Pending","Pending");
 
 		 this.setDisplayValues();
 
