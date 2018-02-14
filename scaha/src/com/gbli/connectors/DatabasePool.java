@@ -42,8 +42,9 @@ public class DatabasePool implements Runnable {
 				for (int i=0; i < m_iCount;i++) {
 					m_vConnections.add(new ScahaDatabase(i,
 							"com.mysql.jdbc.Driver",
-							"jdbc:mysql://192.241.211.230:3306/scaha",
-							"scaha", "scaha24"));
+							"jdbc:mysql://192.241.229.21:3306/scaha",
+							//"jdbc:mysql://192.241.229.21:3306",
+							"scaha", "shiloh24"));
 				}
 				
 			}
