@@ -40,9 +40,9 @@ public class SendMailSSL {
         Properties props = System.getProperties();
         props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
         props.setProperty("mail.smtp.socketFactory.fallback", "false");
-        props.setProperty("mail.smtp.port", "587");
+        props.setProperty("mail.smtp.port", "465");
         props.setProperty("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.host","smtp.iscaha.com");
+        props.put("mail.smtp.host","smtp.gmail.com");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.auth", "true");
 
@@ -82,7 +82,7 @@ public class SendMailSSL {
  			//LOGGER.info("Instansiating a new message for e-mail...");
  			
 			Message message = new MimeMessage(m_sess);
-			message.setFrom(new InternetAddress(SendMailSSL.getUsername()+"@iscaha.com","iscaha InfoHub" + (_strFromTag != null ? "(" + _strFromTag + ")" : "" )));
+			message.setFrom(new InternetAddress(SendMailSSL.getUsername()+"@gmail.com","online Scaha - Do Not Reply" + (_strFromTag != null ? "(" + _strFromTag + ")" : "" )));
 			// TODO
 			// message.setReplyTo(m_mo. lets get replay to)
 			
