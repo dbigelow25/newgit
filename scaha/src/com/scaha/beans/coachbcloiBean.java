@@ -555,8 +555,8 @@ public class coachbcloiBean implements Serializable, MailableObject {
 	public String getTextBody() {
 		// TODO Auto-generated method stub
 		List<String> myTokens = new ArrayList<String>();
-		myTokens.add("FIRSTNAME:" + this.selectedplayer.getFirstname());
-		myTokens.add("LASTNAME:" + this.selectedplayer.getLastname());
+	//	myTokens.add("FIRSTNAME:" + this.selectedplayer.getFirstname());
+//		myTokens.add("LASTNAME:" + this.selectedplayer.getLastname());
 		myTokens.add("CLUBNAME:" + this.getClubname());
 		
 		return Utils.mergeTokens(coachbcloiBean.mail_reg_body,myTokens);
