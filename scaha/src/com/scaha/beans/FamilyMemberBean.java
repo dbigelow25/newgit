@@ -88,7 +88,7 @@ public class FamilyMemberBean  implements Serializable,  MailableObject  {
 	}
 	@Override
 	public String getPreApprovedCC() {
-		return "online@iscaha.com";
+		return "info@scaha.com";
 	}
 	@Override
 	public String getToMailAddress() {

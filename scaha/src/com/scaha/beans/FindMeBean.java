@@ -157,7 +157,7 @@ public class FindMeBean implements Serializable, MailableObject  {
 	
 	@Override
 	public String getPreApprovedCC() {
-		return "online@iscaha.com";
+		return "info@scaha.com";
 	}
 	
 	@Override

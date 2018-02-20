@@ -410,7 +410,7 @@ public class MailTreeBean implements Serializable, MailableObject {
 	public InternetAddress[] getPreApprovedICC()  {
 		String [] emails = this.ccemail.split(",");
 		try {
-			myEmails.add(new InternetAddress("online@iscaha.com","iScaha Web Site"));
+			myEmails.add(new InternetAddress("info@scaha.com","iScaha Web Site"));
 			for (String s : emails) {
 				if (s.trim().length() > 0) {
 					myEmails.add(new InternetAddress(s,s));

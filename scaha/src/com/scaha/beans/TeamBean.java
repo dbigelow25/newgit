@@ -541,7 +541,7 @@ public class TeamBean implements Serializable, MailableObject {
 	@Override
 	public String getPreApprovedCC() {
 		// TODO Auto-generated method stub
-		return "online@iscaha.com";
+		return "inof@scaha.com";
 	}
 	
 	@Override

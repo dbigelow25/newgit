@@ -239,7 +239,7 @@ public class MemberBean implements Serializable, MailableObject {
 	@Override
 	public String getPreApprovedCC() {
 		// TODO Auto-generated method stub
-		return "online@iscaha.com,scheduler@iscaha.com";
+		return "info@scaha.com";
 	}
 	@Override
 	public String getToMailAddress() {

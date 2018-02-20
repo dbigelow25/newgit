@@ -82,7 +82,7 @@ public class SendMailSSL {
  			//LOGGER.info("Instansiating a new message for e-mail...");
  			
 			Message message = new MimeMessage(m_sess);
-			message.setFrom(new InternetAddress(SendMailSSL.getUsername()+"@gmail.com","online Scaha - Do Not Reply" + (_strFromTag != null ? "(" + _strFromTag + ")" : "" )));
+			message.setFrom(new InternetAddress(SendMailSSL.getUsername(),"info at Scaha - Do Not Reply" + (_strFromTag != null ? "(" + _strFromTag + ")" : "" )));
 			// TODO
 			// message.setReplyTo(m_mo. lets get replay to)
 			

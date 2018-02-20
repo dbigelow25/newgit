@@ -15,7 +15,7 @@
   <env-entry>
     <env-entry-name>scaha/emailauth</env-entry-name>
     <env-entry-type>java.lang.String</env-entry-type>
-    <env-entry-value>scaha.online:shiloh24</env-entry-value>
+    <env-entry-value>info@scaha.com:shiloh24</env-entry-value>
   </env-entry>
   <welcome-file-list>
     <welcome-file>Welcome.xhtml</welcome-file>
