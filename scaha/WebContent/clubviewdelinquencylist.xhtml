@@ -26,7 +26,7 @@
 		</div>
 		<p:spacer width="10" height="10" />
 		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />    
-		<p:panel id ="panel" header="2015 Delinquency List:">
+		<p:panel id ="panel" header="Delinquency List:">
 		<p:dataTable 
  			id="listofplayers" 
  			var="player" 
@@ -43,9 +43,9 @@
 			        <p:column filterBy="lastname" filterMatchMode="contains" filterStyle="width:150px" headerText="Last Name">  
 			            <h:outputText value="#{player.getLastname()}" />  
 			        </p:column>  
-			        <p:column headerText="Team">  
+			        <!-- <p:column headerText="Team">  
 			            <h:outputText value="#{player.getCurrentteam()}" />  
-			        </p:column>
+			        </p:column> -->
 			        <p:column headerText="DOB">  
 			            <h:outputText value="#{player.getDob()}" />  
 			        </p:column>

@@ -204,7 +204,8 @@ public class MemberBean implements Serializable, MailableObject {
 		myTokens.add("LASTNAME:" + tper.getsLastName());
 		myTokens.add("USAHNUM:" + usar2.getUSAHnum());
 		myTokens.add("SCAHANUM:" + mem.getSCAHANumber());
-		myTokens.add("SEASON:" + scaha.getScahaSeasonList().getCurrentSeason().getDescription());
+		//myTokens.add("SEASON:" + scaha.getScahaSeasonList().getCurrentSeason().getDescription());
+		myTokens.add("SEASON:SCAHA 2018-2019 Season");
 		try {
 			if (_db.isPersonPlayer(per.ID)) {
 				if (_db.checkForBC(per.ID)) {

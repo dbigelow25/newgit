@@ -55,7 +55,9 @@ public class LiveGameList extends ListDataModel<LiveGame> implements Serializabl
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			int i = 1;
+			//LOGGER.info("Livegame:"+rs.getInt(i));
 			LiveGame live = new LiveGame(rs.getInt(i++),_pro);
+			
 			//LOGGER.info("Found a live.." + live);
 			live.setTypetag(rs.getString(i++));
 			live.setStatetag(rs.getString(i++));
