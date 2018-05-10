@@ -319,7 +319,7 @@ public class TeamBean implements Serializable, MailableObject {
 		    cs.setString("teamgender", getteamgender());
 		    cs.setInt("skilllevelid", Integer.parseInt(this.selectedskilllevel));
 		    cs.setInt("divisionsid", Integer.parseInt(this.selecteddivision));
-			cs.setInt("currentyear", 2014);
+			cs.setInt("currentyear", 2018);
 			cs.setString("in_seasontag", scaha.getScahaSeasonList().getCurrentSeason().getTag());
 			cs.executeUpdate();
 			cs.close();
