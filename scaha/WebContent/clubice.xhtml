@@ -45,7 +45,7 @@
     	</h:commandLink>
     		
 	</p:panel>	
-		<p:dataTable 
+		<p:dataTable style="width:1200px;"
  			id="icemap" 
  			var="myrow" 
  			value="#{iceBean.mydata}" 
@@ -77,6 +77,12 @@
 		        </f:facet>
 	            <h:outputText value="#{myrow.get(3)}" />  
 	        </p:column>  
+	        <p:column styleClass="mtrxColumn">
+           		<f:facet name="header">
+            		<h:outputText value="#{iceBean.mydata.rheader.get(15)}" />
+		        </f:facet>
+	            <h:outputText value="#{myrow.get(15)}" />  
+	        </p:column> 
 			<p:column styleClass="mtrxColumn">
            		<f:facet name="header">
             		<h:outputText value="#{iceBean.mydata.rheader.get(4)}" />
@@ -119,13 +125,16 @@
 		        </f:facet>
 	            <h:outputText value="#{myrow.get(11)} - #{myrow.get(12)}" />  
 	        </p:column> 
+	        <p:column styleClass="mtrxColumn">
+           		<f:facet name="header">
+            		<h:outputText value="#{iceBean.mydata.rheader.get(11)}" />
+		        </f:facet>
+	            <h:outputText value="#{myrow.get(11)} - #{myrow.get(12)}" />  
+	        </p:column>
        		<p:columnGroup type="footer">
             <p:row>
                 <p:column footerText="Ice Totals Totals:" style="text-align:right"  />
-   <!--              <p:column footerText="#{memberDriveBean.getTotRegisters()}" />
-                <p:column footerText="#{memberDriveBean.getTotMembers()}" />
-                <p:column footerText="#{memberDriveBean.getTotPercent()}" />
-                 -->
+      -         <p:column footerText="#{iceBean.mydata.getRowCount()}" />
             </p:row>
         </p:columnGroup>	    
 	    </p:dataTable>
