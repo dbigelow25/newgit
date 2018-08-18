@@ -147,13 +147,16 @@
             <p:column headerText="e-mail" style="font-size: 12px;">
    	             <h:outputText style="font-size: 11px;" value="#{empty team.getHeadCoach()  ? 'No e-mail found' : team.getHeadCoach().getsEmail()}" />
             </p:column >
-            <p:column headerText="Manager" style="font-size: 12px;">
-    	         <h:outputText style="font-size: 12px;" value="#{empty team.getManager()  ? 'No Manager Set' : team.getManager().getsFirstName()} #{empty team.getManager() ? '' : team.getManager().getsLastName()}" />
+            <p:column headerText="Manager/Email" style="font-size: 12px;" span="2" rowspan="2">
+    	          <ui:repeat var="mgr" value="#{team.getManagers()}" varStatus="status">
+    	          	<h:outputText style="font-size: 11px;" value="#{mgr.getsFirstName()} #{mgr.getsLastName()}" /> / <h:outputText style="font-size: 11px;" value="#{mgr.getsEmail()}" /><br/>
+    	          </ui:repeat>
+    	         <h:outputText style="font-size: 11px;" value="#{empty team.getManager()  ? 'No Manager Set' : ''}" /> 
             </p:column >
-            <p:column headerText="e-mail" style="font-size: 12px;">
+            <!-- <p:column headerText="e-mail" style="font-size: 12px;">
   	             <h:outputText style="font-size: 11px;" value="#{empty team.getManager()  ? 'No e-mail found' : team.getManager().getsEmail()}" />
              </p:column >
-         
+          -->
 		</p:dataTable>
         <p:separator />
         
