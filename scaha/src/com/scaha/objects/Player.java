@@ -57,10 +57,20 @@ public class Player extends ScahaObject implements Serializable {
 	private String rostertype = null;
 	private String gp = null;
 	private String rosterdate = null;
+	private String suspended = null;
 	
 	public Player (){ 
 		
 	}
+	
+	public String getSuspended(){
+		return suspended;
+	}
+	
+	public void setSuspended(String value){
+		suspended=value;
+	}
+	
 	
 	public String getGp(){
 		return gp;

@@ -89,6 +89,7 @@ public class loiBean implements Serializable, MailableObject {
 	private String prioryear = null;
 	private String page = null;
 	private String search = null;
+	private Integer suspendloi = null;
 	
 	@PostConstruct
     public void init() {
@@ -103,7 +104,6 @@ public class loiBean implements Serializable, MailableObject {
 		ProfileBean pb = (ProfileBean) expression.getValue( context.getELContext() );
     	this.setProfid(pb.getProfile().ID);
     	getClubID();
-    	isClubHighSchool();
     	
 		//will need to load player profile information for displaying loi
 		HttpServletRequest hsr = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -171,6 +171,15 @@ public class loiBean implements Serializable, MailableObject {
     public void setSendingnote(Boolean value){
     	sendingnote=value;
     }
+    
+    public Integer getSuspendloi(){
+		return suspendloi;
+	}
+	
+	public void setSuspendloi(Integer cyear){
+		suspendloi=cyear;
+	}
+    
     
     public String getPage(){
 		return page;
@@ -635,6 +644,7 @@ public class loiBean implements Serializable, MailableObject {
         				parentid = rs.getInt("parentid");
         				citizenship = rs.getString("citizenship");
         				notes = rs.getString("notes");
+        				suspendloi = rs.getInt("issuspended");
         				
         				if (citizenship.equals("CAN")){
         					citizenship="Canada";
@@ -1435,9 +1445,13 @@ public void getClubID(){
 			
 				//Need to store note first
  				//LOGGER.info("storing note for :" + this.selectedplayer);
- 				CallableStatement cs = db.prepareCall("CALL scaha.saveNote(?,?)");
+ 				CallableStatement cs = db.prepareCall("CALL scaha.saveNoteSuspend(?,?,?)");
  				cs.setString("innote", this.notes);
  				cs.setInt("personid", this.selectedplayer);
+ 				cs.setInt("suspendloi", this.suspendloi);
+ 				
+ 				
+ 				
     		    
     		    cs.executeQuery();
     			
@@ -1531,10 +1545,11 @@ public void getClubID(){
 			
 				//Need to store note first
  				LOGGER.info("storing note for :" + this.selectedplayer);
- 				CallableStatement cs = db.prepareCall("CALL scaha.saveNote(?,?)");
+ 				CallableStatement cs = db.prepareCall("CALL scaha.saveNoteSuspend(?,?,?)");
  				cs.setString("innote", this.notes);
  				cs.setInt("personid", this.selectedplayer);
-    		    
+ 				cs.setInt("suspendloi", this.suspendloi);
+ 				
     		    cs.executeQuery();
     			db.commit();
 				db.cleanup();

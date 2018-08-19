@@ -101,6 +101,7 @@ public class coachloiBean implements Serializable, MailableObject {
 	private Team selectedteam = null;
 	private String page = null;
 	private String searchcriteria = "";
+	private Integer suspendloi = null;
 	
 	//these are used for creating the team select role tables.
 	private TeamDataModel boysteamdatamodel = null;
@@ -172,6 +173,15 @@ public class coachloiBean implements Serializable, MailableObject {
     	
     	//doing anything else right here
     }  
+    
+    public Integer getSuspendloi(){
+		return suspendloi;
+	}
+	
+	public void setSuspendloi(Integer cyear){
+		suspendloi=cyear;
+	}
+    
     
     public String getSearchcriteria(){
 		return searchcriteria;
@@ -797,6 +807,7 @@ public class coachloiBean implements Serializable, MailableObject {
         				email = rs.getString("email");
         				safesport = rs.getInt("safesport");
         				notes = rs.getString("notes");
+        				suspendloi = rs.getInt("issuspended");
         				this.setDisplaysafesport(safesport.toString());
         				
         				if (ceplevel.equals(1)){
@@ -1471,10 +1482,11 @@ public class coachloiBean implements Serializable, MailableObject {
 			
 				//Need to store note first
  				//LOGGER.info("storing note for :" + this.selectedcoach);
- 				CallableStatement cs = db.prepareCall("CALL scaha.saveNote(?,?)");
+				CallableStatement cs = db.prepareCall("CALL scaha.saveNoteSuspend(?,?,?)");
  				cs.setString("innote", this.notes);
  				cs.setInt("personid", this.selectedcoach);
-    		    
+ 				cs.setInt("suspendloi", this.suspendloi);
+ 				
     		    cs.executeQuery();
     			
     		    
@@ -1626,10 +1638,11 @@ public class coachloiBean implements Serializable, MailableObject {
 			
 				//Need to store note first
  				//LOGGER.info("storing note for :" + this.selectedcoach);
- 				CallableStatement cs = db.prepareCall("CALL scaha.saveNote(?,?)");
+				CallableStatement cs = db.prepareCall("CALL scaha.saveNoteSuspend(?,?,?)");
  				cs.setString("innote", this.notes);
  				cs.setInt("personid", this.selectedcoach);
-    		    
+ 				cs.setInt("suspendloi", this.suspendloi);
+ 				
     		    cs.executeQuery();
     			cs.close();
     		    

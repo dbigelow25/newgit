@@ -128,6 +128,15 @@
 				<div align="center" valign="top">
 					<table cellpadding="5" cellspacing="0" width="90%">
 						<tr>
+							<td valign="top"><b>Suspend:</b></td>
+							<td>
+								<p:selectOneMenu id="suspendloi" value="#{coachloiBean.suspendloi}" >
+						    	<f:selectItem itemLabel="No" itemValue="0"/>
+						    	<f:selectItem itemLabel="Yes" itemValue="1"/>
+						    </p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
 							<td valign="top"><b>Notes:</b></td>
 							<td><p:inputTextarea value="#{coachloiBean.notes}" rows="3" cols="100"/></td>
 						</tr>
