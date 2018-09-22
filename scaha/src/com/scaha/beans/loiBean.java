@@ -81,7 +81,7 @@ public class loiBean implements Serializable, MailableObject {
 	private Integer parentid = 0;
 	private Boolean bplayerup = null;
 	private Boolean displayplayerup = null;
-	private Boolean ishighschool = null;
+	private Boolean ishighschool = false;
 	private String notes = null;
 	private Boolean sendingnote = null;
 	private Integer rosteridforconfirm = null;
