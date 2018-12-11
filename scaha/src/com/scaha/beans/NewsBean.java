@@ -160,13 +160,14 @@ public class NewsBean implements Serializable,  MailableObject  {
 		newssubject=value;
 	}
 	
+	public void setNewsbody(String value){
+		newsbody=value;
+	}
+	
 	public String getNewsbody(){
 		return newsbody;
 	}
 	
-	public void setNewsbody(String value){
-		newsbody=value;
-	}
 	
 	public void addNewsItem() {
 		FacesContext context = FacesContext.getCurrentInstance();
