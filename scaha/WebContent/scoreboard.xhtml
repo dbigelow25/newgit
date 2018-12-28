@@ -89,7 +89,7 @@
 			    <p:outputPanel id="testContainer2">
 				<div class="NewsTitle">Schedule:</div>	
 				 <p:contextMenu for="games">  
-       				 <p:menuitem value="Edit Game" update="" icon="ui-icon-edit" actionListener="#{scoreboardBean.editLiveGame()}"/>  
+       				 <p:menuitem value="Edit Game" update="" icon="ui-icon-edit" actionListener="#{scoreboardBean.editLiveGame()}" rendered="#{profileBean.isSuperUser()}"/>  
     			</p:contextMenu>  
 				<p:dataTable  
 					id= "games" 

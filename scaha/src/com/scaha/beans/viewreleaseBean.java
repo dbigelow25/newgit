@@ -441,6 +441,8 @@ public class viewreleaseBean implements Serializable, MailableObject {
         					this.displaypermanent = false;
         					this.displaytemporary = true;
         				}
+        				this.selectedstatus = rs.getString("hasstatus");
+        				this.note = rs.getString("notes");
         			}
     				rs.close();
     				//LOGGER.info("We have results for player details by player id");
